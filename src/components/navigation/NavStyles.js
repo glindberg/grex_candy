@@ -1,0 +1,5 @@
+import styled from 'styled-components';
+
+export const NavStyles = styled.nav `
+    color: red;
+`
