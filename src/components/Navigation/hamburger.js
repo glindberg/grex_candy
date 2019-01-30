@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 
 const Ham = styled.section`
+    
   /* Position and sizing of burger button */
   .bm-burger-button {
     position: fixed;
@@ -50,7 +51,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
     background: white;
     padding: 2.5em 1.5em 0;
     font-size: 1.15em;
-    overflow-y: hidden !important ;
+    overflow-y: hidden !important;
   }
 
   /* Morph shape necessary with bubble or elastic */
@@ -63,13 +64,14 @@ Note: Beware of modifying this element as it can break the animations - you shou
     color: #b8b7ad;
     padding: 0.8em;
     text-align: center;
+    
   }
 
   /* Individual item */
   .bm-item {
     display: inline-block;
     outline: none;
-    padding:0;
+    padding: 0;
   }
 
   /* Styling of overlay */
@@ -96,7 +98,7 @@ class Example extends React.Component {
   render() {
     return (
       <Ham>
-        <Menu isOpen={ false } width={ '60%' }>
+        <Menu isOpen={ false } width= {"50%"}  >
           <ul>
             <li>
               <Link to={ROUTES.LANDING}>Landing</Link>
