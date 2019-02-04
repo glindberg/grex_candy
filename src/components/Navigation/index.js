@@ -16,7 +16,22 @@ const Nav = styled.section`
   }
 `;
 
- 
+const NonAuth = styled.ul`
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0;
+  li {
+    margin-right: 1em;
+    margin-top: 1em;
+    font-size: 0.8em;
+    a {
+      text-decoration: none;
+      color: rgb(248, 249, 247);
+    }
+  }
+`;
+
 
 
 const Navigation = () => (
@@ -29,20 +44,21 @@ const Navigation = () => (
 
 const NavigationAuth = () => (
   <Nav>
-      <Example />
-      <h1>GREX</h1>
+
+    <Example />
+    <h1>GREX</h1>
   </Nav>
 );
 
 const NavigationNonAuth = () => (
-  <ul>
+  <NonAuth>
     <li>
       <Link to={ROUTES.LANDING}>Landing</Link>
     </li>
     <li>
       <Link to={ROUTES.SIGN_IN}>Sign In</Link>
     </li>
-  </ul>
+  </NonAuth>
 );
 
 export default Navigation;
