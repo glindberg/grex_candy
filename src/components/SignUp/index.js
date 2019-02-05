@@ -4,7 +4,7 @@ import { compose } from "recompose";
 import { withFirebase } from "../Firebase";
 import { FirebaseContext } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
-import * as ROLES from '../../constants/roles';
+import * as ROLES from "../../constants/roles";
 
 const SignUpPage = () => (
   <div>
@@ -32,9 +32,9 @@ class SignUpFormBase extends Component {
     const { username, email, passwordOne, isAdmin } = this.state;
 
     const roles = [];
-      if (isAdmin) {
+    if (isAdmin) {
       roles.push(ROLES.ADMIN);
-      }
+    }
 
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
@@ -43,12 +43,12 @@ class SignUpFormBase extends Component {
         return this.props.firebase.user(authUser.user.uid).set({
           username,
           email,
-          roles,
+          roles
         });
       })
-      .then(() => {
-        return this.props.firebase.doSendEmailVerification();
-      })
+      // .then(() => {
+      //   return this.props.firebase.doSendEmailVerification();
+      // })
 
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
@@ -67,10 +67,17 @@ class SignUpFormBase extends Component {
 
   onChangeCheckbox = event => {
     this.setState({ [event.target.name]: event.target.checked });
-    };
+  };
 
   render() {
-    const { username, email, passwordOne, passwordTwo, isAdmin, error } = this.state;
+    const {
+      username,
+      email,
+      passwordOne,
+      passwordTwo,
+      isAdmin,
+      error
+    } = this.state;
 
     const isInvalid =
       passwordOne !== passwordTwo ||
@@ -111,12 +118,12 @@ class SignUpFormBase extends Component {
         <label>
           Admin:
           <input
-          name="isAdmin"
-          type="checkbox"
-          checked={isAdmin}
-          onChange={this.onChangeCheckbox}
+            name="isAdmin"
+            type="checkbox"
+            checked={isAdmin}
+            onChange={this.onChangeCheckbox}
           />
-          </label>
+        </label>
 
         <button disabled={isInvalid} type="submit">
           Sign Up
