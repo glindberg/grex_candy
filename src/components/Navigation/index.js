@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import * as ROUTES from "../../constants/routes";
+import * as ROLES from '../../constants/roles';
 import { AuthUserContext } from "../Session";
 import styled from 'styled-components';
 import Example from './hamburger';
@@ -22,14 +23,15 @@ const Nav = styled.section`
 const Navigation = () => (
   <div>
     <AuthUserContext.Consumer>
-      {authUser => (authUser ? <NavigationAuth /> : <NavigationNonAuth />)}
+      {authUser => (authUser ? <NavigationAuth authUser={authUser} /> : <NavigationNonAuth />)}
     </AuthUserContext.Consumer>
   </div>
-);
+); 
 
-const NavigationAuth = () => (
+const NavigationAuth = ({ authUser }) => (
+
   <Nav>
-      <Example />
+      <Example authUser={authUser} />
       <h1>GREX</h1>
   </Nav>
 );
