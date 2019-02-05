@@ -5,6 +5,9 @@ import SignOutButton from "../SignOut";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 
+import * as ROLES from '../../constants/roles';
+import { AuthUserContext } from "../Session";
+
 const Ham = styled.section`
     
   /* Position and sizing of burger button */
@@ -109,9 +112,11 @@ class Example extends React.Component {
             <li>
               <Link to={ROUTES.ACCOUNT}>Account</Link>
             </li>
+            {this.props.authUser.roles.includes(ROLES.ADMIN) && (
             <li>
-              <Link to={ROUTES.ADMIN}>Admin</Link>
+            <Link to={ROUTES.ADMIN}>Admin</Link>
             </li>
+            )}
             <li>
               <SignOutButton />
             </li>
