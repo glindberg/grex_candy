@@ -1,19 +1,24 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { compose } from "recompose";
 
 import { SignUpLink } from "../SignUp";
 import { PasswordForgetLink } from "../PasswordForget";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
+import { CloseBtn } from "../Landing/styles";
+import { LogIn } from "./styles";
+import { Form, FormInput, Btn } from "../SignUp/styles";
+
 
 const SignInPage = () => (
-  <div>
-    <h1>SignIn</h1>
+  <LogIn>
+    <h1>Sign In</h1>
     <SignInForm />
     <PasswordForgetLink />
     <SignUpLink />
-  </div>
+    <CloseBtn><Link to={ROUTES.LANDING}>Close</Link></CloseBtn>
+  </LogIn>
 );
 
 const INITIAL_STATE = {
@@ -55,27 +60,27 @@ class SignInFormBase extends Component {
     const isInvalid = password === "" || email === "";
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
+      <Form onSubmit={this.onSubmit}>
+        <FormInput
           name="email"
           value={email}
           onChange={this.onChange}
           type="text"
           placeholder="Email Address"
         />
-        <input
+        <FormInput
           name="password"
           value={password}
           onChange={this.onChange}
           type="password"
           placeholder="Password"
         />
-        <button disabled={isInvalid} type="submit">
-          Sign In
-        </button>
+        <Btn disabled={isInvalid} type="submit">
+          Log In
+        </Btn>
 
         {error && <p>{error.message}</p>}
-      </form>
+      </Form>
     );
   }
 }
