@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import * as ROUTES from "../../constants/routes";
-import * as ROLES from '../../constants/roles';
 import { AuthUserContext } from "../Session";
 import styled from 'styled-components';
 import Example from './hamburger';
