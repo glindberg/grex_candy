@@ -38,32 +38,29 @@ class Firebase {
 
   // *** Merge Auth and DB User API *** //
   onAuthUserListener = (next, fallback) =>
-  this.auth.onAuthStateChanged(authUser => {
-    
-  if (authUser) {
-    this.user(authUser.uid)
-    .once('value')
-    .then(snapshot => {
-    const dbUser = snapshot.val();
-
-    // default empty roles
-  if (!dbUser.roles) {
-  dbUser.roles = [];
-  }
-
-  // merge auth and db user
-  authUser = {
-  uid: authUser.uid,
-  email: authUser.email,
-  ...dbUser,
-  };
-
-  next(authUser);
-  });
-  } else {
-  fallback();
-  }
-});
+    this.auth.onAuthStateChanged(authUser => {
+      console.log(authUser);
+      if (authUser) {
+        this.user(authUser.uid)
+          .once("value")
+          .then(snapshot => {
+            const dbUser = snapshot.val();
+            // default empty roles
+            if (!dbUser.roles) {
+              dbUser.roles = [];
+            }
+            // merge auth and db user
+            authUser = {
+              uid: authUser.uid,
+              email: authUser.email,
+              ...dbUser
+            };
+            next(authUser);
+          });
+      } else {
+        fallback();
+      }
+    });
 
   // *** User API ***
 
@@ -75,6 +72,11 @@ class Firebase {
   message = uid => this.db.ref(`messages/${uid}`);
 
   messages = () => this.db.ref("messages");
+
+  // *** Profile API ***
+  profile = uid => this.db.ref(`profiles/${uid}`);
+
+  profiles = () => this.db.ref("profiles");
 }
 
 export default Firebase;
