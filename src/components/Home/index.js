@@ -5,7 +5,6 @@ import { compose } from "recompose";
 import {
   AuthUserContext,
   withAuthorization
-  // withEmailVerification
 } from "../Session";
 
 import { withFirebase } from "../Firebase";
@@ -278,8 +277,5 @@ const condition = authUser => !!authUser;
 
 export default compose(
   withFirebase,
-
-  // withEmailVerification,
-
   withAuthorization(condition)
 )(HomePage);

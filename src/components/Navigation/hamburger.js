@@ -6,13 +6,13 @@ import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 
 import * as ROLES from '../../constants/roles';
-import { AuthUserContext } from "../Session";
+
 
 const Ham = styled.section`
     
   /* Position and sizing of burger button */
   .bm-burger-button {
-    position: fixed;
+    position: absolute;
     width: 36px;
     height: 30px;
     left: 15px;
@@ -110,7 +110,7 @@ class Example extends React.Component {
               <Link to={ROUTES.HOME}>Home</Link>
             </li>
             <li>
-              <Link to={ROUTES.ACCOUNT}>Account</Link>
+              <Link to={ROUTES.PROFILE}>Profile</Link>
             </li>
             {this.props.authUser.roles.includes(ROLES.ADMIN) && (
             <li>

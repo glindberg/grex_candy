@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { compose } from "recompose";
 import { withFirebase } from "../Firebase";
-import { FirebaseContext } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 import * as ROLES from "../../constants/roles";
 
@@ -25,6 +24,7 @@ const INITIAL_STATE = {
 class SignUpFormBase extends Component {
   constructor(props) {
     super(props);
+    
     this.state = { ...INITIAL_STATE };
   }
 

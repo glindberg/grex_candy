@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Navigation from "../Navigation";
+import ProfilePage from "../Profile"
 import LandingPage from "../Landing";
 import SignUpPage from "../SignUp";
 import SignInPage from "../SignIn";
@@ -12,6 +13,7 @@ import AdminPage from "../Admin";
 import * as ROUTES from "../../constants/routes";
 import { withAuthentication } from "../Session";
 import styled from 'styled-components';
+import createProfile from "../Profile/createProfile";
 
 const Content = styled.section`
 `
@@ -24,10 +26,12 @@ const App = () => (
       <Route exact path={ROUTES.LANDING} component={LandingPage} />
       <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
       <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+      <Route path={ROUTES.PROFILE} component={ProfilePage} />
       <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
       <Route path={ROUTES.HOME} component={HomePage} />
       <Route path={ROUTES.ACCOUNT} component={AccountPage} />
       <Route path={ROUTES.ADMIN} component={AdminPage} />
+      <Route path={ROUTES.CREATE_PROFILE} component={createProfile} />
       </Content>
     </div>
   </Router>
