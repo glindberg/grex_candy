@@ -18,7 +18,7 @@ const ProfilePage = () => (
         </p>
         <p>
           <b>Phone: </b>
-          
+
         </p>
         <p>
           <b>Name:</b>
@@ -32,6 +32,7 @@ const ProfilePage = () => (
     )}
   </AuthUserContext.Consumer>
 );
+
 
 const condition = authUser => !!authUser;
 
