@@ -1,9 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import { AuthUserContext, withAuthorization } from "../Session";
-// import { withFirebase } from '../Firebase';
-
+import { withFirebase } from "../Firebase";
 
 const ProfilePage = () => (
   <AuthUserContext.Consumer>
@@ -18,14 +17,12 @@ const ProfilePage = () => (
           <b>Email: </b>
           {authUser.email}
         </p>
+
+        <Profiles />
         <p>
-          <b>Phone: </b>
-        </p>
-        <p>
-          <b>Name:</b>
-        </p>
-        <p>
-          <button><Link to={ROUTES.CREATE_PROFILE}>Create profile</Link></button>
+          <button>
+            <Link to={ROUTES.CREATE_PROFILE}>Create profile</Link>
+          </button>
           <br />
           <Link to={ROUTES.ACCOUNT}>Change Password?</Link>
         </p>
@@ -34,8 +31,79 @@ const ProfilePage = () => (
   </AuthUserContext.Consumer>
 );
 
+class ProfileContent extends Component {
+  constructor(props) {
+    super(props);
 
-// const Profiles = withFirebase(ProfilePage)
+    this.state = {
+      loading: false,
+      profiles: []
+    };
+  }
+  componentDidMount() {
+    this.setState({ loading: true });
+
+    this.props.firebase.profiles().on("value", snapshot => {
+      const profilesObject = snapshot.val();
+
+      const profilesList = Object.keys(profilesObject).map(key => ({
+        ...profilesObject[key],
+        uid: key
+      }));
+
+      this.setState({
+        profiles: profilesList,
+        loading: false
+      });
+    });
+  }
+  componentWillUnmount() {
+    this.props.firebase.profiles().off();
+  }
+  render() {
+    const { profiles, loading } = this.state;
+    return (
+      <div>
+        <h2>Profile Info</h2>
+        {loading && <div>Loading ...</div>}
+        <ul>
+          {profiles.map(profile => (
+            <li key={profile.uid}>
+              <span>
+                <strong>Name: </strong> {profile.fname} {profile.lname}
+              </span>
+              <br />
+              <span>
+                <strong>Gender: </strong> {profile.gender}
+              </span>
+              <br />
+              <span>
+                <strong>Age:</strong> {profile.age}
+              </span>
+              <br />
+              <span>
+                <strong>Phone: </strong>+46 {profile.phone}
+              </span>
+              <br />
+              <span>
+                <strong>City:</strong> {profile.city}
+              </span>
+              <br />
+              <span>
+                <strong>Description:</strong> {profile.description}
+              </span>
+              <br />
+              <br />
+              <br />
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
+
+const Profiles = withFirebase(ProfileContent);
 
 const condition = authUser => !!authUser;
 

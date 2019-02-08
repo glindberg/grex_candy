@@ -7,7 +7,7 @@ const withAuthentication = Component => {
   class WithAuthentication extends React.Component {
     constructor(props) {
       super(props);
-
+    
       this.state = {
         /* authUser: null, */
         authUser: JSON.parse(localStorage.getItem('authUser')),
