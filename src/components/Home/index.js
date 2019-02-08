@@ -1,27 +1,25 @@
-import React, { Component } from "react";
-
-import { compose } from "recompose";
+import React, { Component } from 'react';
+import { compose } from 'recompose';
 
 import {
   AuthUserContext,
-  withAuthorization
-} from "../Session";
-
-import { withFirebase } from "../Firebase";
+  withAuthorization,
+} from '../Session';
+import { withFirebase } from '../Firebase';
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      users: null
+      users: null,
     };
   }
 
   componentDidMount() {
-    this.props.firebase.users().on("value", snapshot => {
+    this.props.firebase.users().on('value', snapshot => {
       this.setState({
-        users: snapshot.val()
+        users: snapshot.val(),
       });
     });
   }
@@ -34,7 +32,6 @@ class HomePage extends Component {
     return (
       <div>
         <h1>Home Page</h1>
-
         <p>The Home Page is accessible by every signed in user.</p>
 
         <Messages users={this.state.users} />
@@ -48,13 +45,10 @@ class MessagesBase extends Component {
     super(props);
 
     this.state = {
-      text: "",
-
+      text: '',
       loading: false,
-
       messages: [],
-
-      limit: 5
+      limit: 5,
     };
   }
 
@@ -66,27 +60,21 @@ class MessagesBase extends Component {
     this.setState({ loading: true });
 
     this.props.firebase
-
       .messages()
-
-      .orderByChild("createdAt")
-
+      .orderByChild('createdAt')
       .limitToLast(this.state.limit)
-
-      .on("value", snapshot => {
+      .on('value', snapshot => {
         const messageObject = snapshot.val();
 
         if (messageObject) {
           const messageList = Object.keys(messageObject).map(key => ({
             ...messageObject[key],
-
-            uid: key
+            uid: key,
           }));
 
           this.setState({
             messages: messageList,
-
-            loading: false
+            loading: false,
           });
         } else {
           this.setState({ messages: null, loading: false });
@@ -105,13 +93,11 @@ class MessagesBase extends Component {
   onCreateMessage = (event, authUser) => {
     this.props.firebase.messages().push({
       text: this.state.text,
-
       userId: authUser.uid,
-
-      createdAt: this.props.firebase.serverValue.TIMESTAMP
+      createdAt: this.props.firebase.serverValue.TIMESTAMP,
     });
 
-    this.setState({ text: "" });
+    this.setState({ text: '' });
 
     event.preventDefault();
   };
@@ -119,10 +105,8 @@ class MessagesBase extends Component {
   onEditMessage = (message, text) => {
     this.props.firebase.message(message.uid).set({
       ...message,
-
       text,
-
-      editedAt: this.props.firebase.serverValue.TIMESTAMP
+      editedAt: this.props.firebase.serverValue.TIMESTAMP,
     });
   };
 
@@ -133,14 +117,12 @@ class MessagesBase extends Component {
   onNextPage = () => {
     this.setState(
       state => ({ limit: state.limit + 5 }),
-
-      this.onListenForMessages
+      this.onListenForMessages,
     );
   };
 
   render() {
     const { users } = this.props;
-
     const { text, messages, loading } = this.state;
 
     return (
@@ -159,10 +141,9 @@ class MessagesBase extends Component {
               <MessageList
                 messages={messages.map(message => ({
                   ...message,
-
                   user: users
                     ? users[message.userId]
-                    : { userId: message.userId }
+                    : { userId: message.userId },
                 }))}
                 onEditMessage={this.onEditMessage}
                 onRemoveMessage={this.onRemoveMessage}
@@ -171,9 +152,16 @@ class MessagesBase extends Component {
 
             {!messages && <div>There are no messages ...</div>}
 
-            <form onSubmit={event => this.onCreateMessage(event, authUser)}>
-              <input type="text" value={text} onChange={this.onChangeText} />
-
+            <form
+              onSubmit={event =>
+                this.onCreateMessage(event, authUser)
+              }
+            >
+              <input
+                type="text"
+                value={text}
+                onChange={this.onChangeText}
+              />
               <button type="submit">Send</button>
             </form>
           </div>
@@ -185,10 +173,8 @@ class MessagesBase extends Component {
 
 const MessageList = ({
   messages,
-
   onEditMessage,
-
-  onRemoveMessage
+  onRemoveMessage,
 }) => (
   <ul>
     {messages.map(message => (
@@ -208,16 +194,14 @@ class MessageItem extends Component {
 
     this.state = {
       editMode: false,
-
-      editText: this.props.message.text
+      editText: this.props.message.text,
     };
   }
 
   onToggleEditMode = () => {
     this.setState(state => ({
       editMode: !state.editMode,
-
-      editText: this.props.message.text
+      editText: this.props.message.text,
     }));
   };
 
@@ -233,7 +217,6 @@ class MessageItem extends Component {
 
   render() {
     const { message, onRemoveMessage } = this.props;
-
     const { editMode, editText } = this.state;
 
     return (
@@ -246,7 +229,9 @@ class MessageItem extends Component {
           />
         ) : (
           <span>
-            <strong>{message.user.username || message.user.userId}</strong>{" "}
+            <strong>
+              {message.user.username || message.user.userId}
+            </strong>{' '}
             {message.text} {message.editedAt && <span>(Edited)</span>}
           </span>
         )}
@@ -254,7 +239,6 @@ class MessageItem extends Component {
         {editMode ? (
           <span>
             <button onClick={this.onSaveEditText}>Save</button>
-
             <button onClick={this.onToggleEditMode}>Reset</button>
           </span>
         ) : (
@@ -262,7 +246,10 @@ class MessageItem extends Component {
         )}
 
         {!editMode && (
-          <button type="button" onClick={() => onRemoveMessage(message.uid)}>
+          <button
+            type="button"
+            onClick={() => onRemoveMessage(message.uid)}
+          >
             Delete
           </button>
         )}
@@ -277,5 +264,5 @@ const condition = authUser => !!authUser;
 
 export default compose(
   withFirebase,
-  withAuthorization(condition)
+  withAuthorization(condition),
 )(HomePage);
