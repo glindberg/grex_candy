@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import { AuthUserContext, withAuthorization } from "../Session";
+// import { withFirebase } from '../Firebase';
+
 
 const ProfilePage = () => (
   <AuthUserContext.Consumer>
@@ -18,7 +20,6 @@ const ProfilePage = () => (
         </p>
         <p>
           <b>Phone: </b>
-          
         </p>
         <p>
           <b>Name:</b>
@@ -32,6 +33,9 @@ const ProfilePage = () => (
     )}
   </AuthUserContext.Consumer>
 );
+
+
+// const Profiles = withFirebase(ProfilePage)
 
 const condition = authUser => !!authUser;
 

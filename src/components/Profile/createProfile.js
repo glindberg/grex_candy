@@ -3,7 +3,7 @@ import { compose } from 'recompose';
 import { withFirebase } from "../Firebase";
 import { AuthUserContext, withAuthorization } from "../Session";
 
-const INITIAL_STATE = {
+const profile = {
   fname: "",
   lname: "",
   gender: "",
@@ -17,7 +17,7 @@ class CreateProfile extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { ...INITIAL_STATE };
+    this.state = { ...profile };
   }
   onSubmit = (event, authUser) => {
     const { fname, lname, gender, age, phone, city, description } = this.state;
@@ -37,7 +37,7 @@ class CreateProfile extends Component {
     this.props.firebase
       .profile(fname, lname, gender, age, phone, city, description)
       .then(() => {
-        this.setState({ ...INITIAL_STATE });
+        this.setState({ ...profile });
       });
     event.preventDefault();
   };
