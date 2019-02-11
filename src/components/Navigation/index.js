@@ -3,20 +3,9 @@ import { Link } from "react-router-dom";
 
 import * as ROUTES from "../../constants/routes";
 import { AuthUserContext } from "../Session";
-import styled from 'styled-components';
 import Example from './hamburger';
+import { Nav, NonAuth } from "./styles";
 
-const Nav = styled.section`
-  height: 60px;
-  background-color: green;
-  display: flex;
-  h1{
-    color: white;
-    margin: auto;
-  }
-`;
-
- 
 
 
 const Navigation = () => (
@@ -25,25 +14,25 @@ const Navigation = () => (
       {authUser => (authUser ? <NavigationAuth authUser={authUser} /> : <NavigationNonAuth />)}
     </AuthUserContext.Consumer>
   </div>
-); 
+);
 
 const NavigationAuth = ({ authUser }) => (
 
   <Nav>
-      <Example authUser={authUser} />
-      <h1>GREX</h1>
+    <Example authUser={authUser} />
+    <h1>GREX</h1>
   </Nav>
 );
 
 const NavigationNonAuth = () => (
-  <ul>
+  <NonAuth>
     <li>
-      <Link to={ROUTES.LANDING}>Landing</Link>
+      <button><Link to={ROUTES.SIGN_IN}>Sign In</Link></button>
     </li>
     <li>
-      <Link to={ROUTES.SIGN_IN}>Sign In</Link>
+      <button><Link to={ROUTES.SIGN_UP}>Sign Up</Link></button>
     </li>
-  </ul>
+  </NonAuth>
 );
 
 export default Navigation;

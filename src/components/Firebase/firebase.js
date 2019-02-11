@@ -77,6 +77,12 @@ class Firebase {
   profile = uid => this.db.ref(`profiles/${uid}`);
 
   profiles = () => this.db.ref("profiles");
+
+  // *** Activity API ***
+  activity = uid => this.db.ref(`activities/${uid}`);
+
+  activities = () => this.db.ref("activities");
+
 }
 
 export default Firebase;

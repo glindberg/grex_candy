@@ -134,7 +134,7 @@ class CreateProfile extends Component {
                   value={this.state.description}
                   onChange={this.onChange}
                   type="textarea"
-                  placeholder="Whrite something about yourself.."
+                  placeholder="Write something about yourself.."
                 />
               </label>
               <br />
@@ -151,5 +151,5 @@ class CreateProfile extends Component {
 
 const condition = authUser => !!authUser;
 
-export default compose(withAuthorization(condition),withFirebase,
+export default compose(withAuthorization(condition), withFirebase,
 )(CreateProfile);
