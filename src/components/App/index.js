@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Navigation from "../Navigation";
-import ProfilePage from "../Profile"
+import ProfilePage from "../Profile";
 import LandingPage from "../Landing";
 import SignUpPage from "../SignUp";
 import SignInPage from "../SignIn";
@@ -16,6 +16,7 @@ import createProfile from "../Profile/createProfile";
 import createActivity from "../Activity/createActivity";
 import Activity from "../Activity/activity";
 
+import MapPage from "../Map/index";
 
 const App = () => (
   <Router>
@@ -34,6 +35,7 @@ const App = () => (
       <Route path={ROUTES.CREATE_ACTIVITY} component={createActivity} />
       <Route path={ROUTES.ACTIVITY} component={Activity} />
 
+      <Route path={ROUTES.MAP} component={MapPage} />
     </div>
   </Router>
 );

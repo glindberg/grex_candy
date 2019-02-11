@@ -9,3 +9,5 @@ export const PASSWORD_FORGET = "/pw-forget";
 export const CREATE_PROFILE = "/create-profile";
 export const CREATE_ACTIVITY = "/create-activity";
 export const ACTIVITY = "/activity";
+export const ADMIN_DETAILS = "/admin/:id";
+export const MAP = "/map";

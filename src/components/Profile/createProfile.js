@@ -3,26 +3,27 @@ import { compose } from 'recompose';
 import { withFirebase } from "../Firebase";
 import { AuthUserContext, withAuthorization } from "../Session";
 
-const INITIAL_STATE = {
+const profile = {
   fname: "",
   lname: "",
   gender: "",
   age: "",
   phone: "",
   city: "",
-  description: ""
+  description: "",
 };
 
 class CreateProfile extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { ...INITIAL_STATE };
+    this.state = { ...profile };
   }
   onSubmit = (event, authUser) => {
     const { fname, lname, gender, age, phone, city, description } = this.state;
 
     this.props.firebase.profiles().push({
+      userId: authUser.uid,
       fname,
       lname,
       gender,
@@ -30,15 +31,14 @@ class CreateProfile extends Component {
       phone,
       city,
       description,
-      userId: authUser.uid,
-      createdAt: this.props.firebase.serverValue.TIMESTAMP
     });
 
     this.props.firebase
       .profile(fname, lname, gender, age, phone, city, description)
       .then(() => {
-        this.setState({ ...INITIAL_STATE });
+        this.setState({ ...profile });
       });
+
     event.preventDefault();
   };
 

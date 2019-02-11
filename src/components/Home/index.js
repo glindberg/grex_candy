@@ -4,10 +4,7 @@ import * as ROUTES from "../../constants/routes";
 
 import { compose } from "recompose";
 
-import {
-  AuthUserContext,
-  withAuthorization
-} from "../Session";
+import { AuthUserContext, withAuthorization } from "../Session";
 
 import { withFirebase } from "../Firebase";
 
@@ -40,17 +37,16 @@ class HomePage extends Component {
         <p>The Home Page is accessible by every signed in user.</p>
 
         <p>
-          <button><Link to={ROUTES.CREATE_ACTIVITY}>Create Activity</Link></button>
+          <button>
+            <Link to={ROUTES.CREATE_ACTIVITY}>Create Activity</Link>
+          </button>
         </p>
 
         <Link to={ROUTES.ACTIVITY}>
           <Activities />
         </Link>
 
-
         <Messages users={this.state.users} />
-
-
       </div>
     );
   }
@@ -203,17 +199,17 @@ const MessageList = ({
 
   onRemoveMessage
 }) => (
-    <ul>
-      {messages.map(message => (
-        <MessageItem
-          key={message.uid}
-          message={message}
-          onEditMessage={onEditMessage}
-          onRemoveMessage={onRemoveMessage}
-        />
-      ))}
-    </ul>
-  );
+  <ul>
+    {messages.map(message => (
+      <MessageItem
+        key={message.uid}
+        message={message}
+        onEditMessage={onEditMessage}
+        onRemoveMessage={onRemoveMessage}
+      />
+    ))}
+  </ul>
+);
 
 class MessageItem extends Component {
   constructor(props) {
@@ -258,11 +254,11 @@ class MessageItem extends Component {
             onChange={this.onChangeEditText}
           />
         ) : (
-            <span>
-              <strong>{message.user.username || message.user.userId}</strong>{" "}
-              {message.text} {message.editedAt && <span>(Edited)</span>}
-            </span>
-          )}
+          <span>
+            <strong>{message.user.username || message.user.userId}</strong>{" "}
+            {message.text} {message.editedAt && <span>(Edited)</span>}
+          </span>
+        )}
 
         {editMode ? (
           <span>
@@ -271,8 +267,8 @@ class MessageItem extends Component {
             <button onClick={this.onToggleEditMode}>Reset</button>
           </span>
         ) : (
-            <button onClick={this.onToggleEditMode}>Edit</button>
-          )}
+          <button onClick={this.onToggleEditMode}>Edit</button>
+        )}
 
         {!editMode && (
           <button type="button" onClick={() => onRemoveMessage(message.uid)}>
@@ -286,7 +282,6 @@ class MessageItem extends Component {
 
 const Messages = withFirebase(MessagesBase);
 
-
 // TESTAR ATT VISA ACTIVITIES
 class ActivitesBase extends Component {
   constructor(props) {
@@ -295,18 +290,18 @@ class ActivitesBase extends Component {
       activity: "",
 
       loading: false,
-      activities: [],
+      activities: []
     };
   }
   componentDidMount() {
     this.setState({ loading: true });
-    this.props.firebase.activities().on('value', snapshot => {
+    this.props.firebase.activities().on("value", snapshot => {
       const activityObject = snapshot.val();
       if (activityObject) {
         // convert messages list from snapshot
         const activityList = Object.keys(activityObject).map(key => ({
           ...activityObject[key],
-          uid: key,
+          uid: key
         }));
         this.setState({
           activities: activityList,
@@ -328,9 +323,8 @@ class ActivitesBase extends Component {
         {activities ? (
           <ActivityList activities={activities} />
         ) : (
-            <div>There are no activities ...</div>
-          )}
-
+          <div>There are no activities ...</div>
+        )}
       </div>
     );
   }
@@ -338,22 +332,20 @@ class ActivitesBase extends Component {
 
 const Activities = withFirebase(ActivitesBase);
 
-
 const ActivityList = ({ activities }) => (
   <ul>
     {activities.map(activity => (
       <ActivityItem key={activity.uid} activity={activity} />
-    ))} </ul>
+    ))}{" "}
+  </ul>
 );
 
 const ActivityItem = ({ activity }) => (
   <li>
-
-
-    <strong>{activity.userId}</strong> <br /> {activity.activity} - {activity.otheractivity}<br />
+    <strong>{activity.userId}</strong> <br /> {activity.activity} -{" "}
+    {activity.otheractivity}
+    <br />
     {activity.actlengthstart} - {activity.actlengthend}
-
-
   </li>
 );
 
