@@ -15,6 +15,11 @@ class Firebase {
   constructor() {
     app.initializeApp(config);
 
+    /* Helper */
+    this.serverValue = app.database.ServerValue;
+
+    // this.emailAuthProvider = app.auth.EmailAuthProvider;
+
     this.auth = app.auth();
     this.db = app.database();
   }
@@ -31,11 +36,53 @@ class Firebase {
 
   doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
 
+  // *** Merge Auth and DB User API *** //
+  onAuthUserListener = (next, fallback) =>
+    this.auth.onAuthStateChanged(authUser => {
+      console.log(authUser);
+      if (authUser) {
+        this.user(authUser.uid)
+          .once("value")
+          .then(snapshot => {
+            const dbUser = snapshot.val();
+            // default empty roles
+            if (!dbUser.roles) {
+              dbUser.roles = [];
+            }
+            // merge auth and db user
+            authUser = {
+              uid: authUser.uid,
+              email: authUser.email,
+              ...dbUser
+            };
+            next(authUser);
+          });
+      } else {
+        fallback();
+      }
+    });
+
   // *** User API ***
 
   user = uid => this.db.ref(`users/${uid}`);
 
   users = () => this.db.ref("users");
+
+  // *** Message API ***
+  message = uid => this.db.ref(`messages/${uid}`);
+
+  messages = () => this.db.ref("messages");
+
+  // *** Profile API ***
+  profile = uid => this.db.ref(`profiles/${uid}`);
+
+  profiles = () => this.db.ref("profiles");
+
+  // *** Activity API ***
+  activity = uid => this.db.ref(`activities/${uid}`);
+
+  activities = () => this.db.ref("activities");
+
 }
 
 export default Firebase;

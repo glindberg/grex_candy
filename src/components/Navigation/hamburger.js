@@ -5,11 +5,14 @@ import SignOutButton from "../SignOut";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 
+import * as ROLES from '../../constants/roles';
+
+
 const Ham = styled.section`
     
   /* Position and sizing of burger button */
   .bm-burger-button {
-    position: fixed;
+    position: absolute;
     width: 36px;
     height: 30px;
     left: 15px;
@@ -86,7 +89,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
   }
   a{
       color: black;
-      text-decoration: none;   
+      text-decoration: none; 
   }
 `;
 
@@ -107,11 +110,13 @@ class Example extends React.Component {
               <Link to={ROUTES.HOME}>Home</Link>
             </li>
             <li>
-              <Link to={ROUTES.ACCOUNT}>Account</Link>
+              <Link to={ROUTES.PROFILE}>Profile</Link>
             </li>
+            {this.props.authUser.roles.includes(ROLES.ADMIN) && (
             <li>
-              <Link to={ROUTES.ADMIN}>Admin</Link>
+            <Link to={ROUTES.ADMIN}>Admin</Link>
             </li>
+            )}
             <li>
               <SignOutButton />
             </li>

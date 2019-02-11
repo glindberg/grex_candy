@@ -1,9 +1,6 @@
 import React from "react";
-import { styled, LandingP, Flex } from "./styles";
-import { Link } from "react-router-dom";
+import { LandingP, Flex } from "./styles";
 
-import * as ROUTES from "../../constants/routes";
-import Navigation from "../Navigation/index";
 
 const App = () => (
   <LandingP>

@@ -11,14 +11,15 @@ import { Nav, NonAuth } from "./styles";
 const Navigation = () => (
   <div>
     <AuthUserContext.Consumer>
-      {authUser => (authUser ? <NavigationAuth /> : <NavigationNonAuth />)}
+      {authUser => (authUser ? <NavigationAuth authUser={authUser} /> : <NavigationNonAuth />)}
     </AuthUserContext.Consumer>
   </div>
 );
 
-const NavigationAuth = () => (
+const NavigationAuth = ({ authUser }) => (
+
   <Nav>
-    <Example />
+    <Example authUser={authUser} />
     <h1>GREX</h1>
   </Nav>
 );
