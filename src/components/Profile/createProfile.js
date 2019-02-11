@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { compose } from 'recompose';
 import { withFirebase } from "../Firebase";
+import * as ROUTES from "../../constants/routes";
 import { AuthUserContext, withAuthorization } from "../Session";
 
 const profile = {
@@ -10,7 +11,7 @@ const profile = {
   age: "",
   phone: "",
   city: "",
-  description: ""
+  description: "",
 };
 
 class CreateProfile extends Component {
@@ -20,9 +21,19 @@ class CreateProfile extends Component {
     this.state = { ...profile };
   }
   onSubmit = (event, authUser) => {
-    const { fname, lname, gender, age, phone, city, description } = this.state;
+    const {fname, lname, gender, age, phone, city, description} = this.state;
+
+    const info = [];
+    if(authUser){
+      info.push({
+        userId: authUser.uid,
+        createdAt: this.props.firebase.serverValue.TIMESTAMP
+      });  
+    }
+    
 
     this.props.firebase.profiles().push({
+      info,
       fname,
       lname,
       gender,
@@ -30,15 +41,17 @@ class CreateProfile extends Component {
       phone,
       city,
       description,
-      userId: authUser.uid,
-      createdAt: this.props.firebase.serverValue.TIMESTAMP
     });
 
     this.props.firebase
       .profile(fname, lname, gender, age, phone, city, description)
       .then(() => {
         this.setState({ ...profile });
+        // this.props.history.push(ROUTES.PROFILE);
       });
+
+
+
     event.preventDefault();
   };
 

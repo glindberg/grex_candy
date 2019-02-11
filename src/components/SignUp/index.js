@@ -46,9 +46,6 @@ class SignUpFormBase extends Component {
           roles
         });
       })
-      // .then(() => {
-      //   return this.props.firebase.doSendEmailVerification();
-      // })
 
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
