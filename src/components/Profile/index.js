@@ -18,7 +18,7 @@ const ProfilePage = () => (
           {authUser.email}
         </p>
 
-        <Profiles />
+        <Profiles userId={authUser.uid}/>
         <p>
           <button>
             <Link to={ROUTES.CREATE_PROFILE}>Create profile</Link>
@@ -46,6 +46,8 @@ class ProfileContent extends Component {
     this.props.firebase.profiles().on("value", snapshot => {
       const profilesObject = snapshot.val();
 
+      
+
       const profilesList = Object.keys(profilesObject).map(key => ({
         ...profilesObject[key],
         uid: key
@@ -60,14 +62,18 @@ class ProfileContent extends Component {
   componentWillUnmount() {
     this.props.firebase.profiles().off();
   }
+
   render() {
     const { profiles, loading } = this.state;
+    const { userId } = this.props;
     return (
       <div>
-        <h2>Profile Info</h2>
-        {loading && <div>Loading ...</div>}
+        <h3>Profile Info</h3>
+        {loading && <div>Loading profile info...</div>}
         <ul>
-          {profiles.map(profile => (
+        {profiles
+            .filter(profile => profile.userId == userId )
+            .map(profile => (
             <li key={profile.uid}>
               <span>
                 <strong>Name: </strong> {profile.fname} {profile.lname}
@@ -93,6 +99,13 @@ class ProfileContent extends Component {
                 <strong>Description:</strong> {profile.description}
               </span>
               <br />
+              <span>
+                <strong>ID:</strong> {profile.userId}
+              </span>
+              <br />
+              <span>
+                <strong>ProfileID:</strong>{profile.uid}
+              </span>
               <br />
               <br />
             </li>
