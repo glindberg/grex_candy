@@ -3,11 +3,18 @@ import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import { AuthUserContext, withAuthorization } from "../Session";
 import { withFirebase } from "../Firebase";
+import { Wrapper }from "./styles"
 
 const ProfilePage = () => (
+  <Wrapper>
   <AuthUserContext.Consumer>
     {authUser => (
       <div>
+      <img
+          className="profile"
+          src={require(`../Images/man.png`)}
+          alt="Profile of David Berg"
+        />
         <h1>Profile </h1>
         <p>
           <b>Username: </b>
@@ -17,7 +24,6 @@ const ProfilePage = () => (
           <b>Email: </b>
           {authUser.email}
         </p>
-
         <Profiles userId={authUser.uid}/>
         <p>
           <button>
@@ -29,6 +35,7 @@ const ProfilePage = () => (
       </div>
     )}
   </AuthUserContext.Consumer>
+  </Wrapper>
 );
 
 class ProfileContent extends Component {

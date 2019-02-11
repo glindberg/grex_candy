@@ -14,6 +14,7 @@ import * as ROUTES from "../../constants/routes";
 import { withAuthentication } from "../Session";
 import styled from 'styled-components';
 import createProfile from "../Profile/createProfile";
+import MapPage from "../Map/index"
 
 const Content = styled.section`
 `
@@ -32,6 +33,7 @@ const App = () => (
       <Route path={ROUTES.ACCOUNT} component={AccountPage} />
       <Route path={ROUTES.ADMIN} component={AdminPage} />
       <Route path={ROUTES.CREATE_PROFILE} component={createProfile} />
+      <Route path={ROUTES.MAP} component={MapPage} />
       </Content>
     </div>
   </Router>
