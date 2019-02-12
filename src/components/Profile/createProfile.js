@@ -23,17 +23,10 @@ class CreateProfile extends Component {
   onSubmit = (event, authUser) => {
     const {fname, lname, gender, age, phone, city, description} = this.state;
 
-    const info = [];
-    if(authUser){
-      info.push({
-        userId: authUser.uid,
-        createdAt: this.props.firebase.serverValue.TIMESTAMP
-      });  
-    }
-    
+
 
     this.props.firebase.profiles().push({
-      info,
+      userId: authUser.uid,
       fname,
       lname,
       gender,
