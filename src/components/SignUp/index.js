@@ -5,11 +5,19 @@ import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 import * as ROLES from "../../constants/roles";
 
+import { CloseBtn } from "../Landing/styles";
+import { Register, Form, FormInput, Btn } from "./styles";
+
+
+
+
 const SignUpPage = () => (
-  <div>
-    <h1>SignUp</h1>
+  <Register>
+    <h1>Register</h1>
     <SignUpForm />
-  </div>
+    <CloseBtn><Link to={ROUTES.LANDING}>Close</Link></CloseBtn>
+  </Register>
+
 );
 
 const INITIAL_STATE = {
@@ -24,7 +32,7 @@ const INITIAL_STATE = {
 class SignUpFormBase extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = { ...INITIAL_STATE };
   }
 
@@ -83,29 +91,28 @@ class SignUpFormBase extends Component {
       username === "";
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
+      <Form onSubmit={this.onSubmit}>
+        <FormInput
           name="username"
-          value={username}
           onChange={this.onChange}
           type="text"
           placeholder="Username"
         />
-        <input
+        <FormInput
           name="email"
           value={email}
           onChange={this.onChange}
           type="text"
           placeholder="Email Address"
         />
-        <input
+        <FormInput
           name="passwordOne"
           value={passwordOne}
           onChange={this.onChange}
           type="password"
           placeholder="Password"
         />
-        <input
+        <FormInput
           name="passwordTwo"
           value={passwordTwo}
           onChange={this.onChange}
@@ -122,12 +129,12 @@ class SignUpFormBase extends Component {
           />
         </label>
 
-        <button disabled={isInvalid} type="submit">
+        <Btn disabled={isInvalid} type="submit">
           Sign Up
-        </button>
+        </Btn>
 
         {error && <p>{error.message}</p>}
-      </form>
+      </Form>
     );
   }
 }

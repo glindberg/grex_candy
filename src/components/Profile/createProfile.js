@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { compose } from 'recompose';
+import { compose } from "recompose";
 import { withFirebase } from "../Firebase";
-import * as ROUTES from "../../constants/routes";
 import { AuthUserContext, withAuthorization } from "../Session";
 
 const profile = {
@@ -11,7 +10,7 @@ const profile = {
   age: "",
   phone: "",
   city: "",
-  description: "",
+  description: ""
 };
 
 class CreateProfile extends Component {
@@ -21,9 +20,7 @@ class CreateProfile extends Component {
     this.state = { ...profile };
   }
   onSubmit = (event, authUser) => {
-    const {fname, lname, gender, age, phone, city, description} = this.state;
-
-
+    const { fname, lname, gender, age, phone, city, description } = this.state;
 
     this.props.firebase.profiles().push({
       userId: authUser.uid,
@@ -33,17 +30,14 @@ class CreateProfile extends Component {
       age,
       phone,
       city,
-      description,
+      description
     });
 
     this.props.firebase
       .profile(fname, lname, gender, age, phone, city, description)
       .then(() => {
         this.setState({ ...profile });
-        // this.props.history.push(ROUTES.PROFILE);
       });
-
-
 
     event.preventDefault();
   };
@@ -140,7 +134,7 @@ class CreateProfile extends Component {
                   value={this.state.description}
                   onChange={this.onChange}
                   type="textarea"
-                  placeholder="Whrite something about yourself.."
+                  placeholder="Write something about yourself.."
                 />
               </label>
               <br />
@@ -157,5 +151,7 @@ class CreateProfile extends Component {
 
 const condition = authUser => !!authUser;
 
-export default compose(withAuthorization(condition),withFirebase,
+export default compose(
+  withAuthorization(condition),
+  withFirebase
 )(CreateProfile);
