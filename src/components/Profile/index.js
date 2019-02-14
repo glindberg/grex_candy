@@ -4,30 +4,30 @@ import * as ROUTES from "../../constants/routes";
 import { AuthUserContext, withAuthorization } from "../Session";
 import { withFirebase } from "../Firebase";
 import { Wrapper } from "./styles";
+import ImageToProfile from "./profileImage";
+// import Chat from "../Chat";
 
 const ProfilePage = () => (
   <Wrapper>
     <AuthUserContext.Consumer>
       {authUser => (
         <div>
-          <img
-            className="profile"
-            src={require(`../Images/man.png`)}
-            alt="Profile of David Berg"
-          />
-          <h1>Profile </h1>
-          <p>
-            <b>Username: </b>
-            {authUser.username}
-          </p>
-          <p>
-            <b>Email: </b>
-            {authUser.email}
-          </p>
+          <h1>Profile</h1>
+          <ImageToProfile />
+          <ul>
+            <li>
+              <b>Username: </b>
+              {authUser.username}
+            </li>
+            <li>
+              <b>Email: </b>
+              {authUser.email}
+            </li>
+          </ul>
           <Profiles userId={authUser.uid} />
           <p>
             <button>
-              <Link to={ROUTES.CREATE_PROFILE}>Create profile</Link>
+              <Link to={ROUTES.CREATE_PROFILE}>Edit profile</Link>
             </button>
             <br />
             <Link to={ROUTES.ACCOUNT}>Change Password?</Link>
@@ -44,40 +44,39 @@ class ProfileContent extends Component {
 
     this.state = {
       loading: false,
-      profiles: []
+      users: []
     };
   }
   componentDidMount() {
     this.setState({ loading: true });
 
-    this.props.firebase.profiles().on("value", snapshot => {
-      const profilesObject = snapshot.val();
+    this.props.firebase.users().on("value", snapshot => {
+      const usersObject = snapshot.val();
 
-      const profilesList = Object.keys(profilesObject).map(key => ({
-        ...profilesObject[key],
+      const usersList = Object.keys(usersObject).map(key => ({
+        ...usersObject[key],
         uid: key
       }));
 
       this.setState({
-        profiles: profilesList,
+        users: usersList,
         loading: false
       });
     });
   }
   componentWillUnmount() {
-    this.props.firebase.profiles().off();
+    this.props.firebase.users().off();
   }
 
   render() {
-    const { profiles, loading } = this.state;
+    const { users, loading } = this.state;
     const { userId } = this.props;
     return (
       <div>
-        <h3>Profile Info</h3>
         {loading && <div>Loading profile info...</div>}
         <ul>
-          {profiles
-            .filter(profile => profile.userId == userId)
+          {users
+            .filter(profile => profile.userId === userId)
             .map(profile => (
               <li key={profile.uid}>
                 <span>
@@ -104,15 +103,13 @@ class ProfileContent extends Component {
                   <strong>Description:</strong> {profile.description}
                 </span>
                 <br />
-                <span>
-                  <strong>ID:</strong> {profile.userId}
-                </span>
+                {/* <span><strong>ID:</strong> {profile.userId}</span>
                 <br />
                 <span>
                   <strong>ProfileID:</strong>
                   {profile.uid}
                 </span>
-                <br />
+                <br /> */}
                 <br />
               </li>
             ))}
@@ -127,3 +124,5 @@ const Profiles = withFirebase(ProfileContent);
 const condition = authUser => !!authUser;
 
 export default withAuthorization(condition)(ProfilePage);
+
+export { Profiles };
