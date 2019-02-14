@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { compose } from 'recompose';
+import { compose } from "recompose";
 import { withFirebase } from "../Firebase";
 import { AuthUserContext, withAuthorization } from "../Session";
+import * as ROUTES from "../../constants/routes";
 
 const profile = {
   fname: "",
@@ -10,7 +11,7 @@ const profile = {
   age: "",
   phone: "",
   city: "",
-  description: "",
+  description: ""
 };
 
 class CreateProfile extends Component {
@@ -22,7 +23,7 @@ class CreateProfile extends Component {
   onSubmit = (event, authUser) => {
     const { fname, lname, gender, age, phone, city, description } = this.state;
 
-    this.props.firebase.profiles().push({
+    this.props.firebase.user(authUser.uid).update({
       userId: authUser.uid,
       fname,
       lname,
@@ -30,14 +31,16 @@ class CreateProfile extends Component {
       age,
       phone,
       city,
-      description,
+      description
     });
 
-    this.props.firebase
-      .profile(fname, lname, gender, age, phone, city, description)
-      .then(() => {
-        this.setState({ ...profile });
-      });
+    this.props.history.push(ROUTES.PROFILE);
+
+    // this.props.firebase
+    //   .profile(fname, lname, gender, age, phone, city, description)
+    //   .then(() => {
+    //     this.setState({ ...profile });
+    //   });
 
     event.preventDefault();
   };
@@ -47,10 +50,14 @@ class CreateProfile extends Component {
   };
 
   render() {
-    const { fname, lname, age, phone, city } = this.state;
-
+    const { fname, lname, age, phone, city, gender } = this.state;
     const isInvalid =
-      fname === "" || lname === "" || age === "" || phone === "" || city === "";
+      fname === "" ||
+      lname === "" ||
+      age === "" ||
+      phone === "" ||
+      city === "" ||
+      gender === "";
     return (
       <AuthUserContext.Consumer>
         {authUser => (
@@ -97,6 +104,9 @@ class CreateProfile extends Component {
                   value={this.state.gender}
                   onChange={this.onChange}
                 >
+                  <option value="" disabled default>
+                    Choose gender
+                  </option>
                   <option value="Other">Other</option>
                   <option value="Man">Man</option>
                   <option value="Female">Female</option>
@@ -138,9 +148,7 @@ class CreateProfile extends Component {
                 />
               </label>
               <br />
-              <button disabled={isInvalid} type="submit">
-                Create Profile
-              </button>
+              <button disabled={isInvalid}>Create Profile</button>
             </form>
           </div>
         )}
@@ -151,5 +159,7 @@ class CreateProfile extends Component {
 
 const condition = authUser => !!authUser;
 
-export default compose(withAuthorization(condition), withFirebase,
+export default compose(
+  withAuthorization(condition),
+  withFirebase
 )(CreateProfile);

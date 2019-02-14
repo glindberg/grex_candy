@@ -17,6 +17,7 @@ import createActivity from "../Activity/createActivity";
 import Activity from "../Activity/activity";
 
 import MapPage from "../Map/index";
+import Located from "../Map/location";
 
 const App = () => (
   <Router>
@@ -36,6 +37,7 @@ const App = () => (
       <Route path={ROUTES.ACTIVITY} component={Activity} />
 
       <Route path={ROUTES.MAP} component={MapPage} />
+      {/* <Route path={ROUTES.LOCATION} component={Located} /> */}
     </div>
   </Router>
 );
