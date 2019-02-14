@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-
 import { compose } from "recompose";
 
-import { AuthUserContext, withAuthorization } from "../Session";
-
+import {
+  AuthUserContext,
+  withAuthorization
+  // withEmailVerification,
+} from "../Session";
 import { withFirebase } from "../Firebase";
 
 class Chat extends Component {
@@ -31,7 +33,6 @@ class Chat extends Component {
     return (
       <div>
         <h1>Home Page</h1>
-
         <p>The Home Page is accessible by every signed in user.</p>
 
         <Messages users={this.state.users} />
@@ -46,11 +47,8 @@ class MessagesBase extends Component {
 
     this.state = {
       text: "",
-
       loading: false,
-
       messages: [],
-
       limit: 5
     };
   }
@@ -63,26 +61,20 @@ class MessagesBase extends Component {
     this.setState({ loading: true });
 
     this.props.firebase
-
       .messages()
-
       .orderByChild("createdAt")
-
       .limitToLast(this.state.limit)
-
       .on("value", snapshot => {
         const messageObject = snapshot.val();
 
         if (messageObject) {
           const messageList = Object.keys(messageObject).map(key => ({
             ...messageObject[key],
-
             uid: key
           }));
 
           this.setState({
             messages: messageList,
-
             loading: false
           });
         } else {
@@ -100,16 +92,11 @@ class MessagesBase extends Component {
   };
 
   onCreateMessage = (event, authUser) => {
-    this.props.firebase.profiles
-      .map(profile => profile.uid)
-      .child()
-      .push({
-        text: this.state.text,
-
-        userId: authUser.uid,
-
-        createdAt: this.props.firebase.serverValue.TIMESTAMP
-      });
+    this.props.firebase.messages().push({
+      text: this.state.text,
+      userId: authUser.uid,
+      createdAt: this.props.firebase.serverValue.TIMESTAMP
+    });
 
     this.setState({ text: "" });
 
@@ -119,9 +106,7 @@ class MessagesBase extends Component {
   onEditMessage = (message, text) => {
     this.props.firebase.message(message.uid).set({
       ...message,
-
       text,
-
       editedAt: this.props.firebase.serverValue.TIMESTAMP
     });
   };
@@ -133,14 +118,12 @@ class MessagesBase extends Component {
   onNextPage = () => {
     this.setState(
       state => ({ limit: state.limit + 5 }),
-
       this.onListenForMessages
     );
   };
 
   render() {
     const { users } = this.props;
-
     const { text, messages, loading } = this.state;
 
     return (
@@ -159,7 +142,6 @@ class MessagesBase extends Component {
               <MessageList
                 messages={messages.map(message => ({
                   ...message,
-
                   user: users
                     ? users[message.userId]
                     : { userId: message.userId }
@@ -173,7 +155,6 @@ class MessagesBase extends Component {
 
             <form onSubmit={event => this.onCreateMessage(event, authUser)}>
               <input type="text" value={text} onChange={this.onChangeText} />
-
               <button type="submit">Send</button>
             </form>
           </div>
@@ -183,13 +164,7 @@ class MessagesBase extends Component {
   }
 }
 
-const MessageList = ({
-  messages,
-
-  onEditMessage,
-
-  onRemoveMessage
-}) => (
+const MessageList = ({ messages, onEditMessage, onRemoveMessage }) => (
   <ul>
     {messages.map(message => (
       <MessageItem
@@ -208,7 +183,6 @@ class MessageItem extends Component {
 
     this.state = {
       editMode: false,
-
       editText: this.props.message.text
     };
   }
@@ -216,7 +190,6 @@ class MessageItem extends Component {
   onToggleEditMode = () => {
     this.setState(state => ({
       editMode: !state.editMode,
-
       editText: this.props.message.text
     }));
   };
@@ -233,7 +206,6 @@ class MessageItem extends Component {
 
   render() {
     const { message, onRemoveMessage } = this.props;
-
     const { editMode, editText } = this.state;
 
     return (
@@ -254,7 +226,6 @@ class MessageItem extends Component {
         {editMode ? (
           <span>
             <button onClick={this.onSaveEditText}>Save</button>
-
             <button onClick={this.onToggleEditMode}>Reset</button>
           </span>
         ) : (
@@ -277,5 +248,6 @@ const condition = authUser => !!authUser;
 
 export default compose(
   withFirebase,
+  // withEmailVerification,
   withAuthorization(condition)
 )(Chat);
