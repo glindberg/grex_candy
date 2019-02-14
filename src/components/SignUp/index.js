@@ -8,16 +8,14 @@ import * as ROLES from "../../constants/roles";
 import { CloseBtn } from "../Landing/styles";
 import { Register, Form, FormInput, Btn } from "./styles";
 
-
-
-
 const SignUpPage = () => (
   <Register>
     <h1>Register</h1>
     <SignUpForm />
-    <CloseBtn><Link to={ROUTES.LANDING}>Close</Link></CloseBtn>
+    <CloseBtn>
+      <Link to={ROUTES.LANDING}>Close</Link>
+    </CloseBtn>
   </Register>
-
 );
 
 const INITIAL_STATE = {
@@ -25,6 +23,13 @@ const INITIAL_STATE = {
   email: "",
   passwordOne: "",
   passwordTwo: "",
+  fname: "",
+  lname: "",
+  gender: "",
+  age: "",
+  phone: "",
+  city: "",
+  description: "",
   isAdmin: false,
   error: null
 };
@@ -51,13 +56,20 @@ class SignUpFormBase extends Component {
         return this.props.firebase.user(authUser.user.uid).set({
           username,
           email,
-          roles
+          roles,
+          fname: "",
+          lname: "",
+          gender: "",
+          age: "",
+          phone: "",
+          city: "",
+          description: ""
         });
       })
 
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTES.HOME);
+        this.props.history.push(ROUTES.CREATE_PROFILE);
       })
       .catch(error => {
         this.setState({ error });
