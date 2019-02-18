@@ -1,5 +1,4 @@
 import React from "react";
-// import { Image } from "./styles";
 
 // <ImageToProfile gender={this.state.profile.gender} /> Male eller Female eller Other
 const ImageToProfile = props =>

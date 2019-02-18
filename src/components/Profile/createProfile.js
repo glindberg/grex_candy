@@ -33,7 +33,6 @@ class CreateProfile extends Component {
     const { fname, lname, gender, age, phone, city, description } = this.state;
 
     this.props.firebase.user(authUser.uid).update({
-      // userId: authUser.uid,
       fname,
       lname,
       gender,
@@ -44,12 +43,6 @@ class CreateProfile extends Component {
     });
 
     this.props.history.push(ROUTES.PROFILE);
-
-    // this.props.firebase
-    //   .profile(fname, lname, gender, age, phone, city, description)
-    //   .then(() => {
-    //     this.setState({ ...profile });
-    //   });
 
     event.preventDefault();
   };

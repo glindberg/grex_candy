@@ -41,13 +41,6 @@ class ProfileContent extends Component {
     this.setState({ loading: true });
 
     this.props.firebase.user(this.props.userId).on("value", snapshot => {
-      // const usersObject = snapshot.val();
-
-      // const usersList = Object.keys(usersObject).map(key => ({
-      //   ...usersObject[key],
-      //   userId: key
-      // }));
-
       this.setState({
         ...snapshot.val(),
         loading: false
