@@ -17,6 +17,7 @@ export const Wrapper = styled.div`
     ul {
       margin: 0;
       padding: 0;
+      list-style: none;
     }
   }
   div {
@@ -32,23 +33,12 @@ export const Wrapper = styled.div`
     text-align: center;
     margin: auto;
   }
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    li {
-    }
-  }
 `;
 
-export const Image = styled.div`
-  .female {
-    /* display: none; */
-  }
-  .male {
-    /* display: none; */
-  }
-  .other {
-    /* display: none; */
-  }
+export const ImgContainer = styled.div`
+  text-align: center;
+`;
+
+export const TxtContainer = styled.div`
+  padding-left: 20%;
 `;

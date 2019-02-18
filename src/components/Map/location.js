@@ -61,7 +61,6 @@ class LocatedTwo extends Component {
       .child("position")
       .once("value", snapshot => {
         const userPosition = snapshot.val();
-        // console.log(JSON.parse(JSON.stringify(userPosition)));
         this.setState({ dbCoords: userPosition });
       });
   };
@@ -111,28 +110,10 @@ class LocatedTwo extends Component {
             zoom={13}
           />
         ) : null}
-        <div>Geolocation</div>
-        <div>
-          <p>Coords from Browser</p>
-          <Coords position={this.state.browserCoords} />
-          <p>Coords from DB</p>
-          <Coords position={this.state.dbCoords} />
-        </div>
       </div>
     );
   }
 }
-
-const Coords = props => (
-  <div>
-    {props.position ? (
-      <div>
-        <div>{props.position.latitude}</div>
-        <div>{props.position.longitude}</div>
-      </div>
-    ) : null}
-  </div>
-);
 
 const MyMap = props => (
   <Map
@@ -148,7 +129,8 @@ const MyMap = props => (
     {props.markers.map((marker, index) => (
       <Marker key={index} position={Object.values(marker)}>
         <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
+          Position of me.
+          <br />
         </Popup>
       </Marker>
     ))}

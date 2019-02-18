@@ -33,7 +33,6 @@ class CreateProfile extends Component {
     const { fname, lname, gender, age, phone, city, description } = this.state;
 
     this.props.firebase.user(authUser.uid).update({
-      // userId: authUser.uid,
       fname,
       lname,
       gender,
@@ -44,12 +43,6 @@ class CreateProfile extends Component {
     });
 
     this.props.history.push(ROUTES.PROFILE);
-
-    // this.props.firebase
-    //   .profile(fname, lname, gender, age, phone, city, description)
-    //   .then(() => {
-    //     this.setState({ ...profile });
-    //   });
 
     event.preventDefault();
   };
@@ -75,6 +68,7 @@ class CreateProfile extends Component {
             <form onSubmit={event => this.onSubmit(event, authUser)}>
               <label>
                 First name:
+                <br />
                 <input
                   name="fname"
                   value={this.state.fname}
@@ -84,8 +78,10 @@ class CreateProfile extends Component {
                 />
               </label>
               <br />
+              <br />
               <label>
                 Last name:
+                <br />
                 <input
                   name="lname"
                   value={this.state.lname}
@@ -95,8 +91,10 @@ class CreateProfile extends Component {
                 />
               </label>
               <br />
+              <br />
               <label>
                 Age:
+                <br />
                 <input
                   name="age"
                   value={this.state.age}
@@ -106,8 +104,10 @@ class CreateProfile extends Component {
                 />
               </label>
               <br />
+              <br />
               <label>
                 Gender:
+                <br />
                 <select
                   name="gender"
                   value={this.state.gender}
@@ -122,8 +122,10 @@ class CreateProfile extends Component {
                 </select>
               </label>
               <br />
+              <br />
               <label>
                 Phone number: +46
+                <br />
                 <input
                   name="phone"
                   value={this.state.phone}
@@ -133,8 +135,10 @@ class CreateProfile extends Component {
                 />
               </label>
               <br />
+              <br />
               <label>
                 City:
+                <br />
                 <input
                   name="city"
                   value={this.state.city}
@@ -143,6 +147,7 @@ class CreateProfile extends Component {
                   placeholder="Location.."
                 />
               </label>
+              <br />
               <br />
               <label>
                 Descripion:

@@ -1,10 +1,9 @@
 import React from "react";
-// import { Image } from "./styles";
 
 // <ImageToProfile gender={this.state.profile.gender} /> Male eller Female eller Other
 const ImageToProfile = props =>
   props.gender === "Man" ? (
-    <img className="male" src={require(`../Images/Man.png`)} alt="Man" />
+    <img className="male" src={require(`../Images/man.png`)} alt="Man" />
   ) : props.gender === "Female" ? (
     <img
       className="Female"
