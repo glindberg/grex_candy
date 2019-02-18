@@ -11,9 +11,8 @@ const ProfilePage = () => (
   <Wrapper>
     <AuthUserContext.Consumer>
       {authUser => (
-        <div>
+        <div className="profile">
           <h1>Profile</h1>
-          <ImageToProfile />
           <ul>
             <li>
               <b>Username: </b>
@@ -50,16 +49,16 @@ class ProfileContent extends Component {
   componentDidMount() {
     this.setState({ loading: true });
 
-    this.props.firebase.users().on("value", snapshot => {
-      const usersObject = snapshot.val();
+    this.props.firebase.user(this.props.userId).on("value", snapshot => {
+      // const usersObject = snapshot.val();
 
-      const usersList = Object.keys(usersObject).map(key => ({
-        ...usersObject[key],
-        uid: key
-      }));
+      // const usersList = Object.keys(usersObject).map(key => ({
+      //   ...usersObject[key],
+      //   userId: key
+      // }));
 
       this.setState({
-        users: usersList,
+        ...snapshot.val(),
         loading: false
       });
     });
@@ -69,51 +68,55 @@ class ProfileContent extends Component {
   }
 
   render() {
-    const { users, loading } = this.state;
+    const {
+      loading,
+      gender,
+      fname,
+      lname,
+      age,
+      phone,
+      city,
+      description
+    } = this.state;
+
     const { userId } = this.props;
     return (
       <div>
         {loading && <div>Loading profile info...</div>}
-        <ul>
-          {users
-            .filter(profile => profile.userId === userId)
-            .map(profile => (
-              <li key={profile.uid}>
-                <span>
-                  <strong>Name: </strong> {profile.fname} {profile.lname}
-                </span>
-                <br />
-                <span>
-                  <strong>Gender: </strong> {profile.gender}
-                </span>
-                <br />
-                <span>
-                  <strong>Age:</strong> {profile.age}
-                </span>
-                <br />
-                <span>
-                  <strong>Phone: </strong>+46 {profile.phone}
-                </span>
-                <br />
-                <span>
-                  <strong>City:</strong> {profile.city}
-                </span>
-                <br />
-                <span>
-                  <strong>Description:</strong> {profile.description}
-                </span>
-                <br />
-                {/* <span><strong>ID:</strong> {profile.userId}</span>
-                <br />
-                <span>
-                  <strong>ProfileID:</strong>
-                  {profile.uid}
-                </span>
-                <br /> */}
-                <br />
-              </li>
-            ))}
-        </ul>
+        {loading ? null : (
+          <ul>
+            <li>
+              <ImageToProfile gender={gender} />
+              <span>
+                <strong>Name: </strong> {fname} {lname}
+                {userId.fname}
+              </span>
+              <br />
+              <span>
+                <strong>Gender: </strong> {gender}
+              </span>
+              <br />
+              <span>
+                <strong>Age:</strong> {age}
+              </span>
+              <br />
+              <span>
+                <strong>Phone: </strong>+46 {phone}
+              </span>
+              <br />
+              <span>
+                <strong>City:</strong> {city}
+              </span>
+              <br />
+              <span>
+                <strong>Description:</strong>
+                <br /> {description}
+              </span>
+              <br />
+              <br />
+            </li>
+          </ul>
+        )}
       </div>
     );
   }
@@ -124,5 +127,3 @@ const Profiles = withFirebase(ProfileContent);
 const condition = authUser => !!authUser;
 
 export default withAuthorization(condition)(ProfilePage);
-
-export { Profiles };

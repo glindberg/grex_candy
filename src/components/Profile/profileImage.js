@@ -1,22 +1,22 @@
 import React from "react";
-import { Image } from "./styles";
+// import { Image } from "./styles";
 
-const ImageToProfile = () => (
-  <Image>
-    <div>
-      <img
-        className="female"
-        src={require(`../Images/Female.png`)}
-        alt="Female"
-      />
-      <img
-        className="other"
-        src={require(`../Images/Other.png`)}
-        alt="Other gender"
-      />
-      <img className="male" src={require(`../Images/Man.png`)} alt="Man" />
-    </div>
-  </Image>
-);
+// <ImageToProfile gender={this.state.profile.gender} /> Male eller Female eller Other
+const ImageToProfile = props =>
+  props.gender === "Man" ? (
+    <img className="male" src={require(`../Images/Man.png`)} alt="Man" />
+  ) : props.gender === "Female" ? (
+    <img
+      className="Female"
+      src={require(`../Images/Female.png`)}
+      alt="Female"
+    />
+  ) : (
+    <img
+      className="Other"
+      src={require(`../Images/Other.png`)}
+      alt="Other gender"
+    />
+  );
 
 export default ImageToProfile;
