@@ -16,7 +16,6 @@ import createProfile from "../Profile/createProfile";
 import createActivity from "../Activity/createActivity";
 import ActivityPage from "../Activity/index";
 
-// import MapPage from "../Map/index";
 import Chat from "../Chat";
 
 const App = () => (
@@ -36,7 +35,6 @@ const App = () => (
       <Route path={ROUTES.CREATE_ACTIVITY} component={createActivity} />
       <Route path={ROUTES.ACTIVITY} component={ActivityPage} />
 
-      {/* <Route path={ROUTES.MAP} component={MapPage} /> */}
       <Route path={ROUTES.CHAT} component={Chat} />
     </div>
   </Router>
