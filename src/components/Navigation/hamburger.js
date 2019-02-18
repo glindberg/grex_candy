@@ -26,9 +26,6 @@ class Example extends React.Component {
               <Link to={ROUTES.PROFILE}>Profile</Link>
             </li>
             <li>
-              <Link to={ROUTES.MAP}>Map</Link>
-            </li>
-            <li>
               <Link to={ROUTES.ACTIVITY}>Activity</Link>
             </li>
             <li>

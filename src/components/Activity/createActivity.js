@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { compose } from "recompose";
 import { withFirebase } from "../Firebase";
 import { AuthUserContext, withAuthorization } from "../Session";
+import * as ROUTES from "../../constants/routes";
 
 const INITIAL_STATE = {
   activity: "",
@@ -30,10 +31,7 @@ class CreateActivity extends Component {
       other
     } = this.state;
 
-    const chat = [];
-    if (authUser) {
-      chat.push("");
-    }
+    const members = [authUser.username];
 
     this.props.firebase.activities().push({
       activity,
@@ -43,24 +41,24 @@ class CreateActivity extends Component {
       intensity,
       details,
       other,
-      chat,
+      members,
       userId: authUser.uid,
       createdAt: this.props.firebase.serverValue.TIMESTAMP
     });
-
-    this.props.firebase
-      .activity(
-        activity,
-        otheractivity,
-        actlengthstart,
-        actlengthend,
-        intensity,
-        details,
-        other
-      )
-      .then(() => {
-        this.setState({ ...INITIAL_STATE });
-      });
+    this.props.history.push(ROUTES.ACTIVITY);
+    // this.props.firebase
+    //   .activity(
+    //     activity,
+    //     otheractivity,
+    //     actlengthstart,
+    //     actlengthend,
+    //     intensity,
+    //     details,
+    //     other
+    //   )
+    //   .then(() => {
+    //     this.setState({ ...INITIAL_STATE });
+    //   });
     event.preventDefault();
   };
 
@@ -69,20 +67,20 @@ class CreateActivity extends Component {
   };
 
   render() {
-    const {
-      activity,
-      actlengthstart,
-      actlengthend,
-      intensity,
-      details
-    } = this.state;
+    // const {
+    //   activity,
+    //   actlengthstart,
+    //   actlengthend,
+    //   intensity,
+    //   details
+    // } = this.state;
 
-    const isInvalid =
-      activity === "" ||
-      actlengthstart === "" ||
-      actlengthend === "" ||
-      intensity === "" ||
-      details === "";
+    // const isInvalid =
+    //   activity === "" ||
+    //   actlengthstart === "" ||
+    //   actlengthend === "" ||
+    //   intensity === "" ||
+    //   details === "";
     return (
       <AuthUserContext.Consumer>
         {authUser => (
@@ -191,9 +189,8 @@ class CreateActivity extends Component {
                 />
               </label>
               <br />
-              <button disabled={isInvalid} type="submit">
-                Create Activity
-              </button>
+              {/* disabled={isInvalid} detta ska med in i button */}
+              <button type="submit">Create Activity</button>
             </form>
           </div>
         )}

@@ -1,10 +1,10 @@
 import React from "react";
 
-import { Activities } from "../Home";
+import Activities from "../Activity/activity";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 
-const Activity = () => (
+const ActivityPage = () => (
   <div>
     <h1>Activity</h1>
     <div>
@@ -15,4 +15,4 @@ const Activity = () => (
   </div>
 );
 
-export default Activity;
+export default ActivityPage;
