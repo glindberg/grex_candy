@@ -1,12 +1,17 @@
 import React from "react";
 import Chat from "../Chat/index";
-import Located from "../Map/location";
+import LocationPage from "../Map/location";
+import { AuthUserContext } from "../Session";
 
 const Home = () => (
-  <div>
-    <Located />
-    <Chat />
-  </div>
+  <AuthUserContext>
+    {authUser => (
+      <div>
+        <LocationPage />
+        <Chat />
+      </div>
+    )}
+  </AuthUserContext>
 );
 
 export default Home;

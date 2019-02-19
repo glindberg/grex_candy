@@ -32,6 +32,12 @@ class Chat extends Component {
   render() {
     return (
       <div>
+<<<<<<< HEAD
+=======
+        <h1>Chat</h1>
+        <p>Message your training partner</p>
+
+>>>>>>> master
         <Messages users={this.state.users} />
       </div>
     );
@@ -215,8 +221,8 @@ class MessageItem extends Component {
           />
         ) : (
           <span>
-            <strong>{message.user.username || message.user.userId}</strong>{" "}
-            {message.text} {message.editedAt && <span>(Edited)</span>}
+            <strong>{message.user.username || message.user.userId}</strong>
+            {message.text} {message.editedAt && <span>Edited</span>}
           </span>
         )}
 

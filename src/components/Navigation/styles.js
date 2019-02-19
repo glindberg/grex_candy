@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Nav = styled.section`
   height: 60px;
-  background-color: green;
+  background: linear-gradient(rgb(207, 226, 199), rgb(118, 135, 110));
   display: flex;
 
   h1 {

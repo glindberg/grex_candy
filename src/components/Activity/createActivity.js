@@ -6,6 +6,7 @@ import { AuthUserContext, withAuthorization } from "../Session";
 import { Messages } from "../Chat";
 import { database } from "firebase";
 import { firebase } from "firebase";
+import * as ROUTES from "../../constants/routes";
 
 const INITIAL_STATE = {
   activity: "",
@@ -68,7 +69,6 @@ class CreateActivity extends Component {
     //     otheractivity,
     //     actlengthstart,
     //     actlengthend,
-    //     activityname,
     //     intensity,
     //     details,
     //     other
@@ -84,22 +84,20 @@ class CreateActivity extends Component {
   };
 
   render() {
-    const {
-      activity,
-      actlengthstart,
-      actlengthend,
-      activityname,
-      intensity,
-      details
-    } = this.state;
+    // const {
+    //   activity,
+    //   actlengthstart,
+    //   actlengthend,
+    //   intensity,
+    //   details
+    // } = this.state;
 
-    const isInvalid =
-      activity === "" ||
-      actlengthstart === "" ||
-      actlengthend === "" ||
-      activityname === "" ||
-      intensity === "" ||
-      details === "";
+    // const isInvalid =
+    //   activity === "" ||
+    //   actlengthstart === "" ||
+    //   actlengthend === "" ||
+    //   intensity === "" ||
+    //   details === "";
     return (
       <AuthUserContext.Consumer>
         {authUser => (
@@ -217,9 +215,8 @@ class CreateActivity extends Component {
                 />
               </label>
               <br />
-              <button /*disabled={isInvalid}*/ type="submit">
-                Create Activity
-              </button>
+              {/* disabled={isInvalid} detta ska med in i button */}
+              <button type="submit">Create Activity</button>
             </form>
           </div>
         )}

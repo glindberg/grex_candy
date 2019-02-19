@@ -63,7 +63,8 @@ class SignUpFormBase extends Component {
           age: "",
           phone: "",
           city: "",
-          description: ""
+          description: "",
+          position: { latitude: "0", longitude: "0" }
         });
       })
 

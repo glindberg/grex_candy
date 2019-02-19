@@ -15,10 +15,7 @@ import { withAuthentication } from "../Session";
 import createProfile from "../Profile/createProfile";
 import createActivity from "../Activity/createActivity";
 import ActivityPage from "../Activity/index";
-import ActivityContent from "../Activity/activityContent";
 
-import MapPage from "../Map/index";
-// import Located from "../Map/location";
 import Chat from "../Chat";
 
 const App = () => (
@@ -39,9 +36,7 @@ const App = () => (
       <Route path={ROUTES.ACTIVITY} component={ActivityPage} />
       <Route path={ROUTES.ACTIVITY_CONTENT} component={ActivityContent} />
 
-      <Route path={ROUTES.MAP} component={MapPage} />
       <Route path={ROUTES.CHAT} component={Chat} />
-      {/* <Route path={ROUTES.LOCATION} component={Located} /> */}
     </div>
   </Router>
 );

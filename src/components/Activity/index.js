@@ -1,5 +1,4 @@
 import React from "react";
-import Chat from "../Chat/index";
 import Activities from "../Activity/activity";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
