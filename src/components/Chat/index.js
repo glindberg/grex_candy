@@ -32,12 +32,9 @@ class Chat extends Component {
   render() {
     return (
       <div>
-<<<<<<< HEAD
-=======
         <h1>Chat</h1>
         <p>Message your training partner</p>
 
->>>>>>> master
         <Messages users={this.state.users} />
       </div>
     );
@@ -255,4 +252,4 @@ export default compose(
   withAuthorization(condition)
 )(Chat);
 
-export { Messages };
+export { Messages, Chat };

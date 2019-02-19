@@ -31,9 +31,6 @@ class Example extends React.Component {
             <li>
               <Link to={ROUTES.CHAT}>Chat</Link>
             </li>
-            <li>
-              <Link to={ROUTES.ACTIVITY_CONTENT}>Activity content</Link>
-            </li>
             {/* <li>
               <Link to={ROUTES.LOCATION}>Location</Link>
             </li> */}

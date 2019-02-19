@@ -6,7 +6,7 @@ import { AuthUserContext, withAuthorization } from "../Session";
 import { Messages } from "../Chat";
 import { database } from "firebase";
 import { firebase } from "firebase";
-import * as ROUTES from "../../constants/routes";
+// import * as ROUTES from "../../constants/routes";
 
 const INITIAL_STATE = {
   activity: "",
