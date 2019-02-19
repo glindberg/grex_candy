@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { withFirebase } from "../Firebase";
+import { Link } from "react-router-dom";
+import * as ROUTES from "../../constants/routes";
+import Chat from "../Chat/index";
 
 class ActivitesBase extends Component {
   constructor(props) {
     super(props);
     this.state = {
       activity: "",
-
       loading: false,
       activities: []
     };
@@ -42,7 +44,7 @@ class ActivitesBase extends Component {
           <ActivityList activities={activities} />
         ) : (
           <div>There are no activities ...</div>
-        )}
+        )}{" "}
       </div>
     );
   }
@@ -60,10 +62,16 @@ const ActivityList = ({ activities }) => (
 
 const ActivityItem = ({ activity }) => (
   <li>
-    <strong>{activity.userId}</strong> <br /> {activity.activity} -{" "}
-    {activity.otheractivity}
+    {/*<button onClick={this.props.activityOnClick()}>*/}
+    <button>
+      <Link to={ROUTES.ACTIVITY_CONTENT}>
+        <strong>{activity.activity}</strong>
+      </Link>
+    </button>
+    {/*<br /> {activity.activity} - {activity.otheractivity}*/}
     <br />
-    {activity.actlengthstart} - {activity.actlengthend}
+    {/*{activity.actlengthstart} - {activity.actlengthend}*/}
+    <Chat />
   </li>
 );
 

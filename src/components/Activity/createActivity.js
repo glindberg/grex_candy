@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import { compose } from "recompose";
 import { withFirebase } from "../Firebase";
+import * as ROUTES from "../../constants/routes";
 import { AuthUserContext, withAuthorization } from "../Session";
+import { Messages } from "../Chat";
+import { database } from "firebase";
+import { firebase } from "firebase";
 
 const INITIAL_STATE = {
   activity: "",
   otheractivity: "",
   actlengthstart: "",
   actlengthend: "",
+  activityname: "",
   intensity: "",
   details: "",
   other: ""
@@ -25,42 +30,52 @@ class CreateActivity extends Component {
       otheractivity,
       actlengthstart,
       actlengthend,
+      activityname,
       intensity,
       details,
       other
     } = this.state;
 
-    const chat = [];
-    if (authUser) {
-      chat.push("");
-    }
+    const members = [authUser.username];
+    const chat = [""];
+
+    // const activity = firebase.activities();
+
+    // activities.ref("activities/members").set("Gustav");
+    // if (authUser) {
+    //   chat.push("");
+    // }
 
     this.props.firebase.activities().push({
       activity,
       otheractivity,
       actlengthstart,
       actlengthend,
+      activityname,
       intensity,
       details,
       other,
+      members,
       chat,
       userId: authUser.uid,
       createdAt: this.props.firebase.serverValue.TIMESTAMP
     });
 
-    this.props.firebase
-      .activity(
-        activity,
-        otheractivity,
-        actlengthstart,
-        actlengthend,
-        intensity,
-        details,
-        other
-      )
-      .then(() => {
-        this.setState({ ...INITIAL_STATE });
-      });
+    this.props.history.push(ROUTES.ACTIVITY);
+    // this.props.firebase
+    //   .activity(
+    //     activity,
+    //     otheractivity,
+    //     actlengthstart,
+    //     actlengthend,
+    //     activityname,
+    //     intensity,
+    //     details,
+    //     other
+    //   )
+    //   .then(() => {
+    //     this.setState({ ...INITIAL_STATE });
+    //   });
     event.preventDefault();
   };
 
@@ -73,6 +88,7 @@ class CreateActivity extends Component {
       activity,
       actlengthstart,
       actlengthend,
+      activityname,
       intensity,
       details
     } = this.state;
@@ -81,6 +97,7 @@ class CreateActivity extends Component {
       activity === "" ||
       actlengthstart === "" ||
       actlengthend === "" ||
+      activityname === "" ||
       intensity === "" ||
       details === "";
     return (
@@ -89,6 +106,15 @@ class CreateActivity extends Component {
           <div>
             <h1>Create Activity</h1>
             <form onSubmit={event => this.onSubmit(event, authUser)}>
+              <label>
+                Activityname:
+                <input
+                  name="activityname"
+                  value={this.state.activityname}
+                  onChange={this.onChange}
+                  type="text"
+                />
+              </label>
               <label>
                 Type of Activity:
                 <select
@@ -191,7 +217,7 @@ class CreateActivity extends Component {
                 />
               </label>
               <br />
-              <button disabled={isInvalid} type="submit">
+              <button /*disabled={isInvalid}*/ type="submit">
                 Create Activity
               </button>
             </form>

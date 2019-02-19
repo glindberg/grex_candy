@@ -124,5 +124,3 @@ const Profiles = withFirebase(ProfileContent);
 const condition = authUser => !!authUser;
 
 export default withAuthorization(condition)(ProfilePage);
-
-export { Profiles };
