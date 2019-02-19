@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { withFirebase } from "../Firebase";
+import { Link } from "react-router-dom";
+import * as ROUTES from "../../constants/routes";
+import Chat from "../Chat/index";
+import ActivityContent from "../Activity/activityContent";
 
 class ActivitesBase extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activity: "",
-
+      activity: null,
       loading: false,
       activities: []
     };
@@ -33,13 +36,29 @@ class ActivitesBase extends Component {
   componentWillUnmount() {
     this.props.firebase.activities().off();
   }
+  hideActivity = () => {
+    this.setState({ activity: null });
+  };
+  handleActivityClick = activity => {
+    this.setState({ activity });
+  };
+
   render() {
-    const { activities, loading } = this.state;
+    const { activities, loading, activity } = this.state;
     return (
       <div>
         {loading && <div>Loading activities...</div>}
-        {activities ? (
-          <ActivityList activities={activities} />
+
+        {activity ? (
+          <ActivityContent
+            activity={activity}
+            hideActivity={this.hideActivity}
+          />
+        ) : activities ? (
+          <ActivityList
+            handleActivityClick={this.handleActivityClick}
+            activities={activities}
+          />
         ) : (
           <div>There are no activities ...</div>
         )}
@@ -50,20 +69,30 @@ class ActivitesBase extends Component {
 
 const Activities = withFirebase(ActivitesBase);
 
-const ActivityList = ({ activities }) => (
+const ActivityList = ({ activities, handleActivityClick }) => (
   <ul>
     {activities.map(activity => (
-      <ActivityItem key={activity.uid} activity={activity} />
-    ))}{" "}
+      <ActivityItem
+        handleActivityClick={handleActivityClick}
+        key={activity.uid}
+        activity={activity}
+      />
+    ))}
   </ul>
 );
 
-const ActivityItem = ({ activity }) => (
+const ActivityItem = ({ activity, handleActivityClick }) => (
   <li>
-    <strong>{activity.userId}</strong> <br /> {activity.activity} -{" "}
-    {activity.otheractivity}
+    {/* <button onClick={this.props.activityOnClick()}>*/}
+    <button>
+      <span onClick={() => handleActivityClick(activity)}>
+        <strong>{activity.activity}</strong>
+      </span>
+    </button>
+    {/*<br /> {activity.activity} - {activity.otheractivity}*/}
     <br />
-    {activity.actlengthstart} - {activity.actlengthend}
+    {/*{activity.actlengthstart} - {activity.actlengthend}*/}
+    {/* <Chat /> */}
   </li>
 );
 

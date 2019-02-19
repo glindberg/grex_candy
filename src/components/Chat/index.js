@@ -251,3 +251,5 @@ export default compose(
   // withEmailVerification,
   withAuthorization(condition)
 )(Chat);
+
+export { Messages, Chat };

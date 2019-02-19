@@ -1,14 +1,19 @@
 import React, { Component } from "react";
 import { compose } from "recompose";
 import { withFirebase } from "../Firebase";
-import { AuthUserContext, withAuthorization } from "../Session";
 import * as ROUTES from "../../constants/routes";
+import { AuthUserContext, withAuthorization } from "../Session";
+import { Messages } from "../Chat";
+import { database } from "firebase";
+import { firebase } from "firebase";
+// import * as ROUTES from "../../constants/routes";
 
 const INITIAL_STATE = {
   activity: "",
   otheractivity: "",
   actlengthstart: "",
   actlengthend: "",
+  activityname: "",
   intensity: "",
   details: "",
   other: ""
@@ -26,25 +31,37 @@ class CreateActivity extends Component {
       otheractivity,
       actlengthstart,
       actlengthend,
+      activityname,
       intensity,
       details,
       other
     } = this.state;
 
     const members = [authUser.username];
+    const chat = [""];
+
+    // const activity = firebase.activities();
+
+    // activities.ref("activities/members").set("Gustav");
+    // if (authUser) {
+    //   chat.push("");
+    // }
 
     this.props.firebase.activities().push({
       activity,
       otheractivity,
       actlengthstart,
       actlengthend,
+      activityname,
       intensity,
       details,
       other,
       members,
+      chat,
       userId: authUser.uid,
       createdAt: this.props.firebase.serverValue.TIMESTAMP
     });
+
     this.props.history.push(ROUTES.ACTIVITY);
     // this.props.firebase
     //   .activity(
@@ -87,6 +104,15 @@ class CreateActivity extends Component {
           <div>
             <h1>Create Activity</h1>
             <form onSubmit={event => this.onSubmit(event, authUser)}>
+              <label>
+                Activityname:
+                <input
+                  name="activityname"
+                  value={this.state.activityname}
+                  onChange={this.onChange}
+                  type="text"
+                />
+              </label>
               <label>
                 Type of Activity:
                 <select
