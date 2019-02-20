@@ -7,6 +7,7 @@ import { compose } from "recompose";
 import { AuthUserContext, withAuthorization } from "../Session";
 
 import { withFirebase } from "../Firebase";
+import { ShowActivities } from "../Activity/showActivity";
 
 class HomePage extends Component {
   constructor(props) {
@@ -37,14 +38,10 @@ class HomePage extends Component {
         <p>The Home Page is accessible by every signed in user.</p>
 
         <p>
-          <button>
-            <Link to={ROUTES.CREATE_ACTIVITY}>Create Activity</Link>
-          </button>
+          <Link to={ROUTES.CREATE_ACTIVITY}>Create Activity</Link>
         </p>
 
-        <Link to={ROUTES.ACTIVITY}>
-          <Activities />
-        </Link>
+        <ShowActivities />
 
         <Messages users={this.state.users} />
       </div>
@@ -282,80 +279,9 @@ class MessageItem extends Component {
 
 const Messages = withFirebase(MessagesBase);
 
-// TESTAR ATT VISA ACTIVITIES
-class ActivitesBase extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activity: "",
-
-      loading: false,
-      activities: []
-    };
-  }
-  componentDidMount() {
-    this.setState({ loading: true });
-    this.props.firebase.activities().on("value", snapshot => {
-      const activityObject = snapshot.val();
-      if (activityObject) {
-        // convert messages list from snapshot
-        const activityList = Object.keys(activityObject).map(key => ({
-          ...activityObject[key],
-          uid: key
-        }));
-        this.setState({
-          activities: activityList,
-          loading: false
-        });
-      } else {
-        this.setState({ activities: null, loading: false });
-      }
-    });
-  }
-  componentWillUnmount() {
-    this.props.firebase.activities().off();
-  }
-  render() {
-    const { activities, loading } = this.state;
-    return (
-      <div>
-        {loading && <div>Loading activities...</div>}
-        {activities ? (
-          <ActivityList activities={activities} />
-        ) : (
-          <div>There are no activities ...</div>
-        )}
-      </div>
-    );
-  }
-}
-
-const Activities = withFirebase(ActivitesBase);
-
-const ActivityList = ({ activities }) => (
-  <ul>
-    {activities.map(activity => (
-      <ActivityItem key={activity.uid} activity={activity} />
-    ))}{" "}
-  </ul>
-);
-
-const ActivityItem = ({ activity }) => (
-  <li>
-    <strong>{activity.userId}</strong> <br /> {activity.activity} -{" "}
-    {activity.otheractivity}
-    <br />
-    {activity.actlengthstart} - {activity.actlengthend}
-  </li>
-);
-
-// END
-
 const condition = authUser => !!authUser;
 
 export default compose(
   withFirebase,
   withAuthorization(condition)
 )(HomePage);
-
-export { ActivitesBase, Activities, ActivityList };

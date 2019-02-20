@@ -5,23 +5,19 @@ import * as ROUTES from "../../constants/routes";
 
 import { compose } from "recompose";
 
-import {
-    AuthUserContext,
-    withAuthorization
-} from "../Session";
+import { AuthUserContext, withAuthorization } from "../Session";
 
 import { withFirebase } from "../Firebase";
 
-import { Activities } from "../Home"
+import { Activities } from "./showActivity";
 
 const Activity = () => (
+  <div>
+    <h1>Activity</h1>
     <div>
-        <h1>Activity</h1>
-        <div>
-            <p>hello</p>
-            <Activities />
-        </div>
+      <p>hello</p>
     </div>
+  </div>
 );
 
 export default Activity;
