@@ -38,7 +38,7 @@ class CreateActivity extends Component {
     } = this.state;
 
     const members = [authUser.username];
-    const chat = [""];
+    const chat = [authUser.username];
 
     // const activity = firebase.activities();
 
@@ -57,7 +57,7 @@ class CreateActivity extends Component {
       details,
       other,
       members,
-      chat,
+      chat: <Messages users={this.state.users} />,
       userId: authUser.uid,
       createdAt: this.props.firebase.serverValue.TIMESTAMP
     });
