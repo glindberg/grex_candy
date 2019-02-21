@@ -1,0 +1,34 @@
+{
+    "users": {
+        "alovelace": {
+            "fname": "Ada Lovelace",
+            "gender": "male"
+            // Index Ada's groups in her profile
+            "activities": {
+                // the value here doesn't matter, just that the key exists
+                "techpioneers": true,
+                "womentechmakers": true
+            }
+        },
+    ...
+    },
+},
+"activities": {
+    "techpioneers": {
+        "name": "Historical Tech Pioneers",
+        "members": {
+            "alovelace": true,
+            "ghopper": true,
+            "eclarke": true
+        },
+        "chat": {
+            "KLDFJLSDKJF(message_id)": {
+                "author": "JFDKLSDJFKLJ(user_id)" || "CreepChris",
+                "message": "WHenwe gonna d this",
+                "createdAt": "343434424324243"
+            }
+        }
+    },
+    ...
+}
+}

@@ -14,6 +14,9 @@ export const Wrapper = styled.div`
     margin-top: 15px;
     -webkit-box-shadow: 5px 5px 15px 5px #000000a8;
     box-shadow: 5px 5px 15px 5px #000000af;
+    position: fixed;
+    left: 10%;
+    top: 65px;
     ul {
       margin: 0;
       padding: 0;

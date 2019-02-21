@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { compose } from "recompose";
 import { withFirebase } from "../Firebase";
-import { AuthUserContext, withAuthorization } from "../Session";
 import * as ROUTES from "../../constants/routes";
+import { AuthUserContext, withAuthorization } from "../Session";
 
 const INITIAL_STATE = {
   activity: "",
   otheractivity: "",
   actlengthstart: "",
   actlengthend: "",
+  activityname: "",
   intensity: "",
   details: "",
   other: ""
@@ -26,39 +27,31 @@ class CreateActivity extends Component {
       otheractivity,
       actlengthstart,
       actlengthend,
+      activityname,
       intensity,
       details,
       other
     } = this.state;
 
     const members = [authUser.username];
+    const chat = [""];
 
     this.props.firebase.activities().push({
       activity,
       otheractivity,
       actlengthstart,
       actlengthend,
+      activityname,
       intensity,
       details,
       other,
       members,
+      chat,
       userId: authUser.uid,
       createdAt: this.props.firebase.serverValue.TIMESTAMP
     });
+
     this.props.history.push(ROUTES.ACTIVITY);
-    // this.props.firebase
-    //   .activity(
-    //     activity,
-    //     otheractivity,
-    //     actlengthstart,
-    //     actlengthend,
-    //     intensity,
-    //     details,
-    //     other
-    //   )
-    //   .then(() => {
-    //     this.setState({ ...INITIAL_STATE });
-    //   });
     event.preventDefault();
   };
 
@@ -67,26 +60,21 @@ class CreateActivity extends Component {
   };
 
   render() {
-    // const {
-    //   activity,
-    //   actlengthstart,
-    //   actlengthend,
-    //   intensity,
-    //   details
-    // } = this.state;
-
-    // const isInvalid =
-    //   activity === "" ||
-    //   actlengthstart === "" ||
-    //   actlengthend === "" ||
-    //   intensity === "" ||
-    //   details === "";
     return (
       <AuthUserContext.Consumer>
         {authUser => (
           <div>
             <h1>Create Activity</h1>
             <form onSubmit={event => this.onSubmit(event, authUser)}>
+              <label>
+                Activityname:
+                <input
+                  name="activityname"
+                  value={this.state.activityname}
+                  onChange={this.onChange}
+                  type="text"
+                />
+              </label>
               <label>
                 Type of Activity:
                 <select
