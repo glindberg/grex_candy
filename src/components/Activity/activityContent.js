@@ -2,35 +2,9 @@ import React, { Component } from "react";
 // import { Switch, Route, Link } from "react-router-dom";
 import { compose } from "recompose";
 import { AuthUserContext, withAuthorization } from "../Session";
-import { Wrapper, TxtContainer } from "../Profile/styles";
+import { TxtContainer } from "../Profile/styles";
 import { withFirebase } from "../Firebase";
 import { Messages } from "../Chat";
-
-// import * as ROLES from "../../constants/roles";
-// import * as ROUTES from "../../constants/routes";
-import Activity from "../Activity";
-
-// const ActivityContent = () => (
-//   <div>
-//     <h1>Activity Content</h1>
-//     <p>Detailed info about selected activity, {Activity.uid}</p>
-//   </div>
-// );
-
-const ActivitiyContent = ({ activity, hideActivity }) => (
-  <Wrapper>
-    <AuthUserContext.Consumer>
-      {authUser => (
-        <div className="profile">
-          <h1>Profile</h1>
-          <ul />
-          <Activities userId={authUser.uid} />
-          <p />
-        </div>
-      )}
-    </AuthUserContext.Consumer>
-  </Wrapper>
-);
 
 class ActivityContent extends Component {
   constructor(props) {
@@ -43,16 +17,6 @@ class ActivityContent extends Component {
   }
   componentDidMount() {
     this.setState({ loading: false });
-    //     this.setState({ loading: true });
-
-    //     this.props.firebase
-    //       .activity(this.props.activity.uid)
-    //       .on("value", snapshot => {
-    //         this.setState({
-    //           ...snapshot.val(),
-    //           loading: false
-    //         });
-    //       });
   }
   componentWillUnmount() {
     this.props.firebase.activities().off();
@@ -61,7 +25,7 @@ class ActivityContent extends Component {
   render() {
     const { loading } = this.state;
 
-    const { activity, userId, hideActivity } = this.props;
+    const { activity, hideActivity } = this.props;
     return (
       <AuthUserContext.Consumer>
         {authUser => (
@@ -112,8 +76,6 @@ class ActivityContent extends Component {
     );
   }
 }
-
-const Activities = withFirebase(ActivityContent);
 
 const condition = authUser => !!authUser;
 

@@ -39,7 +39,7 @@ class Firebase {
   // *** Merge Auth and DB User API *** //
   onAuthUserListener = (next, fallback) =>
     this.auth.onAuthStateChanged(authUser => {
-      console.log(authUser);
+      // console.log(authUser);
       if (authUser) {
         this.user(authUser.uid)
           .once("value")
