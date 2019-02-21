@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { withFirebase } from "../Firebase";
+<<<<<<< HEAD
+=======
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import Chat from "../Chat/index";
+>>>>>>> b8ca6c9881398e5f7a99d2fdbae8dc4b7b8d560c
 import ActivityContent from "../Activity/activityContent";
 
 class ActivitesBase extends Component {

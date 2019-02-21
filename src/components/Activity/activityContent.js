@@ -2,6 +2,12 @@ import React, { Component } from "react";
 // import { Switch, Route, Link } from "react-router-dom";
 import { compose } from "recompose";
 import { AuthUserContext, withAuthorization } from "../Session";
+<<<<<<< HEAD
+import { TxtContainer } from "../Profile/styles";
+import { withFirebase } from "../Firebase";
+import { Messages } from "../Chat";
+
+=======
 import { Wrapper, TxtContainer } from "../Profile/styles";
 import { withFirebase } from "../Firebase";
 import { Messages } from "../Chat";
@@ -32,6 +38,7 @@ const ActivitiyContent = ({ activity, hideActivity }) => (
   </Wrapper>
 );
 
+>>>>>>> b8ca6c9881398e5f7a99d2fdbae8dc4b7b8d560c
 class ActivityContent extends Component {
   constructor(props) {
     super(props);
@@ -43,6 +50,8 @@ class ActivityContent extends Component {
   }
   componentDidMount() {
     this.setState({ loading: false });
+<<<<<<< HEAD
+=======
     //     this.setState({ loading: true });
 
     //     this.props.firebase
@@ -53,6 +62,7 @@ class ActivityContent extends Component {
     //           loading: false
     //         });
     //       });
+>>>>>>> b8ca6c9881398e5f7a99d2fdbae8dc4b7b8d560c
   }
   componentWillUnmount() {
     this.props.firebase.activities().off();
@@ -61,7 +71,11 @@ class ActivityContent extends Component {
   render() {
     const { loading } = this.state;
 
+<<<<<<< HEAD
+    const { activity, hideActivity } = this.props;
+=======
     const { activity, userId, hideActivity } = this.props;
+>>>>>>> b8ca6c9881398e5f7a99d2fdbae8dc4b7b8d560c
     return (
       <AuthUserContext.Consumer>
         {authUser => (
@@ -113,8 +127,11 @@ class ActivityContent extends Component {
   }
 }
 
+<<<<<<< HEAD
+=======
 const Activities = withFirebase(ActivityContent);
 
+>>>>>>> b8ca6c9881398e5f7a99d2fdbae8dc4b7b8d560c
 const condition = authUser => !!authUser;
 
 export default compose(

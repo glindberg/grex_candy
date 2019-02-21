@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import { compose } from "recompose";
 
-import {
-  AuthUserContext,
-  withAuthorization
-  // withEmailVerification,
-} from "../Session";
+import { AuthUserContext, withAuthorization } from "../Session";
 import { withFirebase } from "../Firebase";
+import ShowUser from "../Profile/showOtherProfile";
+import { Wrapper, Button } from "../Chat/styles";
 
 class Chat extends Component {
   constructor(props) {
@@ -49,7 +47,8 @@ class MessagesBase extends Component {
       text: "",
       loading: false,
       messages: [],
-      limit: 5
+      limit: 5,
+      showProfile: false
     };
   }
 
@@ -121,10 +120,17 @@ class MessagesBase extends Component {
       this.onListenForMessages
     );
   };
+  displayProfile = userId => {
+    this.setState({ showProfile: userId });
+    console.log(userId);
+  };
+  hideProfile = () => {
+    this.setState({ showProfile: false });
+  };
 
   render() {
     const { users } = this.props;
-    const { text, messages, loading } = this.state;
+    const { text, messages, loading, showProfile } = this.state;
 
     return (
       <AuthUserContext.Consumer>
@@ -138,6 +144,13 @@ class MessagesBase extends Component {
 
             {loading && <div>Loading ...</div>}
 
+            {showProfile && (
+              <Wrapper>
+                <ShowUser userId={showProfile} />
+                <Button onClick={this.hideProfile}>X</Button>
+              </Wrapper>
+            )}
+
             {messages && (
               <MessageList
                 messages={messages.map(message => ({
@@ -148,6 +161,7 @@ class MessagesBase extends Component {
                 }))}
                 onEditMessage={this.onEditMessage}
                 onRemoveMessage={this.onRemoveMessage}
+                displayProfile={this.displayProfile}
               />
             )}
 
@@ -164,7 +178,12 @@ class MessagesBase extends Component {
   }
 }
 
-const MessageList = ({ messages, onEditMessage, onRemoveMessage }) => (
+const MessageList = ({
+  messages,
+  onEditMessage,
+  onRemoveMessage,
+  displayProfile
+}) => (
   <ul>
     {messages.map(message => (
       <MessageItem
@@ -172,6 +191,7 @@ const MessageList = ({ messages, onEditMessage, onRemoveMessage }) => (
         message={message}
         onEditMessage={onEditMessage}
         onRemoveMessage={onRemoveMessage}
+        displayProfile={displayProfile}
       />
     ))}
   </ul>
@@ -205,7 +225,7 @@ class MessageItem extends Component {
   };
 
   render() {
-    const { message, onRemoveMessage } = this.props;
+    const { message, onRemoveMessage, displayProfile } = this.props;
     const { editMode, editText } = this.state;
 
     return (
@@ -218,7 +238,9 @@ class MessageItem extends Component {
           />
         ) : (
           <span>
-            <strong>{message.user.username || message.user.userId}</strong>
+            <strong onClick={() => displayProfile(message.userId)}>
+              {message.user.username || message.user.userId}
+            </strong>
             {message.text} {message.editedAt && <span>Edited</span>}
           </span>
         )}
@@ -248,7 +270,6 @@ const condition = authUser => !!authUser;
 
 export default compose(
   withFirebase,
-  // withEmailVerification,
   withAuthorization(condition)
 )(Chat);
 
