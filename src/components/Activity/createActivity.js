@@ -1,14 +1,22 @@
 import React, { Component } from "react";
 import { compose } from "recompose";
 import { withFirebase } from "../Firebase";
-import { AuthUserContext, withAuthorization } from "../Session";
 import * as ROUTES from "../../constants/routes";
+import { AuthUserContext, withAuthorization } from "../Session";
+<<<<<<< HEAD
+=======
+import { Messages } from "../Chat";
+import { database } from "firebase";
+import { firebase } from "firebase";
+// import * as ROUTES from "../../constants/routes";
+>>>>>>> b8ca6c9881398e5f7a99d2fdbae8dc4b7b8d560c
 
 const INITIAL_STATE = {
   activity: "",
   otheractivity: "",
   actlengthstart: "",
   actlengthend: "",
+  activityname: "",
   intensity: "",
   details: "",
   other: ""
@@ -26,39 +34,41 @@ class CreateActivity extends Component {
       otheractivity,
       actlengthstart,
       actlengthend,
+      activityname,
       intensity,
       details,
       other
     } = this.state;
 
     const members = [authUser.username];
+    const chat = [""];
+<<<<<<< HEAD
+=======
+
+    // const activity = firebase.activities();
+
+    // activities.ref("activities/members").set("Gustav");
+    // if (authUser) {
+    //   chat.push("");
+    // }
+>>>>>>> b8ca6c9881398e5f7a99d2fdbae8dc4b7b8d560c
 
     this.props.firebase.activities().push({
       activity,
       otheractivity,
       actlengthstart,
       actlengthend,
+      activityname,
       intensity,
       details,
       other,
       members,
+      chat,
       userId: authUser.uid,
       createdAt: this.props.firebase.serverValue.TIMESTAMP
     });
+
     this.props.history.push(ROUTES.ACTIVITY);
-    // this.props.firebase
-    //   .activity(
-    //     activity,
-    //     otheractivity,
-    //     actlengthstart,
-    //     actlengthend,
-    //     intensity,
-    //     details,
-    //     other
-    //   )
-    //   .then(() => {
-    //     this.setState({ ...INITIAL_STATE });
-    //   });
     event.preventDefault();
   };
 
@@ -67,26 +77,21 @@ class CreateActivity extends Component {
   };
 
   render() {
-    // const {
-    //   activity,
-    //   actlengthstart,
-    //   actlengthend,
-    //   intensity,
-    //   details
-    // } = this.state;
-
-    // const isInvalid =
-    //   activity === "" ||
-    //   actlengthstart === "" ||
-    //   actlengthend === "" ||
-    //   intensity === "" ||
-    //   details === "";
     return (
       <AuthUserContext.Consumer>
         {authUser => (
           <div>
             <h1>Create Activity</h1>
             <form onSubmit={event => this.onSubmit(event, authUser)}>
+              <label>
+                Activityname:
+                <input
+                  name="activityname"
+                  value={this.state.activityname}
+                  onChange={this.onChange}
+                  type="text"
+                />
+              </label>
               <label>
                 Type of Activity:
                 <select

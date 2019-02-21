@@ -95,11 +95,7 @@ class LocatedTwo extends Component {
   }
 
   render() {
-    const markers = [
-      { latitude: 59.316607, longitude: 18.034689 },
-      { latitude: 59.307496, longitude: 17.985272 },
-      { latitude: 59.305496, longitude: 17.985272 }
-    ];
+    const markers = [];
     markers.push(this.state.browserCoords);
     return (
       <div>
