@@ -3,13 +3,6 @@ import { compose } from "recompose";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 import { AuthUserContext, withAuthorization } from "../Session";
-<<<<<<< HEAD
-=======
-import { Messages } from "../Chat";
-import { database } from "firebase";
-import { firebase } from "firebase";
-// import * as ROUTES from "../../constants/routes";
->>>>>>> b8ca6c9881398e5f7a99d2fdbae8dc4b7b8d560c
 
 const INITIAL_STATE = {
   activity: "",
@@ -42,16 +35,6 @@ class CreateActivity extends Component {
 
     const members = [authUser.username];
     const chat = [""];
-<<<<<<< HEAD
-=======
-
-    // const activity = firebase.activities();
-
-    // activities.ref("activities/members").set("Gustav");
-    // if (authUser) {
-    //   chat.push("");
-    // }
->>>>>>> b8ca6c9881398e5f7a99d2fdbae8dc4b7b8d560c
 
     this.props.firebase.activities().push({
       activity,
