@@ -11,3 +11,6 @@ export const CREATE_ACTIVITY = "/create-activity";
 export const ACTIVITY = "/activity";
 export const ADMIN_DETAILS = "/admin/:id";
 export const MAP = "/map";
+export const ACTIVITY_CONTENT = "/activity-content";
+export const CHAT = "/chat";
+// export const LOCATION = "/location";

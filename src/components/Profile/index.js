@@ -3,38 +3,28 @@ import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import { AuthUserContext, withAuthorization } from "../Session";
 import { withFirebase } from "../Firebase";
-import { Wrapper }from "./styles"
+import { Wrapper, ImgContainer, TxtContainer } from "./styles";
+import ImageToProfile from "./profileImage";
 
 const ProfilePage = () => (
   <Wrapper>
-  <AuthUserContext.Consumer>
-    {authUser => (
-      <div>
-      <img
-          className="profile"
-          src={require(`../Images/man.png`)}
-          alt="Profile of David Berg"
-        />
-        <h1>Profile </h1>
-        <p>
-          <b>Username: </b>
-          {authUser.username}
-        </p>
-        <p>
-          <b>Email: </b>
-          {authUser.email}
-        </p>
-        <Profiles userId={authUser.uid}/>
-        <p>
-          <button>
-            <Link to={ROUTES.CREATE_PROFILE}>Create profile</Link>
-          </button>
-          <br />
-          <Link to={ROUTES.ACCOUNT}>Change Password?</Link>
-        </p>
-      </div>
-    )}
-  </AuthUserContext.Consumer>
+    <AuthUserContext.Consumer>
+      {authUser => (
+        <div className="profile">
+          <h1>Profile</h1>
+          <ul />
+          <Profiles userId={authUser.uid} />
+          <p>
+            <button>
+              <Link to={ROUTES.CREATE_PROFILE}>Edit profile</Link>
+            </button>
+            <button>
+              <Link to={ROUTES.ACCOUNT}>Change Password?</Link>
+            </button>
+          </p>
+        </div>
+      )}
+    </AuthUserContext.Consumer>
   </Wrapper>
 );
 
@@ -44,81 +34,89 @@ class ProfileContent extends Component {
 
     this.state = {
       loading: false,
-      profiles: []
+      users: []
     };
   }
   componentDidMount() {
     this.setState({ loading: true });
 
-    this.props.firebase.profiles().on("value", snapshot => {
-      const profilesObject = snapshot.val();
-
-      
-
-      const profilesList = Object.keys(profilesObject).map(key => ({
-        ...profilesObject[key],
-        uid: key
-      }));
-
+    this.props.firebase.user(this.props.userId).on("value", snapshot => {
       this.setState({
-        profiles: profilesList,
+        ...snapshot.val(),
         loading: false
       });
     });
   }
   componentWillUnmount() {
-    this.props.firebase.profiles().off();
+    this.props.firebase.users().off();
   }
 
   render() {
-    const { profiles, loading } = this.state;
+    const {
+      loading,
+      gender,
+      fname,
+      lname,
+      age,
+      phone,
+      city,
+      description
+    } = this.state;
+
     const { userId } = this.props;
     return (
-      <div>
-        <h3>Profile Info</h3>
-        {loading && <div>Loading profile info...</div>}
-        <ul>
-        {profiles
-            .filter(profile => profile.userId == userId )
-            .map(profile => (
-            <li key={profile.uid}>
-              <span>
-                <strong>Name: </strong> {profile.fname} {profile.lname}
-              </span>
-              <br />
-              <span>
-                <strong>Gender: </strong> {profile.gender}
-              </span>
-              <br />
-              <span>
-                <strong>Age:</strong> {profile.age}
-              </span>
-              <br />
-              <span>
-                <strong>Phone: </strong>+46 {profile.phone}
-              </span>
-              <br />
-              <span>
-                <strong>City:</strong> {profile.city}
-              </span>
-              <br />
-              <span>
-                <strong>Description:</strong> {profile.description}
-              </span>
-              <br />
-              <span>
-                <strong>ID:</strong> {profile.userId}
-              </span>
-              <br />
-              <span>
-                <strong>ProfileID:</strong>{profile.uid}
-              </span>
-              <br />
-              <br />
-            </li>
-          ))}
-        </ul>
-      </div>
+      <AuthUserContext.Consumer>
+        {authUser => (
+          <div>
+            {loading && <div>Loading profile info...</div>}
+            {loading ? null : (
+              <ul>
+                <ImgContainer>
+                  <ImageToProfile gender={gender} />
+                </ImgContainer>
+                <TxtContainer>
+                  <br />
+                  <li>
+                    <b>Username: </b>
+                    {authUser.username}
+                  </li>
+                  <li>
+                    <b>Email: </b>
+                    {authUser.email}
+                  </li>
+                  <li>
+                    <span>
+                      <strong>Name: </strong> {fname} {lname}
+                      {userId.fname}
+                    </span>
+                    <br />
+                    <span>
+                      <strong>Gender: </strong> {gender}
+                    </span>
+                    <br />
+                    <span>
+                      <strong>Age:</strong> {age}
+                    </span>
+                    <br />
+                    <span>
+                      <strong>Phone: </strong>+46 {phone}
+                    </span>
+                    <br />
+                    <span>
+                      <strong>City:</strong> {city}
+                    </span>
+                    <br />
+                    <span>
+                      <strong>Description:</strong>
+                      <br /> {description}
+                    </span>
+                  </li>
+                </TxtContainer>
+              </ul>
+            )}
+          </div>
+        )}
+      </AuthUserContext.Consumer>
     );
   }
 }

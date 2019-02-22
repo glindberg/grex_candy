@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { compose } from 'recompose';
+import { compose } from "recompose";
 import { withFirebase } from "../Firebase";
 import { AuthUserContext, withAuthorization } from "../Session";
+import * as ROUTES from "../../constants/routes";
 
 const profile = {
   fname: "",
@@ -10,7 +11,7 @@ const profile = {
   age: "",
   phone: "",
   city: "",
-  description: "",
+  description: ""
 };
 
 class CreateProfile extends Component {
@@ -19,25 +20,29 @@ class CreateProfile extends Component {
 
     this.state = { ...profile };
   }
+
+  // componentDidMount() {
+  //   this.props.firebase.user(this.props.authUser.uid).once(snapshot => {
+  //     this.setState({
+  //       ...snapshot.val(),
+  //       loading: false
+  //     });
+  //   });
+  // }
   onSubmit = (event, authUser) => {
     const { fname, lname, gender, age, phone, city, description } = this.state;
 
-    this.props.firebase.profiles().push({
-      userId: authUser.uid,
+    this.props.firebase.user(authUser.uid).update({
       fname,
       lname,
       gender,
       age,
       phone,
       city,
-      description,
+      description
     });
 
-    this.props.firebase
-      .profile(fname, lname, gender, age, phone, city, description)
-      .then(() => {
-        this.setState({ ...profile });
-      });
+    this.props.history.push(ROUTES.PROFILE);
 
     event.preventDefault();
   };
@@ -47,10 +52,14 @@ class CreateProfile extends Component {
   };
 
   render() {
-    const { fname, lname, age, phone, city } = this.state;
-
+    const { fname, lname, age, phone, city, gender } = this.state;
     const isInvalid =
-      fname === "" || lname === "" || age === "" || phone === "" || city === "";
+      fname === "" ||
+      lname === "" ||
+      age === "" ||
+      phone === "" ||
+      city === "" ||
+      gender === "";
     return (
       <AuthUserContext.Consumer>
         {authUser => (
@@ -59,6 +68,7 @@ class CreateProfile extends Component {
             <form onSubmit={event => this.onSubmit(event, authUser)}>
               <label>
                 First name:
+                <br />
                 <input
                   name="fname"
                   value={this.state.fname}
@@ -68,8 +78,10 @@ class CreateProfile extends Component {
                 />
               </label>
               <br />
+              <br />
               <label>
                 Last name:
+                <br />
                 <input
                   name="lname"
                   value={this.state.lname}
@@ -79,8 +91,10 @@ class CreateProfile extends Component {
                 />
               </label>
               <br />
+              <br />
               <label>
                 Age:
+                <br />
                 <input
                   name="age"
                   value={this.state.age}
@@ -90,21 +104,28 @@ class CreateProfile extends Component {
                 />
               </label>
               <br />
+              <br />
               <label>
                 Gender:
+                <br />
                 <select
                   name="gender"
                   value={this.state.gender}
                   onChange={this.onChange}
                 >
+                  <option value="" disabled default>
+                    Choose gender
+                  </option>
                   <option value="Other">Other</option>
                   <option value="Man">Man</option>
                   <option value="Female">Female</option>
                 </select>
               </label>
               <br />
+              <br />
               <label>
                 Phone number: +46
+                <br />
                 <input
                   name="phone"
                   value={this.state.phone}
@@ -114,8 +135,10 @@ class CreateProfile extends Component {
                 />
               </label>
               <br />
+              <br />
               <label>
                 City:
+                <br />
                 <input
                   name="city"
                   value={this.state.city}
@@ -124,6 +147,7 @@ class CreateProfile extends Component {
                   placeholder="Location.."
                 />
               </label>
+              <br />
               <br />
               <label>
                 Descripion:
@@ -138,9 +162,7 @@ class CreateProfile extends Component {
                 />
               </label>
               <br />
-              <button disabled={isInvalid} type="submit">
-                Create Profile
-              </button>
+              <button disabled={isInvalid}>Create Profile</button>
             </form>
           </div>
         )}
@@ -151,5 +173,7 @@ class CreateProfile extends Component {
 
 const condition = authUser => !!authUser;
 
-export default compose(withAuthorization(condition), withFirebase,
+export default compose(
+  withAuthorization(condition),
+  withFirebase
 )(CreateProfile);
