@@ -30,7 +30,15 @@ class ActivityContent extends Component {
 
     const time = () => {
       const showTime = new Date(activity.createdAt);
-      return showTime.toUTCString();
+      var options = {
+        weekday: "long",
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric"
+      };
+      return showTime.toLocaleString("se-EN", options);
     };
 
     return (
