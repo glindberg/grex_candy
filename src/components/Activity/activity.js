@@ -26,7 +26,10 @@ class ActivitesBase extends Component {
           loading: false
         });
       } else {
-        this.setState({ activities: null, loading: false });
+        this.setState({
+          activities: null,
+          loading: false
+        });
       }
     });
   }
