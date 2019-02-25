@@ -4,6 +4,8 @@ import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 import { AuthUserContext, withAuthorization } from "../Session";
 
+import LocationPage from "../Map/location";
+
 const INITIAL_STATE = {
   activity: "",
   otheractivity: "",
@@ -12,7 +14,8 @@ const INITIAL_STATE = {
   activityname: "",
   intensity: "",
   details: "",
-  other: ""
+  other: "",
+  markers: []
 };
 
 class CreateActivity extends Component {
@@ -21,6 +24,9 @@ class CreateActivity extends Component {
 
     this.state = { ...INITIAL_STATE };
   }
+  receiveMarker = marker => {
+    this.setState({ markers: marker });
+  };
   onSubmit = (event, authUser) => {
     const {
       activity,
@@ -30,7 +36,8 @@ class CreateActivity extends Component {
       activityname,
       intensity,
       details,
-      other
+      other,
+      markers
     } = this.state;
 
     const members = [authUser.username];
@@ -48,6 +55,7 @@ class CreateActivity extends Component {
       other,
       members,
       chat,
+      markers,
       userId: authUser.uid,
       createdAt: this.props.firebase.serverValue.TIMESTAMP
     });
@@ -187,6 +195,7 @@ class CreateActivity extends Component {
                 Create Activity
               </button>
             </form>
+            <LocationPage createActivityView={this.receiveMarker} />
           </div>
         )}
       </AuthUserContext.Consumer>

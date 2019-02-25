@@ -21,14 +21,6 @@ class CreateProfile extends Component {
     this.state = { ...profile };
   }
 
-  // componentDidMount() {
-  //   this.props.firebase.user(this.props.authUser.uid).once(snapshot => {
-  //     this.setState({
-  //       ...snapshot.val(),
-  //       loading: false
-  //     });
-  //   });
-  // }
   onSubmit = (event, authUser) => {
     const { fname, lname, gender, age, phone, city, description } = this.state;
 

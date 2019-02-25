@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import { Map, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 import { withFirebase } from "../Firebase";
 import { AuthUserContext } from "../Session";
 
-const LocationPage = () => (
+const LocationPage = props => (
   <AuthUserContext.Consumer>
     {authUser => (
       <div>
-        <Location userId={authUser.uid} />
+        <Location {...props} userId={authUser.uid} />
       </div>
     )}
   </AuthUserContext.Consumer>
@@ -18,10 +18,30 @@ class LocatedTwo extends Component {
     super(props);
     this.state = {
       browserCoords: null,
-      dbCoords: null
+      dbCoords: null,
+      loading: false,
+      activities: null
     };
   }
-
+  getAllActivities = () => {
+    this.setState({ loading: true });
+    this.props.firebase.activities().on("value", snapshot => {
+      const activityObject = snapshot.val();
+      if (activityObject) {
+        // convert messages list from snapshot
+        const activityList = Object.keys(activityObject).map(key => ({
+          ...activityObject[key],
+          uid: key
+        }));
+        this.setState({
+          activities: activityList,
+          loading: false
+        });
+      } else {
+        this.setState({ activities: null, loading: false });
+      }
+    });
+  };
   calculateDistance = (lat1, lon1, lat2, lon2) => {
     var R = 6371; // km (change this constant to get miles)
     var dLat = ((lat2 - lat1) * Math.PI) / 180;
@@ -77,6 +97,7 @@ class LocatedTwo extends Component {
 
   componentDidMount() {
     this.getUserPositionFromDB();
+    this.getAllActivities();
     this.watchId = navigator.geolocation.watchPosition(
       this.updatePosition,
       error => {
@@ -95,43 +116,97 @@ class LocatedTwo extends Component {
   }
 
   render() {
-    const markers = [];
-    markers.push(this.state.browserCoords);
+    var markers = [];
+    if (!this.props.createActivityView && this.state.activities) {
+      markers = this.state.activities
+        .filter(activity => activity.markers)
+        .map(activity => ({
+          ...activity.markers,
+          name: activity.activity
+        }));
+      // console.log(markers);
+    }
+    //const markers = [];
+    markers.push({ ...this.state.browserCoords, name: "Yourself" });
     return (
       <div>
         {this.state.browserCoords ? (
           <MyMap
+            {...this.props}
+            onClick={this.addMarker}
             markers={markers}
             position={Object.values(this.state.browserCoords)}
             zoom={13}
+            sendMarker={this.props.createActivityView}
           />
-        ) : null}
+        ) : (
+          <span>No position of user</span>
+        )}
       </div>
     );
   }
 }
 
-const MyMap = props => (
-  <Map
-    zoomControl={false}
-    scrollWheelZoom={true}
-    center={props.position}
-    zoom={props.zoom}
-  >
-    <TileLayer
-      attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-      url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-    />
-    {props.markers.map((marker, index) => (
-      <Marker key={index} position={Object.values(marker)}>
-        <Popup>
-          Position of me.
-          <br />
-        </Popup>
-      </Marker>
-    ))}
-  </Map>
-);
+class MyMap extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      markers: []
+    };
+  }
+  addMarker = e => {
+    if (this.props.createActivityView) {
+      const { markers } = this.state;
+      markers[0] = e.latlng;
+
+      this.setState({ markers });
+      console.log(e.latlng);
+      this.props.sendMarker(e.latlng);
+    }
+  };
+
+  render() {
+    const props = this.props;
+    return (
+      <Map
+        zoomControl={false}
+        scrollWheelZoom={true}
+        center={props.position}
+        zoom={props.zoom}
+        onClick={this.addMarker}
+      >
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+        />
+        {props.markers.map((marker, index) => (
+          <Marker key={index} position={Object.values(marker)}>
+            <Popup>
+              {marker.name ? marker.name : "Placeholder"}
+              <br />
+            </Popup>
+          </Marker>
+        ))}
+        {this.state.markers.map((marker, index) => (
+          <Marker key={index} position={Object.values(marker)}>
+            <Popup>
+              I want to workout here! {this.state.markers.toString()}
+              <br />
+            </Popup>
+            <Circle
+              center={this.state.markers[index]}
+              fillColor="BLUE"
+              radius={500}
+              color="red"
+            >
+              <Popup>Hej</Popup>
+            </Circle>
+          </Marker>
+        ))}
+      </Map>
+    );
+  }
+}
 
 const Location = withFirebase(LocatedTwo);
 
