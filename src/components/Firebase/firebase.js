@@ -71,8 +71,7 @@ class Firebase {
   // *** Message API ***
   message = uid => this.db.ref(`messages/${uid}`);
 
-  // messages = () => this.db.ref("messages");
-  messages = () => this.db.ref("activities/chat");
+  messages = () => this.db.ref("messages");
 
   // *** Activity API ***
   activity = uid => this.db.ref(`activities/${uid}`);

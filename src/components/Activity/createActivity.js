@@ -34,7 +34,8 @@ class CreateActivity extends Component {
     } = this.state;
 
     const members = [authUser.username];
-    const chat = [authUser.username];
+    // const chat = [""];
+    const chat = null;
 
     this.props.firebase.activities().push({
       activity,
@@ -46,7 +47,7 @@ class CreateActivity extends Component {
       details,
       other,
       members,
-      chat: <Messages users={this.state.users} />,
+      chat,
       userId: authUser.uid,
       createdAt: this.props.firebase.serverValue.TIMESTAMP
     });
@@ -178,7 +179,13 @@ class CreateActivity extends Component {
               </label>
               <br />
               {/* disabled={isInvalid} detta ska med in i button */}
-              <button type="submit">Create Activity</button>
+              <button
+                type="submit"
+                value={this.state.activityname}
+                onChange={this.onChange}
+              >
+                Create Activity
+              </button>
             </form>
           </div>
         )}
