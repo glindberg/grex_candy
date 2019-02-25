@@ -54,7 +54,7 @@ class ShowProfile extends Component {
           {users
             .filter(user => user.uid === userId)
             .map(u => (
-              <li key={u.id}>
+              <li key={u.toString()}>
                 <div>
                   <ImgContainer>
                     <ImageToProfile gender={u.gender} />

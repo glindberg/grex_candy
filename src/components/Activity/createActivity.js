@@ -4,6 +4,8 @@ import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 import { AuthUserContext, withAuthorization } from "../Session";
 
+import LocationPage from "../Map/location";
+
 const INITIAL_STATE = {
   activity: "",
   otheractivity: "",
@@ -12,7 +14,8 @@ const INITIAL_STATE = {
   activityname: "",
   intensity: "",
   details: "",
-  other: ""
+  other: "",
+  markers: []
 };
 
 class CreateActivity extends Component {
@@ -21,6 +24,9 @@ class CreateActivity extends Component {
 
     this.state = { ...INITIAL_STATE };
   }
+  receiveMarker = marker => {
+    this.setState({ markers: marker });
+  };
   onSubmit = (event, authUser) => {
     const {
       activity,
@@ -30,11 +36,13 @@ class CreateActivity extends Component {
       activityname,
       intensity,
       details,
-      other
+      other,
+      markers
     } = this.state;
 
     const members = [authUser.username];
     const chat = [""];
+    //const markers = [""];
 
     this.props.firebase.activities().push({
       activity,
@@ -47,6 +55,7 @@ class CreateActivity extends Component {
       other,
       members,
       chat,
+      markers,
       userId: authUser.uid,
       createdAt: this.props.firebase.serverValue.TIMESTAMP
     });
@@ -180,6 +189,7 @@ class CreateActivity extends Component {
               {/* disabled={isInvalid} detta ska med in i button */}
               <button type="submit">Create Activity</button>
             </form>
+            <LocationPage createActivityView={this.receiveMarker} />
           </div>
         )}
       </AuthUserContext.Consumer>
@@ -187,6 +197,40 @@ class CreateActivity extends Component {
   }
 }
 
+// class SimpleExample extends React.Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       markers: [[51.505, -0.09]]
+//     };
+//   }
+
+//   addMarker = e => {
+//     const { markers } = this.state;
+//     markers.push(e.latlng);
+//     this.setState({ markers });
+//   };
+
+//   render() {
+//     return (
+//       <Map center={[51.505, -0.09]} onClick={this.addMarker} zoom={13}>
+//         <TileLayer
+//           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+//           url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+//         />
+//         {this.state.markers.map((position, idx) => (
+//           <Marker key={`marker-${idx}`} position={position}>
+//             <Popup>
+//               <span>
+//                 A pretty CSS3 popup. <br /> Easily customizable.
+//               </span>
+//             </Popup>
+//           </Marker>
+//         ))}
+//       </Map>
+//     );
+//   }
+// }
 const condition = authUser => !!authUser;
 
 export default compose(

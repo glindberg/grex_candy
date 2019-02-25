@@ -1,15 +1,14 @@
 import React from "react";
 import LocationPage from "../Map/location";
 import { AuthUserContext } from "../Session";
-
 const Home = () => (
-  <AuthUserContext>
+  <AuthUserContext.Consumer>
     {authUser => (
       <div>
-        <LocationPage />
+        <LocationPage userId={authUser.uid} />
       </div>
     )}
-  </AuthUserContext>
+  </AuthUserContext.Consumer>
 );
 
 export default Home;

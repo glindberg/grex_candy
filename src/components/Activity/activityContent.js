@@ -62,7 +62,9 @@ class ActivityContent extends Component {
 
                   <li>
                     <span onClick={() => hideActivity()}>
-                      <strong>CLOSE</strong>
+                      <button>
+                        <strong>CLOSE</strong>
+                      </button>
                     </span>
                   </li>
                 </TxtContainer>
