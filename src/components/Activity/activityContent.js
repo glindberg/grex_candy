@@ -4,7 +4,7 @@ import { compose } from "recompose";
 import { AuthUserContext, withAuthorization } from "../Session";
 import { TxtContainer } from "../Profile/styles";
 import { withFirebase } from "../Firebase";
-import { Messages } from "../Chat";
+import { MessagesTwo } from "../Chat";
 
 class ActivityContent extends Component {
   constructor(props) {
@@ -12,12 +12,19 @@ class ActivityContent extends Component {
 
     this.state = {
       loading: false,
-      users: []
+      users: null
     };
   }
+
   componentDidMount() {
-    this.setState({ loading: false });
+    this.props.firebase.users().on("value", snapshot => {
+      this.setState({
+        loading: false,
+        users: snapshot.val()
+      });
+    });
   }
+
   componentWillUnmount() {
     this.props.firebase.activities().off();
   }
@@ -56,7 +63,7 @@ class ActivityContent extends Component {
                     {activity.details}
                   </li>
                   <li>
-                    <b>Members: </b>
+                    <b>Created by: </b>
                     {activity.members}
                   </li>
 
@@ -67,9 +74,12 @@ class ActivityContent extends Component {
                       </button>
                     </span>
                   </li>
+                  <br />
+                  {/* <button onClick={joinActivity()}>Join Activity</button>*/}
                 </TxtContainer>
-                {/* <Messages users={this.state.users} />*/}
-                <Messages />
+                {/*<Messages />*/}
+                {/*<Messages users={this.state.users} />*/}
+                <MessagesTwo activity={activity} users={this.state.users} />
               </ul>
             )}
           </div>

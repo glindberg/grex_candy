@@ -41,8 +41,8 @@ class CreateActivity extends Component {
     } = this.state;
 
     const members = [authUser.username];
-    const chat = [""];
-    //const markers = [""];
+    // const chat = [""];
+    const chat = null;
 
     this.props.firebase.activities().push({
       activity,
@@ -187,7 +187,13 @@ class CreateActivity extends Component {
               </label>
               <br />
               {/* disabled={isInvalid} detta ska med in i button */}
-              <button type="submit">Create Activity</button>
+              <button
+                type="submit"
+                value={this.state.activityname}
+                onChange={this.onChange}
+              >
+                Create Activity
+              </button>
             </form>
             <LocationPage createActivityView={this.receiveMarker} />
           </div>
@@ -197,40 +203,6 @@ class CreateActivity extends Component {
   }
 }
 
-// class SimpleExample extends React.Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       markers: [[51.505, -0.09]]
-//     };
-//   }
-
-//   addMarker = e => {
-//     const { markers } = this.state;
-//     markers.push(e.latlng);
-//     this.setState({ markers });
-//   };
-
-//   render() {
-//     return (
-//       <Map center={[51.505, -0.09]} onClick={this.addMarker} zoom={13}>
-//         <TileLayer
-//           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-//           url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-//         />
-//         {this.state.markers.map((position, idx) => (
-//           <Marker key={`marker-${idx}`} position={position}>
-//             <Popup>
-//               <span>
-//                 A pretty CSS3 popup. <br /> Easily customizable.
-//               </span>
-//             </Popup>
-//           </Marker>
-//         ))}
-//       </Map>
-//     );
-//   }
-// }
 const condition = authUser => !!authUser;
 
 export default compose(
