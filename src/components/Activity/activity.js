@@ -91,3 +91,5 @@ const ActivityItem = ({ activity, handleActivityClick }) => (
 );
 
 export default Activities;
+
+export { ActivityItem };

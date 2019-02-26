@@ -125,9 +125,7 @@ class LocatedTwo extends Component {
           ...activity.markers,
           name: activity.activity
         }));
-      // console.log(markers);
     }
-    //const markers = [];
     markers.push({
       ...this.state.browserCoords,
       name: "This is your position"
@@ -171,6 +169,12 @@ class MyMap extends Component {
 
   render() {
     const props = this.props;
+    // const myIcon = {
+    //   iconUrl: require("../Images/Female.png"),
+    //   iconSize: [38, 95],
+    //   iconAnchor: [22, 94],
+    //   popupAnchor: [-3, -76]
+    // };
     return (
       <Map
         zoomControl={false}
