@@ -63,7 +63,6 @@ class ProfileContent extends Component {
       description
     } = this.state;
 
-    const { userId } = this.props;
     return (
       <AuthUserContext.Consumer>
         {authUser => (
@@ -87,7 +86,6 @@ class ProfileContent extends Component {
                   <li>
                     <span>
                       <strong>Name: </strong> {fname} {lname}
-                      {userId.fname}
                     </span>
                     <br />
                     <span>

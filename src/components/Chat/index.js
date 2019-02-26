@@ -1,52 +1,18 @@
 import React, { Component } from "react";
 import { compose } from "recompose";
-
 import { AuthUserContext, withAuthorization } from "../Session";
 import { withFirebase } from "../Firebase";
 import ShowUser from "../Profile/showOtherProfile";
 import { Wrapper, Button } from "../Chat/styles";
 
-class Chat extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      users: null
-    };
-  }
-
-  componentDidMount() {
-    this.props.firebase.users().on("value", snapshot => {
-      this.setState({
-        users: snapshot.val()
-      });
-    });
-  }
-
-  componentWillUnmount() {
-    this.props.firebase.users().off();
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>Chat</h1>
-        <p>Message your training partner</p>
-
-        <Messages users={this.state.users} />
-      </div>
-    );
-  }
-}
-
-class MessagesBase extends Component {
+class MessagesBaseTwo extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       text: "",
       loading: false,
-      messages: [],
+      messages: null,
       limit: 5,
       showProfile: false
     };
@@ -60,9 +26,8 @@ class MessagesBase extends Component {
     this.setState({ loading: true });
 
     this.props.firebase
-      .messages()
-      .orderByChild("createdAt")
-      .limitToLast(this.state.limit)
+      .activity(this.props.activity.uid)
+      .child("chat")
       .on("value", snapshot => {
         const messageObject = snapshot.val();
 
@@ -71,7 +36,7 @@ class MessagesBase extends Component {
             ...messageObject[key],
             uid: key
           }));
-
+          // console.log("Messages found");
           this.setState({
             messages: messageList,
             loading: false
@@ -91,11 +56,14 @@ class MessagesBase extends Component {
   };
 
   onCreateMessage = (event, authUser) => {
-    this.props.firebase.messages().push({
-      text: this.state.text,
-      userId: authUser.uid,
-      createdAt: this.props.firebase.serverValue.TIMESTAMP
-    });
+    this.props.firebase
+      .activity(this.props.activity.uid)
+      .child("chat")
+      .push({
+        text: this.state.text,
+        userId: authUser.uid,
+        createdAt: this.props.firebase.serverValue.TIMESTAMP
+      });
 
     this.setState({ text: "" });
 
@@ -111,7 +79,11 @@ class MessagesBase extends Component {
   };
 
   onRemoveMessage = uid => {
-    this.props.firebase.message(uid).remove();
+    this.props.firebase
+      .activity(this.props.activity.uid)
+      .child("chat")
+      .child(uid)
+      .remove();
   };
 
   onNextPage = () => {
@@ -245,15 +217,6 @@ class MessageItem extends Component {
           </span>
         )}
 
-        {editMode ? (
-          <span>
-            <button onClick={this.onSaveEditText}>Save</button>
-            <button onClick={this.onToggleEditMode}>Reset</button>
-          </span>
-        ) : (
-          <button onClick={this.onToggleEditMode}>Edit</button>
-        )}
-
         {!editMode && (
           <button type="button" onClick={() => onRemoveMessage(message.uid)}>
             Delete
@@ -264,13 +227,7 @@ class MessageItem extends Component {
   }
 }
 
-const Messages = withFirebase(MessagesBase);
-
+const MessagesTwo = withFirebase(MessagesBaseTwo);
 const condition = authUser => !!authUser;
 
-export default compose(
-  withFirebase,
-  withAuthorization(condition)
-)(Chat);
-
-export { Messages, Chat };
+export default compose(withAuthorization(condition))(MessagesTwo);
