@@ -41,7 +41,6 @@ class CreateActivity extends Component {
     } = this.state;
 
     const members = [authUser.username];
-    // const chat = [""];
     const chat = null;
 
     this.props.firebase.activities().push({

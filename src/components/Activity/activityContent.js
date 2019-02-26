@@ -4,7 +4,7 @@ import { compose } from "recompose";
 import { AuthUserContext, withAuthorization } from "../Session";
 import { TxtContainer } from "../Profile/styles";
 import { withFirebase } from "../Firebase";
-import { MessagesTwo } from "../Chat";
+import MessagesTwo from "../Chat";
 
 class ActivityContent extends Component {
   constructor(props) {
@@ -75,10 +75,7 @@ class ActivityContent extends Component {
                     </span>
                   </li>
                   <br />
-                  {/* <button onClick={joinActivity()}>Join Activity</button>*/}
                 </TxtContainer>
-                {/*<Messages />*/}
-                {/*<Messages users={this.state.users} />*/}
                 <MessagesTwo activity={activity} users={this.state.users} />
               </ul>
             )}
