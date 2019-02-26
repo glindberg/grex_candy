@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withFirebase } from "../Firebase";
 import ActivityContent from "../Activity/activityContent";
+import { Act } from "./styles";
 
 class ActivitesBase extends Component {
   constructor(props) {
@@ -70,7 +71,7 @@ class ActivitesBase extends Component {
 const Activities = withFirebase(ActivitesBase);
 
 const ActivityList = ({ activities, handleActivityClick }) => (
-  <ul>
+  <div>
     {activities.map(activity => (
       <ActivityItem
         handleActivityClick={handleActivityClick}
@@ -78,22 +79,15 @@ const ActivityList = ({ activities, handleActivityClick }) => (
         activity={activity}
       />
     ))}
-  </ul>
+  </div>
 );
 
 const ActivityItem = ({ activity, handleActivityClick }) => (
-  <li>
-    {/* <button onClick={this.props.activityOnClick()}>*/}
-    <button>
-      <span onClick={() => handleActivityClick(activity)}>
-        <strong>{activity.activity}</strong>
-      </span>
-    </button>
-    {/*<br /> {activity.activity} - {activity.otheractivity}*/}
-    <br />
-    {/*{activity.actlengthstart} - {activity.actlengthend}*/}
-    {/* <Chat /> */}
-  </li>
+  <Act onClick={() => handleActivityClick(activity)}>
+    <span>
+      <strong>{activity.activity}</strong>
+    </span>
+  </Act>
 );
 
 export default Activities;

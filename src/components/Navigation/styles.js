@@ -48,6 +48,7 @@ export const Ham = styled.section`
   /* Color/shape of burger icon bars */
   .bm-burger-bars {
     background: white;
+    border-radius: 10px;
   }
 
   /* Color/shape of burger icon bars on hover*/

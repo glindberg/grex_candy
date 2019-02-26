@@ -342,18 +342,6 @@ const MessageList = ({
     ))}
   </ul>
 );
-// const MessageListTwo = ({
-//   messages,
-//   onEditMessage,
-//   onRemoveMessage,
-//   displayProfile
-// }) => (
-//   <ul>
-//     {messages.map((message, index) => (
-//       <div key={index}>{message.text}</div>
-//     ))}
-//   </ul>
-// );
 
 class MessageItem extends Component {
   constructor(props) {
