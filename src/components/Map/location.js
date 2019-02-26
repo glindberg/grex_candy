@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import { Map, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 import { withFirebase } from "../Firebase";
 import { AuthUserContext } from "../Session";
+import { MapPage } from "./styles";
 
 const LocationPage = props => (
   <AuthUserContext.Consumer>
     {authUser => (
-      <div>
+      <MapPage>
         <Location {...props} userId={authUser.uid} />
-      </div>
+      </MapPage>
     )}
   </AuthUserContext.Consumer>
 );
@@ -127,7 +128,10 @@ class LocatedTwo extends Component {
       // console.log(markers);
     }
     //const markers = [];
-    markers.push({ ...this.state.browserCoords, name: "Yourself" });
+    markers.push({
+      ...this.state.browserCoords,
+      name: "This is your position"
+    });
     return (
       <div>
         {this.state.browserCoords ? (
