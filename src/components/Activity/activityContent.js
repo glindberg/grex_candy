@@ -32,7 +32,7 @@ class ActivityContent extends Component {
   render() {
     const { loading } = this.state;
 
-    const { activity, hideActivity } = this.props;
+    const { activity, hideActivity, hideActivityChat } = this.props;
     return (
       <AuthUserContext.Consumer>
         {authUser => (
@@ -71,6 +71,11 @@ class ActivityContent extends Component {
                     <span onClick={() => hideActivity()}>
                       <button>
                         <strong>CLOSE</strong>
+                      </button>
+                    </span>
+                    <span onClick={() => hideActivityChat()}>
+                      <button>
+                        <strong>Join Activity</strong>
                       </button>
                     </span>
                   </li>

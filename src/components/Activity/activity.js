@@ -43,6 +43,9 @@ class ActivitesBase extends Component {
   handleActivityClick = activity => {
     this.setState({ activity });
   };
+  hideActivityChat = () => {
+    this.setState({ activity: null });
+  };
 
   render() {
     const { activities, loading, activity } = this.state;
@@ -54,6 +57,7 @@ class ActivitesBase extends Component {
           <ActivityContent
             activity={activity}
             hideActivity={this.hideActivity}
+            hideActivityChat={this.hideActivityChat}
           />
         ) : activities ? (
           <ActivityList
