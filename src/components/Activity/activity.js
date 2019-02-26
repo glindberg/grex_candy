@@ -83,6 +83,7 @@ const ActivityItem = ({ activity, handleActivityClick }) => (
     <button>
       <span onClick={() => handleActivityClick(activity)}>
         <strong>{activity.activity}</strong>
+        <p>Created: {}</p>
       </span>
     </button>
     {/*<br /> {activity.activity} - {activity.otheractivity}*/}

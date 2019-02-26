@@ -5,7 +5,6 @@ import { AuthUserContext, withAuthorization } from "../Session";
 import { TxtContainer } from "../Profile/styles";
 import { withFirebase } from "../Firebase";
 import { Messages } from "../Chat";
-import createActivity from "./createActivity";
 
 class ActivityContent extends Component {
   constructor(props) {

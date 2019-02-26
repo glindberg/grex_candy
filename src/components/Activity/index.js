@@ -9,7 +9,7 @@ const ActivityPage = () => (
     <div>
       <Activities />
 
-      <Link to={ROUTES.CREATE_ACTIVITY}>Create Activity</Link>
+      {/*<Link to={ROUTES.CREATE_ACTIVITY}>Create Activity</Link>*/}
     </div>
   </div>
 );
