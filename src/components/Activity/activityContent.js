@@ -12,7 +12,8 @@ class ActivityContent extends Component {
 
     this.state = {
       loading: false,
-      users: null
+      users: null,
+      showChat: false
     };
   }
 
@@ -29,8 +30,17 @@ class ActivityContent extends Component {
     this.props.firebase.activities().off();
   }
 
+  displayChat() {
+    this.setState({ showChat: true });
+    console.log("showChat har kallats på");
+  }
+
+  hideChat = () => {
+    this.setState({ showChat: false });
+  };
+
   render() {
-    const { loading } = this.state;
+    const { loading, showChat } = this.state;
 
     const { activity, hideActivity } = this.props;
     return (
@@ -75,8 +85,28 @@ class ActivityContent extends Component {
                     </span>
                   </li>
                   <br />
+                  <li>
+                    {!showChat && (
+                      <span onClick={() => this.displayChat()}>
+                        <button>
+                          <strong>Join Activity</strong>
+                        </button>
+                      </span>
+                    )}
+                  </li>
+
+                  {showChat && (
+                    <div>
+                      <MessagesTwo
+                        activity={activity}
+                        users={this.state.users}
+                      />
+                      <button onClick={this.hideChat}>Leave Activity</button>
+                    </div>
+                  )}
+
+                  <br />
                 </TxtContainer>
-                <MessagesTwo activity={activity} users={this.state.users} />
               </ul>
             )}
           </div>
