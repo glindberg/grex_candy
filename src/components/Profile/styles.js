@@ -1,34 +1,28 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  background-color: beige;
-  width: 100%;
-  height: 100%;
-
   .profile {
-    background: linear-gradient(rgb(207, 226, 199), rgb(118, 135, 110));
-    width: 80%;
-    margin: auto;
-    border: 1px solid black;
+    background: #abbaab; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to bottom,
+      #ffffff,
+      #abbaab
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to bottom,
+      #ffffff,
+      #abbaab
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    width: 96%;
     border-radius: 10px;
-    margin-top: 15px;
-    -webkit-box-shadow: 5px 5px 15px 5px #000000a8;
-    box-shadow: 5px 5px 15px 5px #000000af;
-    position: fixed;
-    left: 10%;
-    top: 65px;
-    ul {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-  }
-  div {
-    margin: auto;
+    margin: 2% 1.8%;
+    border: 1px solid black;
+    position: absolute;
+    /* top: 65px; */
   }
   img {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     border: 1px black solid;
   }
@@ -38,10 +32,49 @@ export const Wrapper = styled.div`
   }
 `;
 
+export const CreateP = styled.div`
+  display: flex;
+  div {
+    width: 80%;
+    margin: auto;
+  }
+  h1 {
+    margin: 10px 0px 10px 0px;
+    text-align: center;
+  }
+  label {
+  }
+  input {
+    margin-left: 10px;
+    border: none;
+    border-bottom: 1px solid grey;
+    position: fixed;
+    right: 10%;
+    padding-left: 5px;
+  }
+  select {
+    width: 174px;
+    position: fixed;
+    right: 10%;
+  }
+  textarea {
+    width: calc(100% - 6px);
+    padding-left: 5px;
+    margin-top: 10px;
+  }
+`;
+
 export const ImgContainer = styled.div`
   text-align: center;
+  margin: 10px 0px;
 `;
 
 export const TxtContainer = styled.div`
-  padding-left: 20%;
+  width: 80%;
+  margin: auto;
+  font-size: 1.3em;
+`;
+export const BtnContainer = styled.div`
+  margin: 10px 0px;
+  text-align: center;
 `;

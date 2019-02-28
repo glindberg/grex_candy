@@ -73,6 +73,7 @@ class CreateActivity extends Component {
         {authUser => (
           <div>
             <h1>Create Activity</h1>
+            <LocationPage createActivityView={this.receiveMarker} />
             <form onSubmit={event => this.onSubmit(event, authUser)}>
               <label>
                 Activityname:
@@ -194,7 +195,6 @@ class CreateActivity extends Component {
                 Create Activity
               </button>
             </form>
-            <LocationPage createActivityView={this.receiveMarker} />
           </div>
         )}
       </AuthUserContext.Consumer>
