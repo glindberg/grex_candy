@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { Map, TileLayer, Marker, Popup, Circle } from "react-leaflet";
+import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import { withFirebase } from "../Firebase";
 import { AuthUserContext } from "../Session";
 import { MapPage } from "./styles";
+import L from "leaflet";
+import { ActivityContent, ActivityList } from "../Activity/activity";
 
 const LocationPage = props => (
   <AuthUserContext.Consumer>
@@ -129,6 +131,7 @@ class LocatedTwo extends Component {
     markers.push({
       ...this.state.browserCoords,
       name: "This is your position"
+      // icon:
     });
     return (
       <div>
@@ -138,11 +141,11 @@ class LocatedTwo extends Component {
             onClick={this.addMarker}
             markers={markers}
             position={Object.values(this.state.browserCoords)}
-            zoom={13}
+            zoom={12}
             sendMarker={this.props.createActivityView}
           />
         ) : (
-          <span>No position of user</span>
+          <span>Can't get any position data..</span>
         )}
       </div>
     );
@@ -160,55 +163,84 @@ class MyMap extends Component {
     if (this.props.createActivityView) {
       const { markers } = this.state;
       markers[0] = e.latlng;
-
       this.setState({ markers });
-      console.log(e.latlng);
       this.props.sendMarker(e.latlng);
     }
   };
+  getToActivity = (activity, activities) => {
+    console.log("getToActivity clicked");
+    return (
+      <div>
+        {activity ? (
+          <ActivityContent
+            activity={activity}
+            hideActivity={this.props.hideActivity}
+          />
+        ) : activities ? (
+          <ActivityList
+            handleActivityClick={this.props.handleActivityClick}
+            activities={activities}
+          />
+        ) : (
+          <div>There are no activities ...</div>
+        )}
+      </div>
+    );
+  };
 
   render() {
-    const props = this.props;
-    // const myIcon = {
-    //   iconUrl: require("../Images/Female.png"),
-    //   iconSize: [38, 95],
-    //   iconAnchor: [22, 94],
-    //   popupAnchor: [-3, -76]
-    // };
+    const activityIcon = L.icon({
+      iconUrl: require("../Images/Runner.png"),
+      iconSize: [35, 64],
+      iconAnchor: [15, 64],
+      shadowUrl: require("../Images/Shadow1.png"),
+      shadowSize: [70, 25],
+      shadowAnchor: [20, 25],
+      popupAnchor: [0, -65]
+    });
+    const myIcon = L.icon({
+      iconUrl: require("../Images/Runner2.png"),
+      iconSize: [35, 64],
+      iconAnchor: [15, 64],
+      shadowUrl: require("../Images/Shadow1.png"),
+      shadowSize: [70, 25],
+      shadowAnchor: [20, 25],
+      popupAnchor: [0, -65]
+    });
     return (
       <Map
         zoomControl={false}
         scrollWheelZoom={true}
-        center={props.position}
-        zoom={props.zoom}
+        center={this.props.position}
+        zoom={this.props.zoom}
         onClick={this.addMarker}
       >
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+          url="https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png"
         />
-        {props.markers.map((marker, index) => (
-          <Marker key={index} position={Object.values(marker)}>
+        {this.props.markers.map((marker, index) => (
+          <Marker key={index} position={Object.values(marker)} icon={myIcon}>
             <Popup>
-              {marker.name ? marker.name : "Placeholder"}
-              <br />
+              <div onClick={activity => this.props.handleActivityClick()}>
+                {marker.name ? marker.name : "Placeholder"}
+                <br />
+              </div>
             </Popup>
           </Marker>
         ))}
+
         {this.state.markers.map((marker, index) => (
-          <Marker key={index} position={Object.values(marker)}>
+          <Marker
+            icon={activityIcon}
+            key={index}
+            position={Object.values(marker)}
+          >
             <Popup>
-              I want to workout here! {this.state.markers.toString()}
+              I want to do my activity here
               <br />
+              {this.state.markers.toString()}
             </Popup>
-            <Circle
-              center={this.state.markers[index]}
-              fillColor="BLUE"
-              radius={500}
-              color="red"
-            >
-              <Popup>Hej</Popup>
-            </Circle>
           </Marker>
         ))}
       </Map>

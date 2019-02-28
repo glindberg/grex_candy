@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { withFirebase } from "../Firebase";
 import ActivityContent from "../Activity/activityContent";
 import { Act } from "./styles";
+import { Time } from "./activityContent";
+
+import LocationPage from "../Map/location";
 
 class ActivitesBase extends Component {
   constructor(props) {
@@ -42,14 +45,18 @@ class ActivitesBase extends Component {
   };
   handleActivityClick = activity => {
     this.setState({ activity });
+    console.log("hej");
   };
 
   render() {
     const { activities, loading, activity } = this.state;
     return (
       <div>
+        <LocationPage
+          activities={activities}
+          handleActivityClick={this.handleActivityClick}
+        />
         {loading && <div>Loading activities...</div>}
-
         {activity ? (
           <ActivityContent
             activity={activity}
@@ -86,10 +93,12 @@ const ActivityItem = ({ activity, handleActivityClick }) => (
   <Act onClick={() => handleActivityClick(activity)}>
     <span>
       <strong>{activity.activity}</strong>
+      <br />
+      <Time createdAt={activity.createdAt} />
     </span>
   </Act>
 );
 
 export default Activities;
 
-export { ActivityItem };
+export { ActivityItem, ActivityList, ActivityContent };
