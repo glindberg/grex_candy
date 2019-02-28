@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Act = styled.div`
+export const Admin = styled.div`
   background: #abbaab; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to bottom,
@@ -13,16 +13,22 @@ export const Act = styled.div`
     #abbaab
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   border: 1px solid black;
+  border-radius: 5px;
+  height: 100%;
   margin: 5px;
-  font-size: 1.5rem;
-  padding: 20px;
-  border-radius: 10px;
-`;
+  color: black;
 
-export const ActPage = styled.div`
-  text-align: center;
-  height: calc(100vh - 60px);
-  h1 {
-    margin: 0;
+  div {
+    margin-left: 20%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    h2 {
+      margin: 0px;
+      padding: 0;
+    }
+    a {
+      color: black;
+      text-decoration: none;
+    }
   }
 `;

@@ -76,6 +76,10 @@ class ActivityContent extends Component {
                     <b>Created by: </b>
                     {activity.members}
                   </li>
+                  <li>
+                    <b>Created at: </b>
+                    <Time createdAt={activity.createdAt} />
+                  </li>
 
                   <li>
                     <span onClick={() => hideActivity()}>
@@ -115,6 +119,18 @@ class ActivityContent extends Component {
     );
   }
 }
+const Time = activity => {
+  const showTime = new Date(activity.createdAt);
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric"
+  };
+  return showTime.toLocaleString("se-EN", options);
+};
 
 const condition = authUser => !!authUser;
 
@@ -122,3 +138,5 @@ export default compose(
   withAuthorization(condition),
   withFirebase
 )(ActivityContent);
+
+export { Time };
