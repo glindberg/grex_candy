@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { withFirebase } from "../Firebase";
-import ActivityContent from "../Activity/activityContent";
+import ActivityContent, {
+  Time,
+  ActivityChar
+} from "../Activity/activityContent";
 import { AuthUserContext, withAuthorization } from "../Session";
+import { Act, ActName, Created } from "./styles";
 
 class ActivitesBase extends Component {
   constructor(props) {
@@ -27,7 +31,10 @@ class ActivitesBase extends Component {
           loading: false
         });
       } else {
-        this.setState({ activities: null, loading: false });
+        this.setState({
+          activities: null,
+          loading: false
+        });
       }
     });
   }
@@ -66,7 +73,7 @@ class ActivitesBase extends Component {
 }
 
 const ActivityList = ({ activities, handleActivityClick }) => (
-  <ul>
+  <div>
     {activities.map(activity => (
       <ActivityItem
         handleActivityClick={handleActivityClick}
@@ -74,23 +81,22 @@ const ActivityList = ({ activities, handleActivityClick }) => (
         activity={activity}
       />
     ))}
-  </ul>
+  </div>
 );
 
 const ActivityItem = ({ activity, handleActivityClick }) => (
-  <li>
-    {/* <button onClick={this.props.activityOnClick()}>*/}
-    <button>
-      <span onClick={() => handleActivityClick(activity)}>
-        <strong>{activity.activity}</strong>
-        <p>Created: {}</p>
-      </span>
-    </button>
-    {/*<br /> {activity.activity} - {activity.otheractivity}*/}
-    <br />
-    {/*{activity.actlengthstart} - {activity.actlengthend}*/}
-    {/* <Chat /> */}
-  </li>
+  <Act onClick={() => handleActivityClick(activity)}>
+    <ActName>
+      <ActivityChar activityname={activity.activityname} />
+    </ActName>
+    <p>
+      {activity.activity} {activity.dateforact}, {activity.actlengthstart} -{" "}
+      {activity.actlengthend}
+    </p>
+    <Created>
+      <Time createdAt={activity.createdAt} />
+    </Created>
+  </Act>
 );
 
 const Activities = withFirebase(ActivitesBase);

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import { AuthUserContext } from "../Session";
 import Example from "./hamburger";
-import { Nav, NonAuth } from "./styles";
+import { Nav, NonAuth, CreateAct } from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Navigation = () => (
@@ -26,9 +26,11 @@ const NavigationAuth = ({ authUser }) => (
     <Example authUser={authUser} />
     <h1>GREX</h1>
 
-    <Link to={ROUTES.CREATE_ACTIVITY}>
-      <FontAwesomeIcon icon={["fas", "plus"]} />
-    </Link>
+    <CreateAct>
+      <Link to={ROUTES.CREATE_ACTIVITY}>
+        <FontAwesomeIcon icon={["fas", "plus"]} />
+      </Link>
+    </CreateAct>
   </Nav>
 );
 

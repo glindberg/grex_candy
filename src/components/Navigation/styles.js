@@ -4,6 +4,7 @@ export const Nav = styled.section`
   height: 60px;
   background: linear-gradient(rgb(207, 226, 199), rgb(118, 135, 110));
   display: flex;
+  /* justify-content: space-around; */
 
   h1 {
     color: white;
@@ -48,6 +49,7 @@ export const Ham = styled.section`
   /* Color/shape of burger icon bars */
   .bm-burger-bars {
     background: white;
+    border-radius: 10px;
   }
 
   /* Color/shape of burger icon bars on hover*/
@@ -115,5 +117,20 @@ Note: Beware of modifying this element as it can break the animations - you shou
   a {
     color: black;
     text-decoration: none;
+  }
+`;
+
+export const CreateAct = styled.div`
+  color: white;
+  margin-right: 1em;
+  position: absolute;
+  right: 0;
+  top: 10px;
+  font-size: 30px;
+  a {
+    color: white;
+  }
+  a:hover {
+    color: #a90000;
   }
 `;

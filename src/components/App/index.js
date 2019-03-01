@@ -39,7 +39,7 @@ const App = () => (
       <Route path={ROUTES.CREATE_ACTIVITY} component={createActivity} />
       <Route path={ROUTES.ACTIVITY} component={ActivityPage} />
       <Route path={ROUTES.ACTIVITY_CONTENT} component={ActivityContent} />
-      <Route path={ROUTES.CHAT} component={Chat} />
+      {/* <Route path={ROUTES.CHAT} component={Chat} /> */}
     </div>
   </Router>
 );
