@@ -4,7 +4,6 @@ import ActivityContent, {
   Time,
   ActivityChar
 } from "../Activity/activityContent";
-import { AuthUserContext, withAuthorization } from "../Session";
 import { Act, ActName, Created, ActInfo } from "./styles";
 import { ArrowUp, ArrowDown } from "../Styles/icons";
 import LocationPage from "../Map/location";
@@ -68,6 +67,9 @@ class ActivitesBase extends Component {
   hideMap = () => {
     this.setState({ showMap: false });
     console.log("hideMap har kallats på");
+    console.log("open activity");
+    console.log(this.state);
+    console.log(activity);
   };
 
   removeActivity = () => {
@@ -82,7 +84,6 @@ class ActivitesBase extends Component {
     });
     this.props.firebase.activity(this.state.activity.uid).remove();
   };
-
   render() {
     const { activities, loading, activity, showMap, hideActivity } = this.state;
     return (
@@ -128,7 +129,6 @@ class ActivitesBase extends Component {
     );
   }
 }
-
 const ActivityList = ({ activities, handleActivityClick }) => (
   <div>
     {activities.map(activity => (
@@ -140,7 +140,6 @@ const ActivityList = ({ activities, handleActivityClick }) => (
     ))}
   </div>
 );
-
 const ActivityItem = ({ activity, handleActivityClick }) => (
   <Act onClick={() => handleActivityClick(activity)}>
     <ActName>
@@ -155,9 +154,6 @@ const ActivityItem = ({ activity, handleActivityClick }) => (
     </Created>
   </Act>
 );
-
 const Activities = withFirebase(ActivitesBase);
-
 export default Activities;
-
 export { ActivityItem, ActivityList, ActivityContent };

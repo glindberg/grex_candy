@@ -4,7 +4,6 @@ import { withFirebase } from "../Firebase";
 import { AuthUserContext } from "../Session";
 import { MapPage } from "./styles";
 import L from "leaflet";
-import { ActivityContent, ActivityList } from "../Activity/activity";
 
 const LocationPage = props => (
   <AuthUserContext.Consumer>
@@ -125,12 +124,17 @@ class LocatedTwo extends Component {
         .filter(activity => activity.markers)
         .map(activity => ({
           ...activity.markers,
-          name: activity.activity
+          name: activity.activity,
+          //uid: "YO"
+          activity: { ...activity }
+          // icon: "blue"
         }));
     }
     markers.push({
       ...this.state.browserCoords,
-      name: "This is your position"
+      name: "This is your position",
+      activity: null
+      //uid: "yo"
       // icon:
     });
     return (
@@ -156,7 +160,8 @@ class MyMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      markers: []
+      markers: [],
+      activity: true
     };
   }
   addMarker = e => {
@@ -166,26 +171,6 @@ class MyMap extends Component {
       this.setState({ markers });
       this.props.sendMarker(e.latlng);
     }
-  };
-  getToActivity = (activity, activities) => {
-    console.log("getToActivity clicked");
-    return (
-      <div>
-        {activity ? (
-          <ActivityContent
-            activity={activity}
-            hideActivity={this.props.hideActivity}
-          />
-        ) : activities ? (
-          <ActivityList
-            handleActivityClick={this.props.handleActivityClick}
-            activities={activities}
-          />
-        ) : (
-          <div>There are no activities ...</div>
-        )}
-      </div>
-    );
   };
 
   render() {
@@ -220,9 +205,17 @@ class MyMap extends Component {
           url="https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png"
         />
         {this.props.markers.map((marker, index) => (
-          <Marker key={index} position={Object.values(marker)} icon={myIcon}>
+          <Marker
+            key={index}
+            position={
+              new Array(Object.values(marker)[0], Object.values(marker)[1])
+            }
+            icon={myIcon}
+          >
             <Popup>
-              <div onClick={activity => this.props.handleActivityClick()}>
+              <div
+                onClick={() => this.props.handleActivityClick(marker.activity)}
+              >
                 {marker.name ? marker.name : "Placeholder"}
                 <br />
               </div>

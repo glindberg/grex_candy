@@ -6,6 +6,7 @@ import { UserDetail } from "styled-icons/boxicons-solid/UserDetail";
 import { DirectionsRun } from "styled-icons/material/DirectionsRun";
 import { KeyboardArrowUp } from "styled-icons/material/KeyboardArrowUp";
 import { KeyboardArrowDown } from "styled-icons/material/KeyboardArrowDown";
+import { LeftArrowCircle } from "styled-icons/boxicons-regular/LeftArrowCircle";
 
 export const Tele = styled(Telegram)`
   height: 2em;
@@ -41,4 +42,9 @@ export const ArrowDown = styled(KeyboardArrowDown)`
   height: 2em;
   width: 2em;
   padding: 5px;
+`;
+
+export const Tie = styled(LeftArrowCircle)`
+  height: 2em;
+  width: 2em;
 `;

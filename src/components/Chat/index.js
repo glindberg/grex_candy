@@ -94,7 +94,6 @@ class MessagesBaseTwo extends Component {
   };
   displayProfile = userId => {
     this.setState({ showProfile: userId });
-    console.log(userId);
   };
   hideProfile = () => {
     this.setState({ showProfile: false });
@@ -117,9 +116,10 @@ class MessagesBaseTwo extends Component {
             {loading && <div>Loading ...</div>}
 
             {showProfile && (
-              <Wrapper>
-                <ShowUser userId={showProfile} />
-                <Button onClick={this.hideProfile}>X</Button>
+              <Wrapper onClick={this.hideProfile}>
+                <div>
+                  <ShowUser userId={showProfile} />
+                </div>
               </Wrapper>
             )}
 
