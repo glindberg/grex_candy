@@ -5,7 +5,7 @@ import ActivityContent, {
   ActivityChar
 } from "../Activity/activityContent";
 import { Act, ActName, Created, ActInfo } from "./styles";
-
+import { ArrowUp, ArrowDown } from "../Styles/icons";
 import LocationPage from "../Map/location";
 
 class ActivitesBase extends Component {
@@ -14,11 +14,15 @@ class ActivitesBase extends Component {
     this.state = {
       activity: null,
       loading: false,
-      activities: []
+      activities: [],
+      showMap: false,
+      hideActivity: false
     };
   }
   componentDidMount() {
-    this.setState({ loading: true });
+    this.setState({
+      loading: true
+    });
     this.props.firebase.activities().on("value", snapshot => {
       const activityObject = snapshot.val();
       if (activityObject) {
@@ -47,7 +51,16 @@ class ActivitesBase extends Component {
   };
   handleActivityClick = activity => {
     this.setState({ activity });
-    console.log("hej");
+  };
+  hideActivityToggle = () => {
+    this.setState(prevState => ({ hideActivity: !prevState.hideActivity }));
+  };
+  displayMap() {
+    this.setState({ showMap: true });
+  }
+
+  hideMap = () => {
+    this.setState({ showMap: false });
   };
 
   removeActivity = () => {
@@ -62,23 +75,35 @@ class ActivitesBase extends Component {
     });
     this.props.firebase.activity(this.state.activity.uid).remove();
   };
-
   render() {
-    const { activities, loading, activity } = this.state;
+    const { activities, loading, activity, showMap, hideActivity } = this.state;
     return (
       <div>
-        <LocationPage
-          activities={activities}
-          handleActivityClick={this.handleActivityClick}
-        />
+        {!showMap && (
+          <div>
+            <ArrowUp onClick={() => this.displayMap()} />
+            <LocationPage
+              activities={activities}
+              handleActivityClick={this.handleActivityClick}
+            />
+          </div>
+        )}
+
+        {showMap && (
+          <div>
+            <ArrowDown onClick={() => this.hideMap()} />
+          </div>
+        )}
+
         {loading && <div>Loading activities...</div>}
         {activity ? (
           <ActivityContent
             activity={activity}
             hideActivity={this.hideActivity}
             removeActivity={this.removeActivity}
+            hideActivityToggle={this.hideActivityToggle}
           />
-        ) : activities ? (
+        ) : activities && !hideActivity ? (
           <ActivityList
             handleActivityClick={this.handleActivityClick}
             activities={activities}
@@ -90,7 +115,6 @@ class ActivitesBase extends Component {
     );
   }
 }
-
 const ActivityList = ({ activities, handleActivityClick }) => (
   <div>
     {activities.map(activity => (
@@ -102,7 +126,6 @@ const ActivityList = ({ activities, handleActivityClick }) => (
     ))}
   </div>
 );
-
 const ActivityItem = ({ activity, handleActivityClick }) => (
   <Act onClick={() => handleActivityClick(activity)}>
     <ActName>
@@ -117,9 +140,6 @@ const ActivityItem = ({ activity, handleActivityClick }) => (
     </Created>
   </Act>
 );
-
 const Activities = withFirebase(ActivitesBase);
-
 export default Activities;
-
 export { ActivityItem, ActivityList, ActivityContent };

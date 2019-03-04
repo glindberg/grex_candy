@@ -4,6 +4,13 @@ import { Edit } from "styled-icons/boxicons-solid/Edit";
 import { Key2 } from "styled-icons/icomoon/Key2";
 import { UserDetail } from "styled-icons/boxicons-solid/UserDetail";
 import { DirectionsRun } from "styled-icons/material/DirectionsRun";
+import { KeyboardArrowUp } from "styled-icons/material/KeyboardArrowUp";
+import { KeyboardArrowDown } from "styled-icons/material/KeyboardArrowDown";
+import { Close } from "styled-icons/material/Close";
+import { Plus } from "styled-icons/fa-solid/Plus";
+import { Chat } from "styled-icons/material/Chat";
+import { Trashcan } from "styled-icons/octicons/Trashcan";
+import { LeftArrowCircle } from "styled-icons/boxicons-regular/LeftArrowCircle";
 
 export const Tele = styled(Telegram)`
   height: 2em;
@@ -28,8 +35,48 @@ export const User = styled(UserDetail)`
   padding: 5px;
 `;
 
-export const Run = styled(DirectionsRun)`
+export const ArrowUp = styled(KeyboardArrowUp)`
   height: 2em;
   width: 2em;
   padding: 5px;
+`;
+export const ArrowDown = styled(KeyboardArrowDown)`
+  height: 2em;
+`;
+
+export const Run = styled(DirectionsRun)`
+  /* height: 2em;
+  width: 2em;
+  padding: 5px; */
+  height: 1.5em;
+  width: 2em;
+  padding: 2px;
+`;
+
+export const CloseAct = styled(Close)`
+  height: 1.5em;
+  width: 2em;
+  padding: 2px;
+`;
+
+export const NewActivity = styled(Plus)`
+  height: 1.2em;
+  width: 2em;
+`;
+
+export const ChatIcon = styled(Chat)`
+  height: 1.5em;
+  width: 2em;
+  padding: 2px;
+`;
+
+export const Trash = styled(Trashcan)`
+  height: 1.5em;
+  width: 2em;
+  padding: 2px;
+`;
+
+export const Tie = styled(LeftArrowCircle)`
+  height: 2em;
+  width: 2em;
 `;

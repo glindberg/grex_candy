@@ -3,7 +3,7 @@ import { compose } from "recompose";
 import { AuthUserContext, withAuthorization } from "../Session";
 import { withFirebase } from "../Firebase";
 import ShowUser from "../Profile/showOtherProfile";
-import { Wrapper, Button } from "../Chat/styles";
+import { Wrapper } from "../Chat/styles";
 
 class MessagesBaseTwo extends Component {
   constructor(props) {
@@ -94,7 +94,6 @@ class MessagesBaseTwo extends Component {
   };
   displayProfile = userId => {
     this.setState({ showProfile: userId });
-    console.log(userId);
   };
   hideProfile = () => {
     this.setState({ showProfile: false });
@@ -117,9 +116,10 @@ class MessagesBaseTwo extends Component {
             {loading && <div>Loading ...</div>}
 
             {showProfile && (
-              <Wrapper>
-                <ShowUser userId={showProfile} />
-                <Button onClick={this.hideProfile}>X</Button>
+              <Wrapper onClick={this.hideProfile}>
+                <div>
+                  <ShowUser userId={showProfile} />
+                </div>
               </Wrapper>
             )}
 

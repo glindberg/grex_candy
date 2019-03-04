@@ -79,7 +79,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
   /* General sidebar styles */
   .bm-menu {
-    background: white;
+    background: rgb(247, 245, 237);
     padding: 2.5em 1.5em 0;
     font-size: 1.15em;
     overflow-y: hidden !important;
@@ -121,14 +121,14 @@ Note: Beware of modifying this element as it can break the animations - you shou
 `;
 
 export const CreateAct = styled.div`
-  color: white;
-  margin-right: 1em;
+  /* color: white; */
+  margin-right: 0.2em;
   position: absolute;
   right: 0;
   top: 10px;
   font-size: 30px;
   a {
-    color: white;
+    color: rgb(247, 245, 237);
   }
   a:hover {
     color: #a90000;
