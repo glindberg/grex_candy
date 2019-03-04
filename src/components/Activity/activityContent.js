@@ -22,7 +22,6 @@ class ActivityContent extends Component {
       loading: false,
       users: null,
       showChat: false,
-      showMap: false,
       hideActivity: false
     };
   }
@@ -46,10 +45,6 @@ class ActivityContent extends Component {
   hideChat = () => {
     this.setState({ showChat: false });
   };
-  hideMap = () => {
-    this.setState({ showMap: false });
-    console.log("nya hideMap har kallats på");
-  };
 
   render() {
     const { loading, showChat, showMap } = this.state;
@@ -67,7 +62,6 @@ class ActivityContent extends Component {
                     <span onClick={() => hideActivity()}>
                       <ButtonClosing>
                         <CloseAct />
-                        {/* <span> | </span>Home */}
                       </ButtonClosing>
                     </span>
                     <br />
@@ -111,54 +105,42 @@ class ActivityContent extends Component {
                     </ActivityLi>
 
                     <ButtonDivs>
-                      <ButtonsAct>
+                      <ButtonsAct
+                        onClick={() => {
+                          this.displayChat();
+                        }}
+                      >
                         <ChatIcon />
                         <span> | </span>Chat
                       </ButtonsAct>
-                      <span onClick={() => hideActivity()}>
-                        <ButtonsAct>
-                          <Trash />
-                          <span> | </span>Delete
-                        </ButtonsAct>
-                      </span>
+
+                      <ButtonsAct onClick={() => hideActivity()}>
+                        <Trash />
+                        <span> | </span>Delete
+                      </ButtonsAct>
                     </ButtonDivs>
                     {activity.userId === authUser.uid ? (
                       <li>
-                        <span onClick={() => hideActivity()}>
+                        <span>
                           <button>
                             <strong>Remove Activity</strong>
                           </button>
                         </span>
                       </li>
                     ) : null}
-
-                    <li>
-                      {!showMap && (
-                        <span
-                          onClick={() => {
-                            this.displayChat();
-                          }}
-                        >
-                          <button>
-                            <strong>Chat</strong>
-                          </button>
-                        </span>
-                      )}
-                    </li>
-
                     <br />
                   </TxtContainer>
                 )}
                 {showChat && (
                   <div>
-                    <MessagesTwo activity={activity} users={this.state.users} />
                     <button
                       onClick={() => {
-                        this.hideChat();
+                        this.hideChat(showMap);
                       }}
                     >
-                      Hide Chat
+                      Close Chat
                     </button>
+                    <MessagesTwo activity={activity} users={this.state.users} />
                   </div>
                 )}
               </ShowActivity>

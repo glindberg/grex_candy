@@ -96,7 +96,6 @@ class ProfileContent extends Component {
                       <strong>Description:</strong>
                       <br /> {description}
                     </p>
-                    <br />
                   </TxtContainer>
 
                   <BtnContainer>

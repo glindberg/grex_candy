@@ -70,11 +70,13 @@ export const Creating = styled.div`
 
   div {
     /* width: 80%; */
-    margin: auto;
+    /* margin: auto; */
   }
   h1 {
     margin-top: 0;
-    padding-top: 0.6em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    margin-bottom: 0;
     text-align: center;
   }
   input {

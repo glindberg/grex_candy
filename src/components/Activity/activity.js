@@ -7,6 +7,7 @@ import ActivityContent, {
 import { Act, ActName, Created, ActInfo } from "./styles";
 import { ArrowUp, ArrowDown } from "../Styles/icons";
 import LocationPage from "../Map/location";
+import MessagesTwo from "../Chat";
 
 class ActivitesBase extends Component {
   constructor(props) {
@@ -15,8 +16,9 @@ class ActivitesBase extends Component {
       activity: null,
       loading: false,
       activities: [],
-      showMap: false,
-      hideActivity: false
+      showMap: true,
+      hideActivity: false,
+      showChat: false
     };
   }
   componentDidMount() {
@@ -56,15 +58,22 @@ class ActivitesBase extends Component {
     this.setState(prevState => ({ hideActivity: !prevState.hideActivity }));
   };
   displayMap() {
-    this.setState({ showMap: true });
+    this.setState({ showMap: false });
   }
 
-  hideMap = () => {
-    this.setState({ showMap: false });
+  hideMap() {
+    this.setState({ showMap: true });
+    console.log("hej");
+  }
+  displayChat = () => {
+    this.hideMap();
+    this.setState({ showChat: true });
+  };
+  hideChat = () => {
+    this.setState({ showChat: false });
   };
 
   removeActivity = () => {
-    console.log(this.state.activity);
     const a = this.state.activity;
     const newActivities = this.state.activities.filter(activity => {
       return activity !== a;
@@ -76,28 +85,35 @@ class ActivitesBase extends Component {
     this.props.firebase.activity(this.state.activity.uid).remove();
   };
   render() {
-    const { activities, loading, activity, showMap, hideActivity } = this.state;
+    const {
+      activities,
+      loading,
+      activity,
+      showMap,
+      hideActivity,
+      showChat
+    } = this.state;
     return (
       <div>
-        {!showMap && (
+        {showMap && (
           <div>
-            <ArrowUp onClick={() => this.displayMap()} />
             <LocationPage
               activities={activities}
               handleActivityClick={this.handleActivityClick}
             />
+            <ArrowUp onClick={() => this.displayMap()} />
           </div>
         )}
-
-        {showMap && (
+        {!showMap && (
           <div>
+            <span>Display map</span>
             <ArrowDown onClick={() => this.hideMap()} />
           </div>
         )}
-
         {loading && <div>Loading activities...</div>}
         {activity ? (
           <ActivityContent
+            map={this.showMap}
             activity={activity}
             hideActivity={this.hideActivity}
             removeActivity={this.removeActivity}
@@ -110,6 +126,18 @@ class ActivitesBase extends Component {
           />
         ) : (
           <div>There are no activities ...</div>
+        )}
+        {showChat && (
+          <div>
+            <MessagesTwo activity={activity} users={this.state.users} />
+            <button
+              onClick={() => {
+                this.hideChat();
+              }}
+            >
+              Hide Chat
+            </button>
+          </div>
         )}
       </div>
     );

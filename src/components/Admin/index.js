@@ -8,7 +8,7 @@ import * as ROLES from "../../constants/roles";
 import * as ROUTES from "../../constants/routes";
 import { Admin, Rubrik, Details } from "../Admin/styles";
 import { Button } from "../Styles/button";
-import { Tele, User, Tie } from "../Styles/icons";
+import { Tele, UserD, Tie } from "../Styles/icons";
 
 const AdminPage = () => (
   <div>
@@ -85,7 +85,7 @@ class UserListBase extends Component {
               >
                 {" "}
                 <Button>
-                  <User />
+                  <UserD />
                   <span> |</span> <strong>Details</strong>
                 </Button>
               </Link>

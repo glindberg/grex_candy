@@ -11,7 +11,8 @@ import { Plus } from "styled-icons/fa-solid/Plus";
 import { Chat } from "styled-icons/material/Chat";
 import { Trashcan } from "styled-icons/octicons/Trashcan";
 import { LeftArrowCircle } from "styled-icons/boxicons-regular/LeftArrowCircle";
-import { UserCircle } from "styled-icons/boxicons-solid/UserCircle";
+import { DoorOpen } from "styled-icons/fa-solid/DoorOpen";
+import { User } from "styled-icons/fa-regular/User";
 
 export const Tele = styled(Telegram)`
   height: 2em;
@@ -30,7 +31,7 @@ export const Key = styled(Key2)`
   padding: 5px;
 `;
 
-export const User = styled(UserDetail)`
+export const UserD = styled(UserDetail)`
   height: 2em;
   width: 2em;
 `;
@@ -57,8 +58,8 @@ export const CloseAct = styled(Close)`
 `;
 
 export const NewActivity = styled(Plus)`
-  height: 1.2em;
-  /* width: 2em; */
+  height: 2.2em;
+  margin-right: 5px;
 `;
 
 export const ChatIcon = styled(Chat)`
@@ -78,9 +79,12 @@ export const Tie = styled(LeftArrowCircle)`
   width: 2em;
 `;
 
-export const UserC = styled(UserCircle)`
-  width: 1.5em;
-  margin-top: -8px;
-  margin-right: -5px;
+export const ByeBye = styled(DoorOpen)`
+  height: 1em;
+  width: 1em;
+`;
+export const UserP = styled(User)`
+  height: 1em;
+  width: 1em;
   margin-left: 5px;
 `;
