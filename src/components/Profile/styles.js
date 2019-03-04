@@ -37,7 +37,6 @@ export const CreateP = styled.div`
     margin: auto;
   }
   h1 {
-    margin: 10px 0px 10px 0px;
     text-align: center;
   }
   label {

@@ -31,13 +31,9 @@ export const Key = styled(Key2)`
 export const User = styled(UserDetail)`
   height: 2em;
   width: 2em;
-  padding: 5px;
 `;
 
 export const Run = styled(DirectionsRun)`
-  /* height: 2em;
-  width: 2em;
-  padding: 5px; */
   height: 1.5em;
   width: 2em;
   padding: 2px;
@@ -51,7 +47,7 @@ export const CloseAct = styled(Close)`
 
 export const NewActivity = styled(Plus)`
   height: 1.2em;
-  width: 2em;
+  /* width: 2em; */
 `;
 
 export const ChatIcon = styled(Chat)`

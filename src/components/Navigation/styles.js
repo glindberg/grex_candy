@@ -122,7 +122,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 export const CreateAct = styled.div`
   /* color: white; */
-  margin-right: 0.2em;
+  margin-right: 0.4em;
   position: absolute;
   right: 0;
   top: 10px;
