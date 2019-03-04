@@ -46,8 +46,7 @@ class ActivityContent extends Component {
   render() {
     const { loading } = this.state;
 
-    const { activity, hideActivity } = this.props;
-
+    const { activity, hideActivity, removeActivity } = this.props;
     return (
       <AuthUserContext.Consumer>
         {authUser => (
@@ -105,6 +104,15 @@ class ActivityContent extends Component {
                       </button>
                     </span>
                   </li>
+                  {activity.userId === authUser.uid ? (
+                    <li>
+                      <span onClick={() => removeActivity()}>
+                        <button>
+                          <strong>Remove activity </strong>
+                        </button>
+                      </span>
+                    </li>
+                  ) : null}
                   <br />
                 </TxtContainer>
                 <MessagesTwo activity={activity} users={this.state.users} />
