@@ -17,31 +17,31 @@ import createActivity from "../Activity/createActivity";
 import ActivityPage from "../Activity/index";
 import ActivityContent from "../Activity/activityContent";
 import Chat from "../Chat/index";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-
-library.add(faPlus);
+import { GlobalStyle } from "../Styles/general";
 
 const App = () => (
-  <Router>
-    <div>
-      <Navigation />
+  <React.Fragment>
+    <GlobalStyle />
+    <Router>
+      <div>
+        <Navigation />
 
-      <Route exact path={ROUTES.LANDING} component={LandingPage} />
-      <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
-      <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-      <Route path={ROUTES.PROFILE} component={ProfilePage} />
-      <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-      <Route path={ROUTES.HOME} component={HomePage} />
-      <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-      <Route path={ROUTES.ADMIN} component={AdminPage} />
-      <Route path={ROUTES.CREATE_PROFILE} component={createProfile} />
-      <Route path={ROUTES.CREATE_ACTIVITY} component={createActivity} />
-      <Route path={ROUTES.ACTIVITY} component={ActivityPage} />
-      <Route path={ROUTES.ACTIVITY_CONTENT} component={ActivityContent} />
-      {/* <Route path={ROUTES.CHAT} component={Chat} /> */}
-    </div>
-  </Router>
+        <Route exact path={ROUTES.LANDING} component={LandingPage} />
+        <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+        <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+        <Route path={ROUTES.PROFILE} component={ProfilePage} />
+        <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+        <Route path={ROUTES.HOME} component={HomePage} />
+        <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+        <Route path={ROUTES.ADMIN} component={AdminPage} />
+        <Route path={ROUTES.CREATE_PROFILE} component={createProfile} />
+        <Route path={ROUTES.CREATE_ACTIVITY} component={createActivity} />
+        <Route path={ROUTES.ACTIVITY} component={ActivityPage} />
+        <Route path={ROUTES.ACTIVITY_CONTENT} component={ActivityContent} />
+        {/* <Route path={ROUTES.CHAT} component={Chat} /> */}
+      </div>
+    </Router>
+  </React.Fragment>
 );
 
 export default withAuthentication(App);

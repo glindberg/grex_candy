@@ -5,10 +5,18 @@ import * as ROUTES from "../../constants/routes";
 import { AuthUserContext, withAuthorization } from "../Session";
 
 import LocationPage from "../Map/location";
-import { Creating, MapSize, Label, Form, Div } from "./styles";
+import {
+  Creating,
+  MapSize,
+  Label,
+  Form,
+  Div,
+  ButtonsAct,
+  FormSize
+} from "./styles";
 import { BtnContainer } from "../Profile/styles";
 import { Button } from "../Styles/button";
-import { User, Run } from "../Styles/icons";
+import { User, Run, CloseAct } from "../Styles/icons";
 
 const INITIAL_STATE = {
   activity: "",
@@ -103,10 +111,10 @@ class CreateActivity extends Component {
                 <LocationPage createActivityView={this.receiveMarker} />
               </MapSize>
               <Div>
-                <form onSubmit={event => this.onSubmit(event, authUser)}>
+                <FormSize onSubmit={event => this.onSubmit(event, authUser)}>
                   <Form>
                     <Label>
-                      Activityname:
+                      <strong>Activityname:</strong>
                       <input
                         name="activityname"
                         value={this.state.activityname}
@@ -120,7 +128,7 @@ class CreateActivity extends Component {
                   <br />
                   <Form>
                     <Label>
-                      Type of Activity:
+                      <strong>Type of Activity:</strong>
                       <select
                         name="activity"
                         value={this.state.activity}
@@ -160,7 +168,7 @@ class CreateActivity extends Component {
                   <br />
                   <Form>
                     <Label>
-                      Date of Activity:
+                      <strong>Date of Activity:</strong>
                       <input
                         name="dateforact"
                         value={this.state.dateforact}
@@ -173,7 +181,7 @@ class CreateActivity extends Component {
                   <br />
                   <Form>
                     <Label>
-                      Start time for Activity:
+                      <strong>Start time for Activity:</strong>
                       <input
                         name="actlengthstart"
                         value={this.state.actlengthstart}
@@ -188,7 +196,7 @@ class CreateActivity extends Component {
                   <Form>
                     <Label>
                       <br />
-                      End time:
+                      <strong>End time:</strong>
                       <input
                         name="actlengthend"
                         value={this.state.actlengthend}
@@ -203,7 +211,8 @@ class CreateActivity extends Component {
                   <br />
                   <Form>
                     <Label>
-                      Intensity (1 for low intensity, 5 for high intensity):
+                      <strong>Intensity</strong> (1 for low intensity, 5 for
+                      high intensity):
                       <select
                         name="intensity"
                         value={this.state.intensity}
@@ -224,7 +233,7 @@ class CreateActivity extends Component {
                   <br />
                   <Form>
                     <label>
-                      Details/Place for Meeting:
+                      <strong>Details/Place for Meeting:</strong>
                       <textarea
                         rows="4"
                         cols="50"
@@ -262,7 +271,7 @@ class CreateActivity extends Component {
                     Create Activity
                   </button> */}
                   <BtnContainer>
-                    <Button
+                    <ButtonsAct
                       type="submit"
                       value={this.state.activityname}
                       onChange={this.onChange}
@@ -271,9 +280,9 @@ class CreateActivity extends Component {
                       <Run />
                       {/* <User /> */}
                       <span> | </span>Create Activity
-                    </Button>
+                    </ButtonsAct>
                   </BtnContainer>
-                </form>
+                </FormSize>
               </Div>
             </div>
           )}

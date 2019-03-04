@@ -65,6 +65,8 @@ export const Creating = styled.div`
   /* background: rgb(226, 237, 218); */
   display: flex;
   /* width: 100%; */
+  margin-bottom: 20px;
+  background: rgb(247, 245, 237);
 
   div {
     /* width: 80%; */
@@ -79,14 +81,15 @@ export const Creating = styled.div`
     margin-left: 5px;
     border: none;
     border-bottom: 1px solid grey;
-    /* position: fixed; */
+    position: absolute;
     right: 10%;
     padding-left: 5px;
     height: 1.3em;
+    width: 100px;
   }
 
   select {
-    width: 160px;
+    width: 120px;
     /* position: fixed; */
     right: 10%;
     height: 2.4em;
@@ -102,8 +105,8 @@ export const Creating = styled.div`
 
 export const Div = styled.div`
   margin: auto;
-  width: 80%;
-  font-size: 0.8em;
+  width: 95%;
+  font-size: 0.9em;
 `;
 
 export const Form = styled.div`
@@ -125,6 +128,11 @@ export const Form = styled.div`
   }
 `;
 
+export const FormSize = styled.form`
+  width: 100%;
+  margin-top: 10px;
+`;
+
 export const Label = styled.div``;
 
 export const MapSize = styled.div`
@@ -136,15 +144,82 @@ export const MapSize = styled.div`
 `;
 
 export const ActivityDiv = styled.div`
-  /* width: 90%; */
+  /* width: 100%; */
   display: flex;
   margin: auto;
+  font-size: 0.8em;
+  background: rgb(247, 245, 237);
 `;
 
 export const ShowActivity = styled.ul`
   list-style: none;
-  text-align: left;
+
   padding-left: 0;
-  font-size: 0.8rem;
+  /* font-size: 0.8rem; */
   width: 100%;
+`;
+
+export const ActivityLi = styled.div`
+  text-align: left;
+  margin-bottom: 20px;
+  @media (min-width: 500px) {
+    width: 50%;
+  }
+`;
+
+// export const CloseActivity = styled.li`
+//   display: flex;
+//   margin: auto;
+// `;
+
+export const ButtonDivs = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+export const ButtonClosing = styled.button`
+  border: none;
+  /* color: white; */
+  font-size: 0.9em;
+  border-radius: 5px;
+  margin: 5px;
+  background: none;
+  /* padding-right: 10px;
+  background: rgb(83, 109, 122); */
+  position: absolute;
+  right: 0;
+  a {
+    color: black;
+  }
+`;
+
+export const ButtonsAct = styled.button`
+  border: none;
+  color: white;
+  font-size: 0.9em;
+  border-radius: 5px;
+  padding-right: 10px;
+  margin: 10px;
+  background: rgb(83, 109, 122);
+  /* background: #232526;  */
+  /* fallback for old browsers */
+  /* background: -webkit-linear-gradient(
+    to top,
+    #414345,
+    #232526
+  );  */
+  /* Chrome 10-25, Safari 5.1-6 */
+  /* background: linear-gradient(
+    to top,
+    #414345,
+    #232526
+  );  */
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
 `;
