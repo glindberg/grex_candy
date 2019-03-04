@@ -5,8 +5,8 @@ import * as ROUTES from "../../constants/routes";
 import { AuthUserContext } from "../Session";
 import Example from "./hamburger";
 import { Nav, NonAuth, CreateAct } from "./styles";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UserC } from "../Styles/icons";
+import { NewActivity } from "../Styles/icons";
 
 const Navigation = () => (
   <div>
@@ -28,7 +28,7 @@ const NavigationAuth = ({ authUser }) => (
     <h1>GREX</h1>
     <CreateAct>
       <Link to={ROUTES.CREATE_ACTIVITY}>
-        <FontAwesomeIcon icon={["fas", "plus"]} />
+        <NewActivity />
       </Link>
       <Link to={ROUTES.PROFILE}>
         <UserC />
