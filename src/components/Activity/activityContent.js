@@ -40,6 +40,7 @@ class ActivityContent extends Component {
   };
   hideMap = () => {
     this.setState({ showMap: false });
+    console.log("nya hideMap har kallats på");
   };
 
   render() {
@@ -142,6 +143,16 @@ const Time = activity => {
   return showTime.toLocaleString("se-EN", options);
 };
 
+const ActivityChar = activity => {
+  const characters = String(activity.activityname);
+  // return characters.substring(characters.indexOf(0, 20));
+  if (characters.length > 16) {
+    return characters.substr(0, 15) + "...";
+  } else {
+    return characters;
+  }
+};
+
 const condition = authUser => !!authUser;
 
 export default compose(
@@ -149,4 +160,4 @@ export default compose(
   withFirebase
 )(ActivityContent);
 
-export { Time };
+export { Time, ActivityChar };

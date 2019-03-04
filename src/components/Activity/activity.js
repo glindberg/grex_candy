@@ -7,6 +7,10 @@ import ActivityContent, {
 import { AuthUserContext, withAuthorization } from "../Session";
 import { Act, ActName, Created, ActInfo } from "./styles";
 
+import ActivityContent from "../Activity/activityContent";
+import { ArrowUp, ArrowDown } from "../Styles/icons";
+import { Act } from "./styles";
+import { Time } from "./activityContent";
 import LocationPage from "../Map/location";
 
 class ActivitesBase extends Component {
@@ -15,11 +19,15 @@ class ActivitesBase extends Component {
     this.state = {
       activity: null,
       loading: false,
-      activities: []
+      activities: [],
+      showMap: false,
+      hideActivity: false
     };
   }
   componentDidMount() {
-    this.setState({ loading: true });
+    this.setState({
+      loading: true
+    });
     this.props.firebase.activities().on("value", snapshot => {
       const activityObject = snapshot.val();
       if (activityObject) {
@@ -49,6 +57,21 @@ class ActivitesBase extends Component {
   handleActivityClick = activity => {
     this.setState({ activity });
     console.log("hej");
+    console.log(this.props);
+    console.log(this.state);
+  };
+  hideActivityToggle = () => {
+    this.setState(prevState => ({ hideActivity: !prevState.hideActivity }));
+  };
+  displayMap() {
+    this.setState({ showMap: true });
+    console.log("displayMap har kallats på");
+    console.log("propparna" + this.props);
+  }
+
+  hideMap = () => {
+    this.setState({ showMap: false });
+    console.log("hideMap har kallats på");
   };
 
   removeActivity = () => {
@@ -65,21 +88,39 @@ class ActivitesBase extends Component {
   };
 
   render() {
-    const { activities, loading, activity } = this.state;
+    const { activities, loading, activity, showMap, hideActivity } = this.state;
     return (
       <div>
-        <LocationPage
+        {/* <LocationPage
           activities={activities}
           handleActivityClick={this.handleActivityClick}
-        />
+        /> */}
+
+        {!showMap && (
+          <div>
+            <ArrowUp onClick={() => this.displayMap()} />
+            <LocationPage
+              activities={activities}
+              handleActivityClick={this.handleActivityClick}
+            />
+          </div>
+        )}
+
+        {showMap && (
+          <div>
+            <ArrowDown onClick={() => this.hideMap()} />
+          </div>
+        )}
+
         {loading && <div>Loading activities...</div>}
         {activity ? (
           <ActivityContent
             activity={activity}
             hideActivity={this.hideActivity}
             removeActivity={this.removeActivity}
+            hideActivityToggle={this.hideActivityToggle}
           />
-        ) : activities ? (
+        ) : activities && !hideActivity ? (
           <ActivityList
             handleActivityClick={this.handleActivityClick}
             activities={activities}
