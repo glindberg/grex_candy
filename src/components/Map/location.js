@@ -124,12 +124,18 @@ class LocatedTwo extends Component {
         .filter(activity => activity.markers)
         .map(activity => ({
           ...activity.markers,
-          name: activity.activity
+          name: activity.activity,
+          //uid: "YO"
+          activity: { ...activity }
+          // icon: "blue"
         }));
     }
     markers.push({
       ...this.state.browserCoords,
-      name: "This is your position"
+      name: "This is your position",
+      activity: null
+      //uid: "yo"
+      // icon:
     });
     return (
       <div>
@@ -141,7 +147,6 @@ class LocatedTwo extends Component {
             position={Object.values(this.state.browserCoords)}
             zoom={12}
             sendMarker={this.props.createActivityView}
-            activity={this.state.activity}
           />
         ) : (
           <span>Can't get any position data..</span>
@@ -200,11 +205,16 @@ class MyMap extends Component {
           url="https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png"
         />
         {this.props.markers.map((marker, index) => (
-          <Marker key={index} position={Object.values(marker)} icon={myIcon}>
+          <Marker
+            key={index}
+            position={
+              new Array(Object.values(marker)[0], Object.values(marker)[1])
+            }
+            icon={myIcon}
+          >
             <Popup>
               <div
-                activity={this.props.activityContent}
-                onClick={activity => this.props.handleActivityClick(activity)}
+                onClick={() => this.props.handleActivityClick(marker.activity)}
               >
                 {marker.name ? marker.name : "Placeholder"}
                 <br />

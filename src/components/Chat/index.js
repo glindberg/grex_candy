@@ -116,9 +116,10 @@ class MessagesBaseTwo extends Component {
             {loading && <div>Loading ...</div>}
 
             {showProfile && (
-              <Wrapper>
-                <ShowUser userId={showProfile} />
-                <Button onClick={this.hideProfile}>X</Button>
+              <Wrapper onClick={this.hideProfile}>
+                <div>
+                  <ShowUser userId={showProfile} />
+                </div>
               </Wrapper>
             )}
 

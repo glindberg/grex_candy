@@ -28,8 +28,8 @@ export const Admin = styled.div`
       padding: 0;
     }
     a {
-      color: black;
-      text-decoration: none;
+      /* color: black;
+      text-decoration: none; */
     }
   }
 `;

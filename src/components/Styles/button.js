@@ -18,9 +18,7 @@ export const Button = styled.button`
     #414345,
     #232526
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
   a {
-    text-decoration: none;
-    color: white;
+    padding: 20px;
   }
 `;

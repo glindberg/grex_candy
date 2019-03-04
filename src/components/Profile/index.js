@@ -92,23 +92,28 @@ class ProfileContent extends Component {
                       <strong>City:</strong> {city}
                     </span>
                     <br />
-                    <span>
+                    <p>
                       <strong>Description:</strong>
                       <br /> {description}
-                    </span>
+                    </p>
                     <br />
                   </TxtContainer>
+
                   <BtnContainer>
-                    <Button>
-                      <Edi />
-                      <span> | </span>
-                      <Link to={ROUTES.CREATE_PROFILE}>Edit profile</Link>
-                    </Button>
-                    <Button>
-                      <Key />
-                      <span> | </span>
-                      <Link to={ROUTES.ACCOUNT}>Edit Password</Link>
-                    </Button>
+                    <Link to={ROUTES.CREATE_PROFILE}>
+                      <Button>
+                        <Edi />
+                        <span> | </span>
+                        Edit profile
+                      </Button>
+                    </Link>
+                    <Link to={ROUTES.ACCOUNT}>
+                      <Button>
+                        <Key />
+                        <span> | </span>
+                        Edit Password
+                      </Button>
+                    </Link>
                   </BtnContainer>
                 </div>
               )}
