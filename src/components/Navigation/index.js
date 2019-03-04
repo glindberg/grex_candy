@@ -5,7 +5,6 @@ import * as ROUTES from "../../constants/routes";
 import { AuthUserContext } from "../Session";
 import Example from "./hamburger";
 import { Nav, NonAuth, CreateAct } from "./styles";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NewActivity } from "../Styles/icons";
 
 const Navigation = () => (

@@ -4,6 +4,8 @@ import { Edit } from "styled-icons/boxicons-solid/Edit";
 import { Key2 } from "styled-icons/icomoon/Key2";
 import { UserDetail } from "styled-icons/boxicons-solid/UserDetail";
 import { DirectionsRun } from "styled-icons/material/DirectionsRun";
+import { KeyboardArrowUp } from "styled-icons/material/KeyboardArrowUp";
+import { KeyboardArrowDown } from "styled-icons/material/KeyboardArrowDown";
 import { Close } from "styled-icons/material/Close";
 import { Plus } from "styled-icons/fa-solid/Plus";
 import { Chat } from "styled-icons/material/Chat";
@@ -31,6 +33,15 @@ export const User = styled(UserDetail)`
   height: 2em;
   width: 2em;
   padding: 5px;
+`;
+
+export const ArrowUp = styled(KeyboardArrowUp)`
+  height: 2em;
+  width: 2em;
+  padding: 5px;
+`;
+export const ArrowDown = styled(KeyboardArrowDown)`
+  height: 2em;
 `;
 
 export const Run = styled(DirectionsRun)`

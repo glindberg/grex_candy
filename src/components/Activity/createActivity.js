@@ -15,8 +15,7 @@ import {
   FormSize
 } from "./styles";
 import { BtnContainer } from "../Profile/styles";
-import { Button } from "../Styles/button";
-import { User, Run, CloseAct } from "../Styles/icons";
+import { Run } from "../Styles/icons";
 
 const INITIAL_STATE = {
   activity: "",
