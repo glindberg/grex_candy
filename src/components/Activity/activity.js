@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import { withFirebase } from "../Firebase";
-import ActivityContent from "../Activity/activityContent";
-import { Act } from "./styles";
+import ActivityContent, {
+  Time,
+  ActivityChar
+} from "../Activity/activityContent";
+import { AuthUserContext, withAuthorization } from "../Session";
+import { Act, ActName, Created, ActInfo } from "./styles";
+
+import LocationPage from "../Map/location";
 
 class ActivitesBase extends Component {
   constructor(props) {
@@ -42,6 +48,7 @@ class ActivitesBase extends Component {
   };
   handleActivityClick = activity => {
     this.setState({ activity });
+    console.log("hej");
   };
 
   removeActivity = () => {
@@ -61,8 +68,11 @@ class ActivitesBase extends Component {
     const { activities, loading, activity } = this.state;
     return (
       <div>
+        <LocationPage
+          activities={activities}
+          handleActivityClick={this.handleActivityClick}
+        />
         {loading && <div>Loading activities...</div>}
-
         {activity ? (
           <ActivityContent
             activity={activity}
@@ -82,8 +92,6 @@ class ActivitesBase extends Component {
   }
 }
 
-const Activities = withFirebase(ActivitesBase);
-
 const ActivityList = ({ activities, handleActivityClick }) => (
   <div>
     {activities.map(activity => (
@@ -98,12 +106,21 @@ const ActivityList = ({ activities, handleActivityClick }) => (
 
 const ActivityItem = ({ activity, handleActivityClick }) => (
   <Act onClick={() => handleActivityClick(activity)}>
-    <span>
-      <strong>{activity.activity}</strong>
-    </span>
+    <ActName>
+      <ActivityChar activityname={activity.activityname} />
+    </ActName>
+    <ActInfo>
+      {activity.activity} {activity.dateforact}, {activity.actlengthstart} -{" "}
+      {activity.actlengthend}
+    </ActInfo>
+    <Created>
+      <Time createdAt={activity.createdAt} />
+    </Created>
   </Act>
 );
 
+const Activities = withFirebase(ActivitesBase);
+
 export default Activities;
 
-export { ActivityItem };
+export { ActivityItem, ActivityList, ActivityContent };
