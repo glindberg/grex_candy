@@ -6,11 +6,7 @@ import ActivityContent, {
 } from "../Activity/activityContent";
 import { AuthUserContext, withAuthorization } from "../Session";
 import { Act, ActName, Created, ActInfo } from "./styles";
-
-import ActivityContent from "../Activity/activityContent";
 import { ArrowUp, ArrowDown } from "../Styles/icons";
-import { Act } from "./styles";
-import { Time } from "./activityContent";
 import LocationPage from "../Map/location";
 
 class ActivitesBase extends Component {
