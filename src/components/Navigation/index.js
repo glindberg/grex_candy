@@ -6,6 +6,7 @@ import { AuthUserContext } from "../Session";
 import Example from "./hamburger";
 import { Nav, NonAuth, CreateAct } from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { NewActivity } from "../Styles/icons";
 
 const Navigation = () => (
   <div>
@@ -28,7 +29,7 @@ const NavigationAuth = ({ authUser }) => (
 
     <CreateAct>
       <Link to={ROUTES.CREATE_ACTIVITY}>
-        <FontAwesomeIcon icon={["fas", "plus"]} />
+        <NewActivity />
       </Link>
     </CreateAct>
   </Nav>

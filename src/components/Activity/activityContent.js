@@ -5,7 +5,16 @@ import { AuthUserContext, withAuthorization } from "../Session";
 import { TxtContainer } from "../Profile/styles";
 import { withFirebase } from "../Firebase";
 import MessagesTwo from "../Chat";
-import { ShowActivity, ActivityDiv } from "./styles";
+import {
+  ShowActivity,
+  ActivityDiv,
+  ActivityLi,
+  ButtonsAct,
+  ButtonDivs,
+  ButtonClosing
+} from "./styles";
+import { Button } from "../Styles/button";
+import { Run, CloseAct, ChatIcon, Trash } from "../Styles/icons";
 
 class ActivityContent extends Component {
   constructor(props) {
@@ -42,55 +51,64 @@ class ActivityContent extends Component {
             {loading ? null : (
               <ShowActivity>
                 <TxtContainer>
+                  <span onClick={() => hideActivity()}>
+                    <ButtonClosing>
+                      <CloseAct />
+                      {/* <span> | </span>Home */}
+                    </ButtonClosing>
+                  </span>
                   <br />
-                  <li>
-                    <b>Created at: </b>
-                    <Time createdAt={activity.createdAt} />
-                  </li>
-                  <li>
-                    <b>Activity: </b>
-                    {activity.activityname}
-                  </li>
-                  <li>
-                    <b>Type of activity: </b>
-                    {activity.activity}
-                  </li>
-                  <li>
-                    <b>Date: </b>
-                    {activity.dateforact}
-                  </li>
-                  <li>
-                    <b>Start time: </b>
-                    {activity.actlengthstart}
-                  </li>
-                  <li>
-                    <b>End time: </b>
-                    {activity.actlengthend}
-                  </li>
-                  <li>
-                    <b>Intensity: </b>
-                    {activity.intensity}
-                  </li>
-                  <li>
-                    <b>Details: </b>
-                    {activity.details}
-                  </li>
-                  <li>
-                    <b>Created by: </b>
-                    {activity.members}
-                  </li>
-                  <li>
-                    <b>Created at: </b>
-                    <Time createdAt={activity.createdAt} />
-                  </li>
+                  <ActivityLi>
+                    <li>
+                      <b>Activity: </b>
+                      {activity.activityname}
+                    </li>
+                    <li>
+                      <b>Type of activity: </b>
+                      {activity.activity}
+                    </li>
+                    <li>
+                      <b>Date: </b>
+                      {activity.dateforact}
+                    </li>
+                    <li>
+                      <b>Start time: </b>
+                      {activity.actlengthstart}
+                    </li>
+                    <li>
+                      <b>End time: </b>
+                      {activity.actlengthend}
+                    </li>
+                    <li>
+                      <b>Intensity: </b>
+                      {activity.intensity}
+                    </li>
+                    <li>
+                      <b>Details: </b>
+                      {activity.details}
+                    </li>
+                    <li>
+                      <b>Created by: </b>
+                      {activity.members}
+                    </li>
+                    <li>
+                      <b>Created: </b>
+                      <Time createdAt={activity.createdAt} />
+                    </li>
+                  </ActivityLi>
 
-                  <li>
+                  <ButtonDivs>
+                    <ButtonsAct>
+                      <ChatIcon />
+                      <span> | </span>Chat
+                    </ButtonsAct>
                     <span onClick={() => hideActivity()}>
-                      <button>
-                        <strong>CLOSE</strong>
-                      </button>
+                      <ButtonsAct>
+                        <Trash />
+                        <span> | </span>Delete
+                      </ButtonsAct>
                     </span>
-                  </li>
+                  </ButtonDivs>
                   {activity.userId === authUser.uid ? (
                     <li>
                       <span onClick={() => removeActivity()}>
