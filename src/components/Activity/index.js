@@ -6,7 +6,6 @@ import { ActPage } from "./styles";
 
 const ActivityPage = () => (
   <ActPage>
-    <h1>Activities</h1>
     <div>
       <Activities />
     </div>

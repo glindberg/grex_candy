@@ -3,29 +3,15 @@ import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import { AuthUserContext, withAuthorization } from "../Session";
 import { withFirebase } from "../Firebase";
-import { Wrapper, ImgContainer, TxtContainer } from "./styles";
+import { Wrapper, ImgContainer, TxtContainer, BtnContainer } from "./styles";
 import ImageToProfile from "./profileImage";
+import { Button } from "../Styles/button";
+import { Edi, Key } from "../Styles/icons";
 
 const ProfilePage = () => (
-  <Wrapper>
-    <AuthUserContext.Consumer>
-      {authUser => (
-        <div className="profile">
-          <h1>Profile</h1>
-          <ul />
-          <Profiles userId={authUser.uid} />
-          <p>
-            <button>
-              <Link to={ROUTES.CREATE_PROFILE}>Edit profile</Link>
-            </button>
-            <button>
-              <Link to={ROUTES.ACCOUNT}>Change Password?</Link>
-            </button>
-          </p>
-        </div>
-      )}
-    </AuthUserContext.Consumer>
-  </Wrapper>
+  <AuthUserContext.Consumer>
+    {authUser => <Profiles userId={authUser.uid} />}
+  </AuthUserContext.Consumer>
 );
 
 class ProfileContent extends Component {
@@ -64,26 +50,28 @@ class ProfileContent extends Component {
     } = this.state;
 
     return (
-      <AuthUserContext.Consumer>
-        {authUser => (
-          <div>
-            {loading && <div>Loading profile info...</div>}
-            {loading ? null : (
-              <ul>
-                <ImgContainer>
-                  <ImageToProfile gender={gender} />
-                </ImgContainer>
-                <TxtContainer>
-                  <br />
-                  <li>
-                    <b>Username: </b>
-                    {authUser.username}
-                  </li>
-                  <li>
-                    <b>Email: </b>
-                    {authUser.email}
-                  </li>
-                  <li>
+      <Wrapper>
+        <AuthUserContext.Consumer>
+          {authUser => (
+            <div className="profile">
+              {loading && <div>Loading profile info...</div>}
+              {loading ? null : (
+                <div>
+                  <h1>Profile</h1>
+                  <ImgContainer>
+                    <ImageToProfile gender={gender} />
+                  </ImgContainer>
+                  <TxtContainer>
+                    <span>
+                      <strong>Username: </strong>
+                      {authUser.username}
+                    </span>
+                    <br />
+                    <span>
+                      <strong>Email: </strong>
+                    </span>
+                    <span>{authUser.email}</span>
+                    <br />
                     <span>
                       <strong>Name: </strong> {fname} {lname}
                     </span>
@@ -108,13 +96,26 @@ class ProfileContent extends Component {
                       <strong>Description:</strong>
                       <br /> {description}
                     </span>
-                  </li>
-                </TxtContainer>
-              </ul>
-            )}
-          </div>
-        )}
-      </AuthUserContext.Consumer>
+                    <br />
+                  </TxtContainer>
+                  <BtnContainer>
+                    <Button>
+                      <Edi />
+                      <span> | </span>
+                      <Link to={ROUTES.CREATE_PROFILE}>Edit profile</Link>
+                    </Button>
+                    <Button>
+                      <Key />
+                      <span> | </span>
+                      <Link to={ROUTES.ACCOUNT}>Edit Password</Link>
+                    </Button>
+                  </BtnContainer>
+                </div>
+              )}
+            </div>
+          )}
+        </AuthUserContext.Consumer>
+      </Wrapper>
     );
   }
 }

@@ -4,7 +4,8 @@ import { compose } from "recompose";
 import { AuthUserContext, withAuthorization } from "../Session";
 import { TxtContainer } from "../Profile/styles";
 import { withFirebase } from "../Firebase";
-import { MessagesTwo } from "../Chat";
+import MessagesTwo from "../Chat";
+import { ShowActivity, ActivityDiv } from "./styles";
 
 class ActivityContent extends Component {
   constructor(props) {
@@ -50,10 +51,10 @@ class ActivityContent extends Component {
     return (
       <AuthUserContext.Consumer>
         {authUser => (
-          <div>
+          <ActivityDiv>
             {loading && <div>Loading info...</div>}
             {loading ? null : (
-              <ul>
+              <ShowActivity>
                 <TxtContainer>
                   <br />
                   <li>
@@ -92,6 +93,10 @@ class ActivityContent extends Component {
                     <b>Created by: </b>
                     {activity.members}
                   </li>
+                  <li>
+                    <b>Created at: </b>
+                    <Time createdAt={activity.createdAt} />
+                  </li>
 
                   <li>
                     <span onClick={() => hideActivity()}>
@@ -101,14 +106,11 @@ class ActivityContent extends Component {
                     </span>
                   </li>
                   <br />
-                  {/* <button onClick={joinActivity()}>Join Activity</button>*/}
                 </TxtContainer>
-                {/*<Messages />*/}
-                {/*<Messages users={this.state.users} />*/}
                 <MessagesTwo activity={activity} users={this.state.users} />
-              </ul>
+              </ShowActivity>
             )}
-          </div>
+          </ActivityDiv>
         )}
       </AuthUserContext.Consumer>
     );

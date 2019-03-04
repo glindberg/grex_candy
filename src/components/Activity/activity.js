@@ -5,7 +5,9 @@ import ActivityContent, {
   ActivityChar
 } from "../Activity/activityContent";
 import { AuthUserContext, withAuthorization } from "../Session";
-import { Act, ActName, Created } from "./styles";
+import { Act, ActName, Created, ActInfo } from "./styles";
+
+import LocationPage from "../Map/location";
 
 class ActivitesBase extends Component {
   constructor(props) {
@@ -46,14 +48,18 @@ class ActivitesBase extends Component {
   };
   handleActivityClick = activity => {
     this.setState({ activity });
+    console.log("hej");
   };
 
   render() {
     const { activities, loading, activity } = this.state;
     return (
       <div>
+        <LocationPage
+          activities={activities}
+          handleActivityClick={this.handleActivityClick}
+        />
         {loading && <div>Loading activities...</div>}
-
         {activity ? (
           <ActivityContent
             activity={activity}
@@ -89,10 +95,10 @@ const ActivityItem = ({ activity, handleActivityClick }) => (
     <ActName>
       <ActivityChar activityname={activity.activityname} />
     </ActName>
-    <p>
+    <ActInfo>
       {activity.activity} {activity.dateforact}, {activity.actlengthstart} -{" "}
       {activity.actlengthend}
-    </p>
+    </ActInfo>
     <Created>
       <Time createdAt={activity.createdAt} />
     </Created>
@@ -102,3 +108,5 @@ const ActivityItem = ({ activity, handleActivityClick }) => (
 const Activities = withFirebase(ActivitesBase);
 
 export default Activities;
+
+export { ActivityItem, ActivityList, ActivityContent };
