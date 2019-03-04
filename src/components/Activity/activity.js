@@ -44,6 +44,19 @@ class ActivitesBase extends Component {
     this.setState({ activity });
   };
 
+  removeActivity = () => {
+    console.log(this.state.activity);
+    const a = this.state.activity;
+    const newActivities = this.state.activities.filter(activity => {
+      return activity !== a;
+    });
+    this.setState({
+      activities: [...newActivities],
+      activity: null
+    });
+    /* this.props.firebase.activity(this.state.activity.uid).remove(); */
+  };
+
   render() {
     const { activities, loading, activity } = this.state;
     return (
@@ -54,6 +67,7 @@ class ActivitesBase extends Component {
           <ActivityContent
             activity={activity}
             hideActivity={this.hideActivity}
+            removeActivity={this.removeActivity}
           />
         ) : activities ? (
           <ActivityList
