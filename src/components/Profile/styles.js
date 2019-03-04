@@ -23,8 +23,6 @@ export const Wrapper = styled.div`
   img {
     width: 150px;
     height: 150px;
-    border-radius: 50%;
-    border: 1px black solid;
   }
   h1 {
     text-align: center;
@@ -75,6 +73,34 @@ export const TxtContainer = styled.div`
   font-size: 1.3em;
 `;
 export const BtnContainer = styled.div`
-  margin: 10px 0px;
   text-align: center;
+`;
+
+export const OtherP = styled.div`
+  background: #abbaab; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to bottom,
+    #ffffff,
+    #abbaab
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #ffffff,
+    #abbaab
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  height: 100%;
+  width: 80%;
+  border-radius: 20px;
+  border: 1px solid black;
+  margin: auto;
+  p {
+    margin-bottom: 20px;
+  }
+  ul {
+    list-style: none;
+  }
+  img {
+    height: 200px;
+  }
 `;

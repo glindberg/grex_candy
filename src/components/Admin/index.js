@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import { compose } from "recompose";
 
 import { withFirebase } from "../Firebase";
@@ -8,12 +8,11 @@ import * as ROLES from "../../constants/roles";
 import * as ROUTES from "../../constants/routes";
 import { Admin } from "../Admin/styles";
 import { Button } from "../Styles/button";
-import { Tele } from "../Styles/icons";
+import { Tele, User, Tie } from "../Styles/icons";
 
 const AdminPage = () => (
   <div>
     <h1>AdminPage</h1>
-    <h2>Users:</h2>
     <Switch>
       <Route exact path={ROUTES.ADMIN_DETAILS} component={UserItem} />
       <Route exact path={ROUTES.ADMIN} component={UserList} />
@@ -75,16 +74,19 @@ class UserListBase extends Component {
                 <strong>E-Mail:</strong> {user.email}
               </span>
               <br />
-              <span>
-                <strong>Phone:</strong> +46{user.phone}
-              </span>
               <br />
-              <br />
-
-              <Button type="button" onClick={this.onSendPasswordResetEmail}>
-                <Tele />
-                <span> |</span> <strong>Password Reset</strong>
-              </Button>
+              <Link
+                to={{
+                  pathname: `${ROUTES.ADMIN}/${user.uid}`,
+                  state: { user }
+                }}
+              >
+                {" "}
+                <Button>
+                  <User />
+                  <span> |</span> <strong>Details</strong>
+                </Button>
+              </Link>
             </div>
           </Admin>
         ))}
@@ -134,24 +136,52 @@ class UserItemBase extends Component {
 
     return (
       <div>
-        <h2>User ({this.props.match.params.id})</h2>
+        <h2>User: {user.username}</h2>
         {loading && <div>Loading ...</div>}
         {user && (
           <div>
             <span>
               <strong>ID:</strong> {user.uid}
             </span>
+            <br />
             <span>
               <strong>E-Mail:</strong> {user.email}
             </span>
+            <br />
+            <strong>Name: </strong> {user.fname} {user.lname}
+            <br />
             <span>
-              <strong>Username:</strong> {user.username}
+              <strong>Gender: </strong> {user.gender}
             </span>
+            <br />
             <span>
-              <button type="button" onClick={this.onSendPasswordResetEmail}>
-                Send Password Reset
-              </button>
+              <strong>Age:</strong> {user.age}
             </span>
+            <br />
+            <span>
+              <strong>Phone: </strong>+46 {user.phone}
+            </span>
+            <br />
+            <span>
+              <strong>City:</strong> {user.city}
+            </span>
+            <br />
+            <span>
+              <strong>Description:</strong>
+              <br /> {user.description}
+            </span>
+            <br />
+            <br />
+            <Link to={ROUTES.ADMIN}>
+              <Button type="button">
+                <Tie />
+                <span> | </span> <strong>User List</strong>
+              </Button>
+            </Link>
+            <Button type="button" onClick={this.onSendPasswordResetEmail}>
+              <Tele />
+              <span> |</span> <strong>Password Reset</strong>
+            </Button>
           </div>
         )}
       </div>

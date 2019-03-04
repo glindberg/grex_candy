@@ -4,9 +4,7 @@ import ActivityContent, {
   Time,
   ActivityChar
 } from "../Activity/activityContent";
-import { AuthUserContext, withAuthorization } from "../Session";
 import { Act, ActName, Created, ActInfo } from "./styles";
-
 import LocationPage from "../Map/location";
 
 class ActivitesBase extends Component {
@@ -48,7 +46,9 @@ class ActivitesBase extends Component {
   };
   handleActivityClick = activity => {
     this.setState({ activity });
-    console.log("hej");
+    console.log("open activity");
+    console.log(this.state);
+    console.log(activity);
   };
 
   removeActivity = () => {
@@ -63,7 +63,6 @@ class ActivitesBase extends Component {
     });
     this.props.firebase.activity(this.state.activity.uid).remove();
   };
-
   render() {
     const { activities, loading, activity } = this.state;
     return (
@@ -91,7 +90,6 @@ class ActivitesBase extends Component {
     );
   }
 }
-
 const ActivityList = ({ activities, handleActivityClick }) => (
   <div>
     {activities.map(activity => (
@@ -103,7 +101,6 @@ const ActivityList = ({ activities, handleActivityClick }) => (
     ))}
   </div>
 );
-
 const ActivityItem = ({ activity, handleActivityClick }) => (
   <Act onClick={() => handleActivityClick(activity)}>
     <ActName>
@@ -118,9 +115,6 @@ const ActivityItem = ({ activity, handleActivityClick }) => (
     </Created>
   </Act>
 );
-
 const Activities = withFirebase(ActivitesBase);
-
 export default Activities;
-
 export { ActivityItem, ActivityList, ActivityContent };

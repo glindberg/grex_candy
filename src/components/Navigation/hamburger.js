@@ -28,9 +28,6 @@ class Example extends React.Component {
             <li>
               <Link to={ROUTES.ACTIVITY}>Activity</Link>
             </li>
-            {/* <li>
-              <Link to={ROUTES.CHAT}>Chat</Link>
-            </li> */}
             {this.props.authUser.roles.includes(ROLES.ADMIN) && (
               <li>
                 <Link to={ROUTES.ADMIN}>Admin</Link>

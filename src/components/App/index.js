@@ -16,7 +16,6 @@ import createProfile from "../Profile/createProfile";
 import createActivity from "../Activity/createActivity";
 import ActivityPage from "../Activity/index";
 import ActivityContent from "../Activity/activityContent";
-import Chat from "../Chat/index";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 

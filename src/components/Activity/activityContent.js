@@ -30,19 +30,6 @@ class ActivityContent extends Component {
     this.props.firebase.activities().off();
   }
 
-  // time = () => {
-  //   const showTime = new Date(this.props.activity.createdAt);
-  //   const options = {
-  //     weekday: "long",
-  //     year: "numeric",
-  //     month: "numeric",
-  //     day: "numeric",
-  //     hour: "numeric",
-  //     minute: "numeric"
-  //   };
-  //   return showTime.toLocaleString("se-EN", options);
-  // };
-
   render() {
     const { loading } = this.state;
 
