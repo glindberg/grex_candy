@@ -4,7 +4,6 @@ import ActivityContent, {
   Time,
   ActivityChar
 } from "../Activity/activityContent";
-import { AuthUserContext, withAuthorization } from "../Session";
 import { Act, ActName, Created, ActInfo } from "./styles";
 
 import LocationPage from "../Map/location";

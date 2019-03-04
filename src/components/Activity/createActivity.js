@@ -8,7 +8,7 @@ import LocationPage from "../Map/location";
 import { Creating, MapSize, Label, Form, Div } from "./styles";
 import { BtnContainer } from "../Profile/styles";
 import { Button } from "../Styles/button";
-import { User, Run } from "../Styles/icons";
+import { Run } from "../Styles/icons";
 
 const INITIAL_STATE = {
   activity: "",

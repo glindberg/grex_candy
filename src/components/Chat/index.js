@@ -101,9 +101,9 @@ class MessagesBaseTwo extends Component {
   };
 
   render() {
-    const { users } = this.props;
+    const { users, activity } = this.props;
     const { text, messages, loading, showProfile } = this.state;
-
+    console.log(messages + " jj");
     return (
       <AuthUserContext.Consumer>
         {authUser => (
@@ -134,6 +134,7 @@ class MessagesBaseTwo extends Component {
                 onEditMessage={this.onEditMessage}
                 onRemoveMessage={this.onRemoveMessage}
                 displayProfile={this.displayProfile}
+                activity={activity}
               />
             )}
 
@@ -154,7 +155,8 @@ const MessageList = ({
   messages,
   onEditMessage,
   onRemoveMessage,
-  displayProfile
+  displayProfile,
+  activity
 }) => (
   <ul>
     {messages.map(message => (
@@ -164,6 +166,7 @@ const MessageList = ({
         onEditMessage={onEditMessage}
         onRemoveMessage={onRemoveMessage}
         displayProfile={displayProfile}
+        activity={activity}
       />
     ))}
   </ul>
@@ -201,28 +204,36 @@ class MessageItem extends Component {
     const { editMode, editText } = this.state;
 
     return (
-      <li>
-        {editMode ? (
-          <input
-            type="text"
-            value={editText}
-            onChange={this.onChangeEditText}
-          />
-        ) : (
-          <span>
-            <strong onClick={() => displayProfile(message.userId)}>
-              {message.user.username || message.user.userId}
-            </strong>
-            {message.text} {message.editedAt && <span>Edited</span>}
-          </span>
-        )}
+      <AuthUserContext.Consumer>
+        {authUser => (
+          <li>
+            {editMode ? (
+              <input
+                type="text"
+                value={editText}
+                onChange={this.onChangeEditText}
+              />
+            ) : (
+              <span>
+                <strong onClick={() => displayProfile(message.userId)}>
+                  {message.user.username || message.user.userId}
+                </strong>
+                {message.text} {message.editedAt && <span>Edited</span>}
+              </span>
+            )}
 
-        {!editMode && (
-          <button type="button" onClick={() => onRemoveMessage(message.uid)}>
-            Delete
-          </button>
+            {!editMode &&
+              (message.userId === authUser.uid ? (
+                <button
+                  type="button"
+                  onClick={() => onRemoveMessage(message.uid)}
+                >
+                  Delete
+                </button>
+              ) : null)}
+          </li>
         )}
-      </li>
+      </AuthUserContext.Consumer>
     );
   }
 }
