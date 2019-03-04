@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { withFirebase } from "../Firebase";
-import ActivityContent from "../Activity/activityContent";
-import { Act } from "./styles";
-import { Time } from "./activityContent";
+import ActivityContent, {
+  Time,
+  ActivityChar
+} from "../Activity/activityContent";
+import { AuthUserContext, withAuthorization } from "../Session";
+import { Act, ActName, Created, ActInfo } from "./styles";
 
 import LocationPage from "../Map/location";
 
@@ -79,8 +82,6 @@ class ActivitesBase extends Component {
   }
 }
 
-const Activities = withFirebase(ActivitesBase);
-
 const ActivityList = ({ activities, handleActivityClick }) => (
   <div>
     {activities.map(activity => (
@@ -95,13 +96,20 @@ const ActivityList = ({ activities, handleActivityClick }) => (
 
 const ActivityItem = ({ activity, handleActivityClick }) => (
   <Act onClick={() => handleActivityClick(activity)}>
-    <span>
-      <strong>{activity.activity}</strong>
-      <br />
+    <ActName>
+      <ActivityChar activityname={activity.activityname} />
+    </ActName>
+    <ActInfo>
+      {activity.activity} {activity.dateforact}, {activity.actlengthstart} -{" "}
+      {activity.actlengthend}
+    </ActInfo>
+    <Created>
       <Time createdAt={activity.createdAt} />
-    </span>
+    </Created>
   </Act>
 );
+
+const Activities = withFirebase(ActivitesBase);
 
 export default Activities;
 
