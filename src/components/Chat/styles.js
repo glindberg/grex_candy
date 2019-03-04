@@ -12,6 +12,7 @@ export const Button = styled.button`
 export const Wrapper = styled.div`
   text-align: center;
   position: fixed;
+  z-index: 1000;
   width: 100%;
   top: 65px;
   height: 100vh;

@@ -5,6 +5,7 @@ import { Key2 } from "styled-icons/icomoon/Key2";
 import { UserDetail } from "styled-icons/boxicons-solid/UserDetail";
 import { DirectionsRun } from "styled-icons/material/DirectionsRun";
 import { LeftArrowCircle } from "styled-icons/boxicons-regular/LeftArrowCircle";
+import { UserCircle } from "styled-icons/boxicons-solid/UserCircle";
 
 export const Tele = styled(Telegram)`
   height: 2em;
@@ -38,4 +39,11 @@ export const Run = styled(DirectionsRun)`
 export const Tie = styled(LeftArrowCircle)`
   height: 2em;
   width: 2em;
+`;
+
+export const UserC = styled(UserCircle)`
+  width: 1.5em;
+  margin-top: -8px;
+  margin-right: -5px;
+  margin-left: 5px;
 `;

@@ -3,7 +3,7 @@ import { compose } from "recompose";
 import { AuthUserContext, withAuthorization } from "../Session";
 import { withFirebase } from "../Firebase";
 import ShowUser from "../Profile/showOtherProfile";
-import { Wrapper, Button } from "../Chat/styles";
+import { Wrapper } from "../Chat/styles";
 
 class MessagesBaseTwo extends Component {
   constructor(props) {

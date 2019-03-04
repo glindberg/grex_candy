@@ -17,7 +17,9 @@ export const Admin = styled.div`
   height: 100%;
   margin: 5px;
   color: black;
-
+  h1 {
+    margin-left: 10%;
+  }
   div {
     width: 70%;
     margin: auto;
@@ -33,3 +35,8 @@ export const Admin = styled.div`
     }
   }
 `;
+export const Rubrik = styled.div`
+  margin-left: 15px;
+`;
+
+export const Details = styled.div``;

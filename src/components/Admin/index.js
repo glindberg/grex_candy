@@ -6,13 +6,12 @@ import { withFirebase } from "../Firebase";
 import { withAuthorization } from "../Session";
 import * as ROLES from "../../constants/roles";
 import * as ROUTES from "../../constants/routes";
-import { Admin } from "../Admin/styles";
+import { Admin, Rubrik, Details } from "../Admin/styles";
 import { Button } from "../Styles/button";
 import { Tele, User, Tie } from "../Styles/icons";
 
 const AdminPage = () => (
   <div>
-    <h1>AdminPage</h1>
     <Switch>
       <Route exact path={ROUTES.ADMIN_DETAILS} component={UserItem} />
       <Route exact path={ROUTES.ADMIN} component={UserList} />
@@ -57,6 +56,9 @@ class UserListBase extends Component {
 
     return (
       <div>
+        <Rubrik>
+          <h1>Admin Page</h1>
+        </Rubrik>
         {loading && <div>Loading ...</div>}
 
         {users.map(user => (
@@ -135,8 +137,10 @@ class UserItemBase extends Component {
     const { user, loading } = this.state;
 
     return (
-      <div>
-        <h2>User: {user.username}</h2>
+      <Admin>
+        <Details>
+          <h2>User: {user.username}</h2>
+        </Details>
         {loading && <div>Loading ...</div>}
         {user && (
           <div>
@@ -184,7 +188,7 @@ class UserItemBase extends Component {
             </Button>
           </div>
         )}
-      </div>
+      </Admin>
     );
   }
 }
