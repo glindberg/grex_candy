@@ -48,7 +48,6 @@ class ActivityContent extends Component {
   };
   hideMap = () => {
     this.setState({ showMap: false });
-    console.log("nya hideMap har kallats på");
   };
 
   render() {
