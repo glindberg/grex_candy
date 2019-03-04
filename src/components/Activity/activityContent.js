@@ -7,7 +7,6 @@ import { withFirebase } from "../Firebase";
 import MessagesTwo from "../Chat";
 import {
   ShowActivity,
-  ActivityDiv,
   ActivityLi,
   ButtonsAct,
   ButtonDivs,
@@ -21,7 +20,10 @@ class ActivityContent extends Component {
 
     this.state = {
       loading: false,
-      users: null
+      users: null,
+      showChat: false,
+      showMap: false,
+      hideActivity: false
     };
   }
 
@@ -38,97 +40,135 @@ class ActivityContent extends Component {
     this.props.firebase.activities().off();
   }
 
-  render() {
-    const { loading } = this.state;
+  displayChat = () => {
+    this.setState({ showChat: true });
+  };
+  hideChat = () => {
+    this.setState({ showChat: false });
+  };
+  hideMap = () => {
+    this.setState({ showMap: false });
+    console.log("nya hideMap har kallats på");
+  };
 
-    const { activity, hideActivity, removeActivity } = this.props;
+  render() {
+    const { loading, showChat, showMap } = this.state;
+
+    const { activity, hideActivity } = this.props;
     return (
       <AuthUserContext.Consumer>
         {authUser => (
-          <ActivityDiv>
+          <div>
             {loading && <div>Loading info...</div>}
             {loading ? null : (
               <ShowActivity>
-                <TxtContainer>
-                  <span onClick={() => hideActivity()}>
-                    <ButtonClosing>
-                      <CloseAct />
-                      {/* <span> | </span>Home */}
-                    </ButtonClosing>
-                  </span>
-                  <br />
-                  <ActivityLi>
-                    <li>
-                      <b>Activity: </b>
-                      {activity.activityname}
-                    </li>
-                    <li>
-                      <b>Type of activity: </b>
-                      {activity.activity}
-                    </li>
-                    <li>
-                      <b>Date: </b>
-                      {activity.dateforact}
-                    </li>
-                    <li>
-                      <b>Start time: </b>
-                      {activity.actlengthstart}
-                    </li>
-                    <li>
-                      <b>End time: </b>
-                      {activity.actlengthend}
-                    </li>
-                    <li>
-                      <b>Intensity: </b>
-                      {activity.intensity}
-                    </li>
-                    <li>
-                      <b>Details: </b>
-                      {activity.details}
-                    </li>
-                    <li>
-                      <b>Created by: </b>
-                      {activity.members}
-                    </li>
-                    <li>
-                      <b>Created: </b>
-                      <Time createdAt={activity.createdAt} />
-                    </li>
-                  </ActivityLi>
-
-                  <ButtonDivs>
-                    <ButtonsAct>
-                      <ChatIcon />
-                      <span> | </span>Chat
-                    </ButtonsAct>
+                {!showChat && (
+                  <TxtContainer>
                     <span onClick={() => hideActivity()}>
-                      <ButtonsAct>
-                        <Trash />
-                        <span> | </span>Delete
-                      </ButtonsAct>
+                      <ButtonClosing>
+                        <CloseAct />
+                        {/* <span> | </span>Home */}
+                      </ButtonClosing>
                     </span>
-                  </ButtonDivs>
-                  {activity.userId === authUser.uid ? (
-                    <li>
-                      <span onClick={() => removeActivity()}>
-                        <button>
-                          <strong>Remove activity </strong>
-                        </button>
+                    <br />
+                    <ActivityLi>
+                      <li>
+                        <b>Activity: </b>
+                        {activity.activityname}
+                      </li>
+                      <li>
+                        <b>Type of activity: </b>
+                        {activity.activity}
+                      </li>
+                      <li>
+                        <b>Date: </b>
+                        {activity.dateforact}
+                      </li>
+                      <li>
+                        <b>Start time: </b>
+                        {activity.actlengthstart}
+                      </li>
+                      <li>
+                        <b>End time: </b>
+                        {activity.actlengthend}
+                      </li>
+                      <li>
+                        <b>Intensity: </b>
+                        {activity.intensity}
+                      </li>
+                      <li>
+                        <b>Details: </b>
+                        {activity.details}
+                      </li>
+                      <li>
+                        <b>Created by: </b>
+                        {activity.members}
+                      </li>
+                      <li>
+                        <b>Created: </b>
+                        <Time createdAt={activity.createdAt} />
+                      </li>
+                    </ActivityLi>
+
+                    <ButtonDivs>
+                      <ButtonsAct>
+                        <ChatIcon />
+                        <span> | </span>Chat
+                      </ButtonsAct>
+                      <span onClick={() => hideActivity()}>
+                        <ButtonsAct>
+                          <Trash />
+                          <span> | </span>Delete
+                        </ButtonsAct>
                       </span>
+                    </ButtonDivs>
+                    {activity.userId === authUser.uid ? (
+                      <li>
+                        <span onClick={() => hideActivity()}>
+                          <button>
+                            <strong>Remove Activity</strong>
+                          </button>
+                        </span>
+                      </li>
+                    ) : null}
+
+                    <li>
+                      {!showMap && (
+                        <span
+                          onClick={() => {
+                            this.displayChat();
+                          }}
+                        >
+                          <button>
+                            <strong>Chat</strong>
+                          </button>
+                        </span>
+                      )}
                     </li>
-                  ) : null}
-                  <br />
-                </TxtContainer>
-                <MessagesTwo activity={activity} users={this.state.users} />
+
+                    <br />
+                  </TxtContainer>
+                )}
+                {showChat && (
+                  <div>
+                    <MessagesTwo activity={activity} users={this.state.users} />
+                    <button
+                      onClick={() => {
+                        this.hideChat();
+                      }}
+                    >
+                      Hide Chat
+                    </button>
+                  </div>
+                )}
               </ShowActivity>
             )}
-          </ActivityDiv>
+          </div>
         )}
       </AuthUserContext.Consumer>
     );
   }
 }
-
 const Time = activity => {
   const showTime = new Date(activity.createdAt);
   const options = {
