@@ -8,7 +8,6 @@ const ActivityPage = () => (
   <ActPage>
     <div>
       <Activities />
-      <Link to={ROUTES.CREATE_ACTIVITY}>Create Activity</Link>
     </div>
   </ActPage>
 );

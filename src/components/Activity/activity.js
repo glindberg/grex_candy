@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { withFirebase } from "../Firebase";
-import ActivityContent from "../Activity/activityContent";
-import { Act } from "./styles";
-import { Time } from "./activityContent";
+import ActivityContent, {
+  Time,
+  ActivityChar
+} from "../Activity/activityContent";
+import { AuthUserContext, withAuthorization } from "../Session";
+import { Act, ActName, Created, ActInfo } from "./styles";
 
 import LocationPage from "../Map/location";
 
@@ -48,6 +51,19 @@ class ActivitesBase extends Component {
     console.log("hej");
   };
 
+  removeActivity = () => {
+    console.log(this.state.activity);
+    const a = this.state.activity;
+    const newActivities = this.state.activities.filter(activity => {
+      return activity !== a;
+    });
+    this.setState({
+      activities: [...newActivities],
+      activity: null
+    });
+    this.props.firebase.activity(this.state.activity.uid).remove();
+  };
+
   render() {
     const { activities, loading, activity } = this.state;
     return (
@@ -61,6 +77,7 @@ class ActivitesBase extends Component {
           <ActivityContent
             activity={activity}
             hideActivity={this.hideActivity}
+            removeActivity={this.removeActivity}
           />
         ) : activities ? (
           <ActivityList
@@ -74,8 +91,6 @@ class ActivitesBase extends Component {
     );
   }
 }
-
-const Activities = withFirebase(ActivitesBase);
 
 const ActivityList = ({ activities, handleActivityClick }) => (
   <div>
@@ -91,13 +106,20 @@ const ActivityList = ({ activities, handleActivityClick }) => (
 
 const ActivityItem = ({ activity, handleActivityClick }) => (
   <Act onClick={() => handleActivityClick(activity)}>
-    <span>
-      <strong>{activity.activity}</strong>
-      <br />
+    <ActName>
+      <ActivityChar activityname={activity.activityname} />
+    </ActName>
+    <ActInfo>
+      {activity.activity} {activity.dateforact}, {activity.actlengthstart} -{" "}
+      {activity.actlengthend}
+    </ActInfo>
+    <Created>
       <Time createdAt={activity.createdAt} />
-    </span>
+    </Created>
   </Act>
 );
+
+const Activities = withFirebase(ActivitesBase);
 
 export default Activities;
 

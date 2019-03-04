@@ -13,7 +13,9 @@ class ActivityContent extends Component {
     this.state = {
       loading: false,
       users: null,
-      showChat: false
+      showChat: false,
+      showMap: false,
+      hideActivity: false
     };
   }
 
@@ -30,17 +32,18 @@ class ActivityContent extends Component {
     this.props.firebase.activities().off();
   }
 
-  displayChat() {
+  displayChat = () => {
     this.setState({ showChat: true });
-    console.log("showChat har kallats på");
-  }
-
+  };
   hideChat = () => {
     this.setState({ showChat: false });
   };
+  hideMap = () => {
+    this.setState({ showMap: false });
+  };
 
   render() {
-    const { loading, showChat } = this.state;
+    const { loading, showChat, showMap } = this.state;
 
     const { activity, hideActivity } = this.props;
     return (
@@ -50,67 +53,74 @@ class ActivityContent extends Component {
             {loading && <div>Loading info...</div>}
             {loading ? null : (
               <ul>
-                <TxtContainer>
-                  <br />
-                  <li>
-                    <b>Type of activity: </b>
-                    {activity.activity}
-                  </li>
-                  <li>
-                    <b>Start time: </b>
-                    {activity.actlengthstart}
-                  </li>
-                  <li>
-                    <b>End time: </b>
-                    {activity.actlengthend}
-                  </li>
-                  <li>
-                    <b>Intensity: </b>
-                    {activity.intensity}
-                  </li>
-                  <li>
-                    <b>Details: </b>
-                    {activity.details}
-                  </li>
-                  <li>
-                    <b>Created by: </b>
-                    {activity.members}
-                  </li>
-                  <li>
-                    <b>Created at: </b>
-                    <Time createdAt={activity.createdAt} />
-                  </li>
-
-                  <li>
-                    <span onClick={() => hideActivity()}>
-                      <button>
-                        <strong>CLOSE</strong>
-                      </button>
-                    </span>
-                  </li>
-                  <br />
-                  <li>
-                    {!showChat && (
-                      <span onClick={() => this.displayChat()}>
+                {!showChat && (
+                  <TxtContainer>
+                    <br />
+                    <li>
+                      <b>Type of activity: </b>
+                      {activity.activity}
+                    </li>
+                    <li>
+                      <b>Start time: </b>
+                      {activity.actlengthstart}
+                    </li>
+                    <li>
+                      <b>End time: </b>
+                      {activity.actlengthend}
+                    </li>
+                    <li>
+                      <b>Intensity: </b>
+                      {activity.intensity}
+                    </li>
+                    <li>
+                      <b>Details: </b>
+                      {activity.details}
+                    </li>
+                    <li>
+                      <b>Created by: </b>
+                      {activity.members}
+                    </li>
+                    <li>
+                      <b>Created at: </b>
+                      <Time createdAt={activity.createdAt} />
+                    </li>
+                    <li>
+                      <span onClick={() => hideActivity()}>
                         <button>
-                          <strong>Join Activity</strong>
+                          <strong>CLOSE</strong>
                         </button>
                       </span>
-                    )}
-                  </li>
+                    </li>
+                    <br />
+                    <li>
+                      {!showMap && (
+                        <span
+                          onClick={() => {
+                            this.displayChat();
+                          }}
+                        >
+                          <button>
+                            <strong>Chat</strong>
+                          </button>
+                        </span>
+                      )}
+                    </li>
 
-                  {showChat && (
-                    <div>
-                      <MessagesTwo
-                        activity={activity}
-                        users={this.state.users}
-                      />
-                      <button onClick={this.hideChat}>Leave Activity</button>
-                    </div>
-                  )}
-
-                  <br />
-                </TxtContainer>
+                    <br />
+                  </TxtContainer>
+                )}
+                {showChat && (
+                  <div>
+                    <MessagesTwo activity={activity} users={this.state.users} />
+                    <button
+                      onClick={() => {
+                        this.hideChat();
+                      }}
+                    >
+                      Hide Chat
+                    </button>
+                  </div>
+                )}
               </ul>
             )}
           </div>
