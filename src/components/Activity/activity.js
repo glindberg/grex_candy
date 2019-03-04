@@ -61,7 +61,7 @@ class ActivitesBase extends Component {
       activities: [...newActivities],
       activity: null
     });
-    /* this.props.firebase.activity(this.state.activity.uid).remove(); */
+    this.props.firebase.activity(this.state.activity.uid).remove();
   };
 
   render() {
