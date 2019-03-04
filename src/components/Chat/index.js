@@ -94,7 +94,6 @@ class MessagesBaseTwo extends Component {
   };
   displayProfile = userId => {
     this.setState({ showProfile: userId });
-    console.log(userId);
   };
   hideProfile = () => {
     this.setState({ showProfile: false });

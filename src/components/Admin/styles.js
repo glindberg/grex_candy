@@ -19,7 +19,8 @@ export const Admin = styled.div`
   color: black;
 
   div {
-    margin-left: 20%;
+    width: 70%;
+    margin: auto;
     padding-top: 10px;
     padding-bottom: 10px;
     h2 {

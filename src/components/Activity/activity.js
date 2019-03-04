@@ -42,10 +42,12 @@ class ActivitesBase extends Component {
   }
   hideActivity = () => {
     this.setState({ activity: null });
+    console.log("close activity");
   };
   handleActivityClick = activity => {
     this.setState({ activity });
-    console.log("hej");
+    console.log("open activity");
+    console.log(this.state);
   };
 
   render() {
@@ -53,9 +55,11 @@ class ActivitesBase extends Component {
     return (
       <div>
         <LocationPage
-          activities={activities}
+          activity={this.state.activity}
           handleActivityClick={this.handleActivityClick}
+          content={this.Activitycontent}
         />
+
         {loading && <div>Loading activities...</div>}
         {activity ? (
           <ActivityContent

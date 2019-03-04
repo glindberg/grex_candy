@@ -4,7 +4,6 @@ import { withFirebase } from "../Firebase";
 import { AuthUserContext } from "../Session";
 import { MapPage } from "./styles";
 import L from "leaflet";
-import { ActivityContent, ActivityList } from "../Activity/activity";
 
 const LocationPage = props => (
   <AuthUserContext.Consumer>
@@ -131,7 +130,6 @@ class LocatedTwo extends Component {
     markers.push({
       ...this.state.browserCoords,
       name: "This is your position"
-      // icon:
     });
     return (
       <div>
@@ -143,6 +141,7 @@ class LocatedTwo extends Component {
             position={Object.values(this.state.browserCoords)}
             zoom={12}
             sendMarker={this.props.createActivityView}
+            activity={this.state.activity}
           />
         ) : (
           <span>Can't get any position data..</span>
@@ -156,7 +155,8 @@ class MyMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      markers: []
+      markers: [],
+      activity: true
     };
   }
   addMarker = e => {
@@ -166,26 +166,6 @@ class MyMap extends Component {
       this.setState({ markers });
       this.props.sendMarker(e.latlng);
     }
-  };
-  getToActivity = (activity, activities) => {
-    console.log("getToActivity clicked");
-    return (
-      <div>
-        {activity ? (
-          <ActivityContent
-            activity={activity}
-            hideActivity={this.props.hideActivity}
-          />
-        ) : activities ? (
-          <ActivityList
-            handleActivityClick={this.props.handleActivityClick}
-            activities={activities}
-          />
-        ) : (
-          <div>There are no activities ...</div>
-        )}
-      </div>
-    );
   };
 
   render() {
@@ -222,7 +202,10 @@ class MyMap extends Component {
         {this.props.markers.map((marker, index) => (
           <Marker key={index} position={Object.values(marker)} icon={myIcon}>
             <Popup>
-              <div onClick={activity => this.props.handleActivityClick()}>
+              <div
+                activity={this.props.activityContent}
+                onClick={activity => this.props.handleActivityClick(activity)}
+              >
                 {marker.name ? marker.name : "Placeholder"}
                 <br />
               </div>
