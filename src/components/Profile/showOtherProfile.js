@@ -2,20 +2,16 @@ import React, { Component } from "react";
 import { AuthUserContext, withAuthorization } from "../Session";
 import { withFirebase } from "../Firebase";
 import ImageToProfile from "./profileImage";
-import { Wrapper, ImgContainer } from "./styles";
+import { ImgContainer, OtherP } from "./styles";
 
 const ShowUser = ({ userId }) => (
-  <Wrapper>
-    <AuthUserContext.Consumer>
-      {() => (
-        <div className="profile">
-          <ul>
-            <Profiles userId={userId} />
-          </ul>
-        </div>
-      )}
-    </AuthUserContext.Consumer>
-  </Wrapper>
+  <AuthUserContext.Consumer>
+    {() => (
+      <div className="profile">
+        <Profiles userId={userId} />
+      </div>
+    )}
+  </AuthUserContext.Consumer>
 );
 
 class ShowProfile extends Component {
@@ -49,28 +45,25 @@ class ShowProfile extends Component {
     const { users } = this.state;
     const { userId } = this.props;
     return (
-      <div>
-        <ul>
+      <OtherP>
+        <div>
           {users
             .filter(user => user.uid === userId)
             .map(u => (
-              <li key={u.toString()}>
-                <div>
-                  <ImgContainer>
-                    <ImageToProfile gender={u.gender} />
-                  </ImgContainer>
-                  <h2>{u.username}</h2>
-                  <h4>
-                    {u.gender}, {u.age}
-                  </h4>
-
-                  <span>{u.description}</span>
-                  <br />
-                </div>
-              </li>
+              <div key={u.toString()}>
+                <ImgContainer>
+                  <ImageToProfile gender={u.gender} />
+                </ImgContainer>
+                <h2>{u.username}</h2>
+                <h4>
+                  {u.gender}, {u.age}
+                </h4>
+                <p>{u.description}</p>
+                <br />
+              </div>
             ))}
-        </ul>
-      </div>
+        </div>
+      </OtherP>
     );
   }
 }

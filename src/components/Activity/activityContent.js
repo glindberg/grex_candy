@@ -39,24 +39,10 @@ class ActivityContent extends Component {
     this.props.firebase.activities().off();
   }
 
-  // time = () => {
-  //   const showTime = new Date(this.props.activity.createdAt);
-  //   const options = {
-  //     weekday: "long",
-  //     year: "numeric",
-  //     month: "numeric",
-  //     day: "numeric",
-  //     hour: "numeric",
-  //     minute: "numeric"
-  //   };
-  //   return showTime.toLocaleString("se-EN", options);
-  // };
-
   render() {
     const { loading } = this.state;
 
-    const { activity, hideActivity } = this.props;
-
+    const { activity, hideActivity, removeActivity } = this.props;
     return (
       <AuthUserContext.Consumer>
         {authUser => (
@@ -123,6 +109,15 @@ class ActivityContent extends Component {
                       </ButtonsAct>
                     </span>
                   </ButtonDivs>
+                  {activity.userId === authUser.uid ? (
+                    <li>
+                      <span onClick={() => removeActivity()}>
+                        <button>
+                          <strong>Remove activity </strong>
+                        </button>
+                      </span>
+                    </li>
+                  ) : null}
                   <br />
                 </TxtContainer>
                 <MessagesTwo activity={activity} users={this.state.users} />

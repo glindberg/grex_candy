@@ -262,14 +262,7 @@ class CreateActivity extends Component {
                     </label>
                   </Form>
                   <br />
-                  {/* disabled={isInvalid} detta ska med in i button */}
-                  {/* <button
-                    type="submit"
-                    value={this.state.activityname}
-                    onChange={this.onChange}
-                  >
-                    Create Activity
-                  </button> */}
+
                   <BtnContainer>
                     <ButtonsAct
                       type="submit"
