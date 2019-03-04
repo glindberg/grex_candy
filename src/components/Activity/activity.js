@@ -51,25 +51,16 @@ class ActivitesBase extends Component {
   };
   handleActivityClick = activity => {
     this.setState({ activity });
-    console.log("hej");
-    console.log(this.props);
-    console.log(this.state);
   };
   hideActivityToggle = () => {
     this.setState(prevState => ({ hideActivity: !prevState.hideActivity }));
   };
   displayMap() {
     this.setState({ showMap: true });
-    console.log("displayMap har kallats på");
-    console.log("propparna" + this.props);
   }
 
   hideMap = () => {
     this.setState({ showMap: false });
-    console.log("hideMap har kallats på");
-    console.log("open activity");
-    console.log(this.state);
-    console.log(activity);
   };
 
   removeActivity = () => {
@@ -88,11 +79,6 @@ class ActivitesBase extends Component {
     const { activities, loading, activity, showMap, hideActivity } = this.state;
     return (
       <div>
-        {/* <LocationPage
-          activities={activities}
-          handleActivityClick={this.handleActivityClick}
-        /> */}
-
         {!showMap && (
           <div>
             <ArrowUp onClick={() => this.displayMap()} />
