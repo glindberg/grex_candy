@@ -12,7 +12,7 @@ import {
   ButtonDivs,
   ArrowU,
   ArrowD,
-  ButtonClosing
+  ChatClose
 } from "./styles";
 import { AuthUserContext } from "../Session";
 import MessagesTwo from "../Chat";
@@ -166,21 +166,13 @@ class ActivitesBase extends Component {
 
                 {showChat && (
                   <div>
-                    <ButtonClosing>
+                    <ChatClose>
                       <CloseX
                         onClick={() => {
                           this.hideChat();
                         }}
                       />
-                    </ButtonClosing>
-                    {/* 
-                    <button
-                      onClick={() => {
-                        this.hideChat();
-                      }}
-                    >
-                      Close chat
-                    </button> */}
+                    </ChatClose>
                     <MessagesTwo activity={activity} users={this.state.users} />
                   </div>
                 )}
