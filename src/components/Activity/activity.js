@@ -4,10 +4,20 @@ import ActivityContent, {
   Time,
   ActivityChar
 } from "../Activity/activityContent";
-import { Act, ActName, Created, ActInfo } from "./styles";
-import { ArrowUp, ArrowDown } from "../Styles/icons";
-import LocationPage from "../Map/location";
+import {
+  Act,
+  ActName,
+  Created,
+  ActInfo,
+  ButtonDivs,
+  ArrowU,
+  ArrowD
+} from "./styles";
+import { AuthUserContext } from "../Session";
 import MessagesTwo from "../Chat";
+import { ArrowUp, ArrowDown, ChatIcon, Trash } from "../Styles/icons";
+import LocationPage from "../Map/location";
+import { Button } from "../Styles/button";
 
 class ActivitesBase extends Component {
   constructor(props) {
@@ -16,15 +26,19 @@ class ActivitesBase extends Component {
       activity: null,
       loading: false,
       activities: [],
-      showMap: true,
       hideActivity: false,
-      showChat: false
+      users: null,
+      showMap: true
     };
   }
   componentDidMount() {
-    this.setState({
-      loading: true
+    this.props.firebase.users().on("value", snapshot => {
+      this.setState({
+        loading: false,
+        users: snapshot.val()
+      });
     });
+
     this.props.firebase.activities().on("value", snapshot => {
       const activityObject = snapshot.val();
       if (activityObject) {
@@ -47,6 +61,7 @@ class ActivitesBase extends Component {
   }
   componentWillUnmount() {
     this.props.firebase.activities().off();
+    this.props.firebase.users().off();
   }
   hideActivity = () => {
     this.setState({ activity: null });
@@ -60,17 +75,14 @@ class ActivitesBase extends Component {
   displayMap() {
     this.setState({ showMap: false });
   }
-
   hideMap() {
     this.setState({ showMap: true });
-    console.log("hej");
   }
   displayChat = () => {
-    this.hideMap();
-    this.setState({ showChat: true });
+    this.setState({ showChat: true, showMap: false });
   };
   hideChat = () => {
-    this.setState({ showChat: false });
+    this.setState({ showChat: false, showMap: true });
   };
 
   removeActivity = () => {
@@ -94,52 +106,87 @@ class ActivitesBase extends Component {
       showChat
     } = this.state;
     return (
-      <div>
-        {showMap && (
+      <AuthUserContext.Consumer>
+        {authUser => (
           <div>
-            <LocationPage
-              activities={activities}
-              handleActivityClick={this.handleActivityClick}
-            />
-            <ArrowUp onClick={() => this.displayMap()} />
+            {showMap && (
+              <div>
+                <LocationPage
+                  activities={activities}
+                  handleActivityClick={this.handleActivityClick}
+                />
+                <ArrowU onClick={() => this.displayMap()}>
+                  <ArrowUp />
+                </ArrowU>
+              </div>
+            )}
+            {!showMap && (
+              <div>
+                {!showChat && (
+                  <ArrowD onClick={() => this.hideMap()}>
+                    <ArrowDown />
+                    <span>Show Map</span>
+                  </ArrowD>
+                )}
+              </div>
+            )}
+            {loading && <div>Loading activities...</div>}
+            {activity ? (
+              <div>
+                <div>
+                  {!showChat && (
+                    <div>
+                      <ActivityContent
+                        activity={activity}
+                        hideActivity={this.hideActivity}
+                        removeActivity={this.removeActivity}
+                        hideActivityToggle={this.hideActivityToggle}
+                      />
+                      <ButtonDivs>
+                        <Button
+                          onClick={() => {
+                            this.displayChat();
+                          }}
+                        >
+                          <ChatIcon />
+                          <span> | </span>Chat
+                        </Button>
+
+                        {activity.userId === authUser.uid ? (
+                          <Button onClick={() => this.removeActivity()}>
+                            <Trash />
+                            <span> | </span>Delete
+                          </Button>
+                        ) : null}
+                      </ButtonDivs>
+                    </div>
+                  )}
+                </div>
+
+                {showChat && (
+                  <div>
+                    <button
+                      onClick={() => {
+                        this.hideChat();
+                      }}
+                    >
+                      Close chat
+                    </button>
+                    <MessagesTwo activity={activity} users={this.state.users} />
+                  </div>
+                )}
+              </div>
+            ) : activities && !hideActivity ? (
+              <ActivityList
+                handleActivityClick={this.handleActivityClick}
+                activities={activities}
+              />
+            ) : (
+              <div>There are no activities ...</div>
+            )}
           </div>
         )}
-        {!showMap && (
-          <div>
-            <span>Display map</span>
-            <ArrowDown onClick={() => this.hideMap()} />
-          </div>
-        )}
-        {loading && <div>Loading activities...</div>}
-        {activity ? (
-          <ActivityContent
-            map={this.showMap}
-            activity={activity}
-            hideActivity={this.hideActivity}
-            removeActivity={this.removeActivity}
-            hideActivityToggle={this.hideActivityToggle}
-          />
-        ) : activities && !hideActivity ? (
-          <ActivityList
-            handleActivityClick={this.handleActivityClick}
-            activities={activities}
-          />
-        ) : (
-          <div>There are no activities ...</div>
-        )}
-        {showChat && (
-          <div>
-            <MessagesTwo activity={activity} users={this.state.users} />
-            <button
-              onClick={() => {
-                this.hideChat();
-              }}
-            >
-              Hide Chat
-            </button>
-          </div>
-        )}
-      </div>
+      </AuthUserContext.Consumer>
     );
   }
 }

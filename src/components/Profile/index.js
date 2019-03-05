@@ -34,7 +34,7 @@ class ProfileContent extends Component {
     });
   }
   componentWillUnmount() {
-    this.props.firebase.users().off();
+    this.props.firebase.user(this.props.userId).off();
   }
 
   render() {

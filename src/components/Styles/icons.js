@@ -37,12 +37,24 @@ export const UserD = styled(UserDetail)`
 `;
 
 export const ArrowUp = styled(KeyboardArrowUp)`
-  height: 2em;
-  width: 2em;
-  padding: 5px;
+  font-size: 40px;
+  animation: shadow-pulse 1s 5;
+  @keyframes shadow-pulse {
+    0% {
+    }
+    100% {
+      -moz-transform: translate(0px, -10px);
+      -webkit-transform: translate(0px, -10px);
+      -o-transform: translate(0px, -10px);
+      -ms-transform: translate(0px, -10px);
+      transform: translate(0px, -10px);
+    }
+  }
 `;
 export const ArrowDown = styled(KeyboardArrowDown)`
   height: 2em;
+  color: white;
+  background: rgb(83, 109, 122);
 `;
 
 export const Run = styled(DirectionsRun)`
