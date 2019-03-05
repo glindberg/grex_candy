@@ -53,7 +53,7 @@ export const ActInfo = styled.p`
 `;
 
 export const Created = styled.p`
-  font-size: 0.5rem;
+  font-size: 0.7rem;
   color: black;
   text-align: right;
   margin: 0;
@@ -94,6 +94,7 @@ export const Creating = styled.div`
     right: 10%;
     height: 2.4em;
     margin-left: 1em;
+    position: absolute;
   }
 
   textarea {
@@ -165,6 +166,13 @@ export const ActivityLi = styled.div`
   @media (min-width: 500px) {
     width: 50%;
   }
+`;
+
+export const ActivityBig = styled.li`
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+  text-align: center;
+  font-weight: 600;
 `;
 
 // export const CloseActivity = styled.li`

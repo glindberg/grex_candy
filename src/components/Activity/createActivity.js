@@ -15,8 +15,7 @@ import {
   FormSize
 } from "./styles";
 import { BtnContainer } from "../Profile/styles";
-import { Button } from "../Styles/button";
-import { User, Run, CloseAct } from "../Styles/icons";
+import { Run } from "../Styles/icons";
 
 const INITIAL_STATE = {
   activity: "",
@@ -154,6 +153,11 @@ class CreateActivity extends Component {
                         <option value="Skateboarding">Skateboarding</option>
                         <option value="Other">Other, specify below</option>
                       </select>
+                    </Label>
+                  </Form>
+
+                  <Form>
+                    <Label>
                       <input
                         rows="1"
                         cols="50"
@@ -165,6 +169,7 @@ class CreateActivity extends Component {
                       />
                     </Label>
                   </Form>
+                  <br />
                   <br />
                   <Form>
                     <Label>

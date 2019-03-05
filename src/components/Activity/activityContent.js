@@ -11,7 +11,8 @@ import {
   ActivityLi,
   ButtonsAct,
   ButtonDivs,
-  ButtonClosing
+  ButtonClosing,
+  ActivityBig
 } from "./styles";
 import { Button } from "../Styles/button";
 import { Run, CloseAct, ChatIcon, Trash } from "../Styles/icons";
@@ -59,10 +60,10 @@ class ActivityContent extends Component {
                   </span>
                   <br />
                   <ActivityLi>
-                    <li>
-                      <b>Activity: </b>
+                    <ActivityBig>
+                      {/* <strong>Activity: </strong> */}
                       {activity.activityname}
-                    </li>
+                    </ActivityBig>
                     <li>
                       <b>Type of activity: </b>
                       {activity.activity}
@@ -102,22 +103,17 @@ class ActivityContent extends Component {
                       <ChatIcon />
                       <span> | </span>Chat
                     </ButtonsAct>
-                    <span onClick={() => hideActivity()}>
-                      <ButtonsAct>
-                        <Trash />
-                        <span> | </span>Delete
-                      </ButtonsAct>
-                    </span>
-                  </ButtonDivs>
-                  {activity.userId === authUser.uid ? (
-                    <li>
+
+                    {activity.userId === authUser.uid ? (
                       <span onClick={() => removeActivity()}>
-                        <button>
-                          <strong>Remove activity </strong>
-                        </button>
+                        <ButtonsAct>
+                          <Trash />
+                          <span> | </span>Delete
+                        </ButtonsAct>
                       </span>
-                    </li>
-                  ) : null}
+                    ) : null}
+                  </ButtonDivs>
+
                   <br />
                 </TxtContainer>
                 <MessagesTwo activity={activity} users={this.state.users} />

@@ -7,7 +7,7 @@ export const Nav = styled.section`
   /* justify-content: space-around; */
 
   h1 {
-    color: white;
+    color: rgb(247, 245, 237);
     margin: auto;
   }
 `;
@@ -48,7 +48,7 @@ export const Ham = styled.section`
 
   /* Color/shape of burger icon bars */
   .bm-burger-bars {
-    background: white;
+    background: rgb(247, 245, 237);
     border-radius: 10px;
   }
 
@@ -129,8 +129,5 @@ export const CreateAct = styled.div`
   font-size: 30px;
   a {
     color: rgb(247, 245, 237);
-  }
-  a:hover {
-    color: #a90000;
   }
 `;
