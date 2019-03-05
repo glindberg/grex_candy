@@ -151,6 +151,23 @@ export const ButtonClosing = styled.button`
     color: black;
   }
 `;
+export const ChatClosingButton = styled.button`
+  border: none;
+  /* color: white; */
+  font-size: 1em;
+  border-radius: 5px;
+  margin: 5px;
+  background: none;
+  /* padding-right: 10px;
+  background: rgb(83, 109, 122); */
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 60px;
+  a {
+    color: black;
+  }
+`;
 
 export const ButtonsAct = styled.button`
   border: none;
