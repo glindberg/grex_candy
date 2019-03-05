@@ -7,15 +7,15 @@ import { withFirebase } from "../Firebase";
 import MessagesTwo from "../Chat";
 import {
   ShowActivity,
-  ActivityDiv,
   ActivityLi,
   ButtonsAct,
   ButtonDivs,
   ButtonClosing,
-  ActivityBig
+  ActivityBig,
+  ActivityDiv
 } from "./styles";
+import { CloseAct, ChatIcon, Trash } from "../Styles/icons";
 import { Button } from "../Styles/button";
-import { Run, CloseAct, ChatIcon, Trash } from "../Styles/icons";
 
 class ActivityContent extends Component {
   constructor(props) {
@@ -23,7 +23,10 @@ class ActivityContent extends Component {
 
     this.state = {
       loading: false,
-      users: null
+      users: null,
+      showChat: false,
+      showMap: false,
+      hideActivity: false
     };
   }
 
@@ -40,8 +43,19 @@ class ActivityContent extends Component {
     this.props.firebase.activities().off();
   }
 
+  displayChat = () => {
+    this.setState({ showChat: true });
+  };
+  hideChat = () => {
+    this.setState({ showChat: false });
+  };
+  hideMap = () => {
+    this.setState({ showMap: false });
+    console.log("nya hideMap har kallats på");
+  };
+
   render() {
-    const { loading } = this.state;
+    const { loading, showChat, showMap } = this.state;
 
     const { activity, hideActivity, removeActivity } = this.props;
     return (
@@ -99,24 +113,64 @@ class ActivityContent extends Component {
                   </ActivityLi>
 
                   <ButtonDivs>
-                    <ButtonsAct>
-                      <ChatIcon />
-                      <span> | </span>Chat
-                    </ButtonsAct>
+                    {!showMap && (
+                      <span
+                        onClick={() => {
+                          this.displayChat();
+                        }}
+                      >
+                        <Button>
+                          <ChatIcon />
+                          <span> | </span>Chat
+                        </Button>
+                      </span>
+                    )}
 
                     {activity.userId === authUser.uid ? (
-                      <span onClick={() => removeActivity()}>
-                        <ButtonsAct>
-                          <Trash />
-                          <span> | </span>Delete
-                        </ButtonsAct>
-                      </span>
+                      <li>
+                        <span onClick={() => removeActivity()}>
+                          <Button>
+                            <Trash />
+                            <span> | </span>Delete
+                          </Button>
+                        </span>
+                      </li>
                     ) : null}
                   </ButtonDivs>
 
                   <br />
+
+                  {/* <MessagesTwo activity={activity} users={this.state.users} /> */}
+
+                  {/* <li>
+                    {!showMap && (
+                      <span
+                        onClick={() => {
+                          this.displayChat();
+                        }}
+                      >
+                        <button>
+                          <strong>Chat</strong>
+                        </button>
+                      </span>
+                    )}
+                  </li> */}
+
+                  <br />
                 </TxtContainer>
-                <MessagesTwo activity={activity} users={this.state.users} />
+
+                {showChat && (
+                  <div>
+                    <MessagesTwo activity={activity} users={this.state.users} />
+                    <Button
+                      onClick={() => {
+                        this.hideChat();
+                      }}
+                    >
+                      Hide Chat
+                    </Button>
+                  </div>
+                )}
               </ShowActivity>
             )}
           </ActivityDiv>
