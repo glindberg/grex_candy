@@ -9,7 +9,8 @@ import {
   MessageContainer,
   Chat,
   MessageColor,
-  SelfMessageColor
+  SelfMessageColor,
+  TrashS
 } from "./styles";
 import { Trash, ArrowUpChat } from "../Styles/icons";
 
@@ -189,21 +190,28 @@ class MessageItem extends Component {
           <div>
             <span>
               <strong onClick={() => displayProfile(message.userId)}>
-                <SelfMessageColor>
+                {/* <SelfMessageColor>
                   {message.user.username || message.user.userId}
-                </SelfMessageColor>
+                </SelfMessageColor> */}
               </strong>
               <br />
               {message.userId === authUser.uid ? (
                 <SelfMessageColor>
+                  {message.user.username || message.user.userId}
                   <div>{message.text}</div>
                 </SelfMessageColor>
               ) : (
-                <MessageColor>{message.text}</MessageColor>
+                <MessageColor>
+                  {message.user.username}
+                  <div>{message.text}</div>
+                </MessageColor>
               )}
             </span>
+
             {message.userId === authUser.uid ? (
-              <Trash onClick={() => onRemoveMessage(message.uid)} />
+              <TrashS>
+                <Trash onClick={() => onRemoveMessage(message.uid)} />
+              </TrashS>
             ) : null}
           </div>
         )}

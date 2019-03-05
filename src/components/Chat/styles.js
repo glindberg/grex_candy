@@ -40,8 +40,6 @@ export const Chat = styled.div`
   height: calc(100vh - 60px);
 `;
 export const ChatInputContainer = styled.div`
-  display: flex;
-  flex-flow: column wrap;
   bottom: 0;
 
   input {
@@ -62,34 +60,37 @@ export const ChatInputContainer = styled.div`
   }
 `;
 
-export const ChatSend = styled.div`
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 37px;
-  margin: 0;
-  padding: 0;
-`;
 export const MessageContainer = styled.div`
-  margin-bottom: 6%;
+  /* margin-bottom: 6%; */
   left: 0;
   padding: 0;
 `;
-export const DeleteMessageAlign = styled.div``;
 
 export const MessageColor = styled.div`
-  background-color: lightgreen;
-  justify-content: flex-start;
   opacity: 0.5;
-  width: 40%;
-  border-radius: 5%;
+  /* max-width: 40%; */
+  margin-left: 10px;
+
+  div {
+    padding: 5px;
+    background-color: lightgreen;
+    border-radius: 15px;
+  }
 `;
 export const SelfMessageColor = styled.div`
-  position: absolute;
   right: 0;
   opacity: 0.5;
-  width: 40%;
+  /* width: 40%; */
+  margin-right: 0;
+  padding: 10px;
   div {
+    padding: 5px;
     background-color: red;
+    border-radius: 15px;
   }
+`;
+
+export const TrashS = styled.div`
+  right: 0;
+  margin-right: 10px;
 `;
