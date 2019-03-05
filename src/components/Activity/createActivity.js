@@ -73,7 +73,7 @@ class CreateActivity extends Component {
       createdAt: this.props.firebase.serverValue.TIMESTAMP
     });
 
-    this.props.history.push(ROUTES.ACTIVITY);
+    this.props.history.push(ROUTES.HOME);
     event.preventDefault();
   };
 
