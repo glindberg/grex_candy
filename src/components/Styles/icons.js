@@ -7,10 +7,11 @@ import { DirectionsRun } from "styled-icons/material/DirectionsRun";
 import { KeyboardArrowUp } from "styled-icons/material/KeyboardArrowUp";
 import { KeyboardArrowDown } from "styled-icons/material/KeyboardArrowDown";
 import { Close } from "styled-icons/material/Close";
-// import { Plus } from "styled-icons/fa-solid/Plus";
 import { Chat } from "styled-icons/material/Chat";
 import { Trashcan } from "styled-icons/octicons/Trashcan";
 import { LeftArrowCircle } from "styled-icons/boxicons-regular/LeftArrowCircle";
+import { ArrowUpThick } from "styled-icons/typicons/ArrowUpThick";
+import { Send } from "styled-icons/boxicons-solid/Send";
 import { DoorOpen } from "styled-icons/fa-solid/DoorOpen";
 import { User } from "styled-icons/fa-regular/User";
 import { Plus } from "styled-icons/octicons/Plus";
@@ -37,6 +38,12 @@ export const UserD = styled(UserDetail)`
   width: 2em;
 `;
 
+export const ChatSend = styled(Send)`
+  height: 2em;
+  width: 2em;
+  padding: 5px;
+`;
+
 export const ArrowUp = styled(KeyboardArrowUp)`
   font-size: 40px;
   animation: shadow-pulse 1s 5;
@@ -52,6 +59,12 @@ export const ArrowUp = styled(KeyboardArrowUp)`
     }
   }
 `;
+
+export const ArrowUpChat = styled(ArrowUpThick)`
+  height: 2em;
+  width: 2em;
+  padding: 5px;
+`;
 export const ArrowDown = styled(KeyboardArrowDown)`
   height: 2em;
   color: white;
@@ -64,7 +77,7 @@ export const Run = styled(DirectionsRun)`
   padding: 2px;
 `;
 
-export const CloseAct = styled(Close)`
+export const CloseX = styled(Close)`
   height: 1.5em;
   width: 2em;
   padding: 2px;
