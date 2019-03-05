@@ -20,8 +20,8 @@ export const Wrapper = styled.div`
     position: absolute;
   }
   img {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
   }
   h1 {
     text-align: center;
@@ -31,6 +31,7 @@ export const Wrapper = styled.div`
 
 export const CreateP = styled.div`
   display: flex;
+
   div {
     width: 80%;
     margin: auto;
@@ -72,6 +73,7 @@ export const TxtContainer = styled.div`
 `;
 export const BtnContainer = styled.div`
   text-align: center;
+  margin-bottom: 20px;
 `;
 
 export const OtherP = styled.div`

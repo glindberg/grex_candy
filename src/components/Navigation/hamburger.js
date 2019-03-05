@@ -18,8 +18,11 @@ class Example extends React.Component {
           <ul>
             <li>
               <Link to={ROUTES.HOME}>
-                <strong>GREX</strong>
+                <h2>GREX</h2>
               </Link>
+            </li>
+            <li>
+              <Link to={ROUTES.HOME}>Home</Link>
             </li>
             <li>
               <Link to={ROUTES.LANDING}>Info</Link>
@@ -27,14 +30,13 @@ class Example extends React.Component {
             <li>
               <Link to={ROUTES.PROFILE}>Profile</Link>
             </li>
-            <li>
-              <Link to={ROUTES.ACTIVITY}>Activity</Link>
-            </li>
+
             {this.props.authUser.roles.includes(ROLES.ADMIN) && (
               <li>
                 <Link to={ROUTES.ADMIN}>Admin</Link>
               </li>
             )}
+            <br />
             <li>
               <SignOutButton />
             </li>

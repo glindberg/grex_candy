@@ -30,6 +30,10 @@ export const Flex = styled.div`
   }
 `;
 
+export const InfoText = styled.p`
+  margin-top: 3em;
+`;
+
 export const CloseBtn = styled.button`
   position: absolute;
   right: 2em;

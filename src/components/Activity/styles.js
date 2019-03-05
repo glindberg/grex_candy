@@ -1,45 +1,23 @@
 import styled from "styled-components";
 
 export const Act = styled.div`
-  /* background: #abbaab; fallback for old browsers */
-  /* background: -webkit-linear-gradient(
-    to bottom,
-    #ffffff,
-    #abbaab
-  );  */
-  /* Chrome 10-25, Safari 5.1-6 */
-  /* background: linear-gradient(
-    to bottom,
-    #ffffff,
-    #abbaab
-  );  */
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-  /* margin: 2px; */
-  /* font-size: 2rem; */
-  background: rgb(247, 245, 237);
   color: black;
   padding: 8px;
-  /* -webkit-box-shadow: 5px 5px 15px 5px green;
-  box-shadow: 5px 5px 15px 5px grey;
-  text-shadow: 2px 2px 2px black; */
   border-radius: 2px;
   border-bottom: 1px solid grey;
   text-align: left;
-  /* border: 1px solid black; */
-  /* margin: 5px; */
   font-size: 1.5rem;
-  /* padding: 20px; */
-  /* border-radius: 10px; */
 `;
 
 export const ActPage = styled.div`
+<<<<<<< HEAD
   /* text-align: center; */
+=======
+>>>>>>> master
   height: calc(100vh - 60px);
   h1 {
     margin: 0;
     color: black;
-    /* text-shadow: 3px 3px 3px black; */
   }
 `;
 
@@ -53,7 +31,7 @@ export const ActInfo = styled.p`
 `;
 
 export const Created = styled.p`
-  font-size: 0.5rem;
+  font-size: 0.7rem;
   color: black;
   text-align: right;
   margin: 0;
@@ -62,17 +40,13 @@ export const Created = styled.p`
 // CREATE ACTIVITY
 
 export const Creating = styled.div`
-  /* background: rgb(226, 237, 218); */
   display: flex;
-  /* width: 100%; */
   margin-bottom: 20px;
-  background: rgb(247, 245, 237);
 
   div {
-    /* width: 80%; */
-    /* margin: auto; */
+    margin: auto;
   }
-  h1 {
+  h2 {
     margin-top: 0;
     padding-top: 0.2em;
     padding-bottom: 0.2em;
@@ -84,18 +58,26 @@ export const Creating = styled.div`
     border: none;
     border-bottom: 1px solid grey;
     position: absolute;
-    right: 10%;
+    right: 5%;
     padding-left: 5px;
     height: 1.3em;
-    width: 100px;
+    width: 110px;
+    @media (min-width: 600px) {
+      right: 19%;
+      width: 140px;
+    }
   }
 
   select {
-    width: 120px;
-    /* position: fixed; */
-    right: 10%;
+    width: 123px;
+    right: 5%;
     height: 2.4em;
     margin-left: 1em;
+    position: absolute;
+    @media (min-width: 600px) {
+      right: 19%;
+      width: 150px;
+    }
   }
 
   textarea {
@@ -105,10 +87,17 @@ export const Creating = styled.div`
   }
 `;
 
+export const OtherInput = styled.input`
+  margin-top: 10px;
+`;
+
 export const Div = styled.div`
   margin: auto;
   width: 95%;
   font-size: 0.9em;
+  @media (max-width: 350px) {
+    font-size: 0.7em;
+  }
 `;
 
 export const Form = styled.div`
@@ -129,6 +118,8 @@ export const Form = styled.div`
 export const FormSize = styled.form`
   width: 100%;
   margin-top: 10px;
+  bottom: 0;
+  padding-bottom: 10px;
 `;
 
 export const Label = styled.div``;
@@ -142,13 +133,16 @@ export const MapSize = styled.div`
 export const ActivityDiv = styled.div`
   display: flex;
   margin: auto;
+  margin-top: 0;
   font-size: 0.8em;
   background: rgb(247, 245, 237);
+  ul {
+    margin: 0;
+  }
 `;
 
 export const ShowActivity = styled.ul`
   list-style: none;
-
   padding-left: 0;
   width: 100%;
 `;
@@ -159,6 +153,14 @@ export const ActivityLi = styled.div`
   @media (min-width: 500px) {
     width: 50%;
   }
+`;
+
+export const ActivityBig = styled.li`
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+  margin-top: 0;
+  text-align: center;
+  font-weight: 600;
 `;
 
 export const ButtonDivs = styled.div`
@@ -176,19 +178,17 @@ export const ButtonClosing = styled.button`
   background: none;
   position: absolute;
   right: 0;
+  padding-top: 15px;
   a {
     color: black;
   }
 `;
 export const ChatClosingButton = styled.button`
   border: none;
-  /* color: white; */
   font-size: 1em;
   border-radius: 5px;
   margin: 5px;
   background: none;
-  /* padding-right: 10px;
-  background: rgb(83, 109, 122); */
   position: absolute;
   right: 0;
   top: 0;
@@ -216,12 +216,13 @@ export const ArrowU = styled.div`
   width: 50px;
   height: 40px;
   color: white;
-  top: 361px;
+  top: 362px;
   left: calc(50% - 25px);
-  z-index: 2000;
+  z-index: 1001;
   background-color: rgba(128, 128, 128, 0.5);
 `;
 export const ArrowD = styled.div`
   background: rgb(83, 109, 122);
   color: white;
+  text-align: center;
 `;

@@ -7,7 +7,6 @@ import { DirectionsRun } from "styled-icons/material/DirectionsRun";
 import { KeyboardArrowUp } from "styled-icons/material/KeyboardArrowUp";
 import { KeyboardArrowDown } from "styled-icons/material/KeyboardArrowDown";
 import { Close } from "styled-icons/material/Close";
-import { Plus } from "styled-icons/fa-solid/Plus";
 import { Chat } from "styled-icons/material/Chat";
 import { Trashcan } from "styled-icons/octicons/Trashcan";
 import { LeftArrowCircle } from "styled-icons/boxicons-regular/LeftArrowCircle";
@@ -16,6 +15,7 @@ import { Send } from "styled-icons/boxicons-solid/Send";
 import { DoorOpen } from "styled-icons/fa-solid/DoorOpen";
 import { User } from "styled-icons/fa-regular/User";
 import { TrashAlt } from "styled-icons/fa-regular/TrashAlt";
+import { Plus } from "styled-icons/octicons/Plus";
 
 export const TrashChat = styled(TrashAlt)`
   height: 1em;

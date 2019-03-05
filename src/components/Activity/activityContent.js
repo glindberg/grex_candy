@@ -3,7 +3,13 @@ import { compose } from "recompose";
 import { withAuthorization } from "../Session";
 import { TxtContainer } from "../Profile/styles";
 import { withFirebase } from "../Firebase";
-import { ShowActivity, ActivityLi, ButtonClosing } from "./styles";
+import {
+  ShowActivity,
+  ActivityLi,
+  ButtonClosing,
+  ActivityDiv,
+  ActivityBig
+} from "./styles";
 import { CloseX } from "../Styles/icons";
 
 class ActivityContent extends Component {
@@ -20,7 +26,7 @@ class ActivityContent extends Component {
 
     const { activity, hideActivity } = this.props;
     return (
-      <div>
+      <ActivityDiv>
         {loading && <div>Loading info...</div>}
         {loading ? null : (
           <ShowActivity>
@@ -33,10 +39,7 @@ class ActivityContent extends Component {
                 </span>
                 <br />
                 <ActivityLi>
-                  <li>
-                    <b>Activity: </b>
-                    {activity.activityname}
-                  </li>
+                  <ActivityBig>{activity.activityname}</ActivityBig>
                   <li>
                     <b>Type of activity: </b>
                     {activity.activity}
@@ -74,12 +77,11 @@ class ActivityContent extends Component {
             )}
           </ShowActivity>
         )}
-      </div>
-      //   )}
-      // </AuthUserContext.Consumer>
+      </ActivityDiv>
     );
   }
 }
+
 const Time = activity => {
   const showTime = new Date(activity.createdAt);
   const options = {

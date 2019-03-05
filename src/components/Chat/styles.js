@@ -29,7 +29,6 @@ export const H3 = styled.h3`
   text-align: center;
   margin: 0;
   padding: 8px 0px;
-  /* position: absolute; */
 `;
 
 export const CloseChatContainer = styled.button`
@@ -70,6 +69,7 @@ export const ChatInputContainer = styled.div`
     padding: 0;
   }
 `;
+
 export const ChatSend = styled.div`
   position: fixed;
   bottom: 0;
