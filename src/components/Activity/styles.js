@@ -9,11 +9,13 @@ export const Act = styled.div`
   font-size: 1.5rem;
 `;
 
+export const ChatClose = styled.div`
+  position: absolute;
+  right: 25px;
+  top: 65px;
+  color: white;
+`;
 export const ActPage = styled.div`
-<<<<<<< HEAD
-  /* text-align: center; */
-=======
->>>>>>> master
   height: calc(100vh - 60px);
   h1 {
     margin: 0;
