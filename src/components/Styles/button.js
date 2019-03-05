@@ -6,8 +6,12 @@ export const Button = styled.button`
   border-radius: 5px;
   padding-right: 10px;
   margin: 5px;
-  background: red;
+  background: rgb(83, 109, 122);
+
   a {
     padding: 20px;
+  }
+  :disabled {
+    background: rgba(255, 0, 0, 0.3);
   }
 `;

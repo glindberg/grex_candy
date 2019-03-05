@@ -7,5 +7,6 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     font-family: Raleway, sans-serif;
+    background: rgb(247, 245, 237);
   }
   `;

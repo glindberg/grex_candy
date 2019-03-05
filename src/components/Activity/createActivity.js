@@ -12,10 +12,12 @@ import {
   Form,
   Div,
   ButtonsAct,
-  FormSize
+  FormSize,
+  OtherInput
 } from "./styles";
 import { BtnContainer } from "../Profile/styles";
 import { Run } from "../Styles/icons";
+import { Button } from "../Styles/button";
 
 const INITIAL_STATE = {
   activity: "",
@@ -105,7 +107,7 @@ class CreateActivity extends Component {
         <AuthUserContext.Consumer>
           {authUser => (
             <div>
-              <h1>Create Activity</h1>
+              <h2>Create Activity</h2>
               <MapSize>
                 <LocationPage createActivityView={this.receiveMarker} />
               </MapSize>
@@ -153,7 +155,12 @@ class CreateActivity extends Component {
                         <option value="Skateboarding">Skateboarding</option>
                         <option value="Other">Other, specify below</option>
                       </select>
-                      <input
+                    </Label>
+                  </Form>
+
+                  <Form>
+                    <Label>
+                      <OtherInput
                         rows="1"
                         cols="50"
                         name="otheractivity"
@@ -164,6 +171,8 @@ class CreateActivity extends Component {
                       />
                     </Label>
                   </Form>
+                  <br />
+                  <br />
                   <br />
                   <Form>
                     <Label>
@@ -210,8 +219,7 @@ class CreateActivity extends Component {
                   <br />
                   <Form>
                     <Label>
-                      <strong>Intensity</strong> (1 for low intensity, 5 for
-                      high intensity):
+                      <strong>Intensity</strong> (1 for low, 5 for high):
                       <select
                         name="intensity"
                         value={this.state.intensity}
@@ -263,16 +271,17 @@ class CreateActivity extends Component {
                   <br />
 
                   <BtnContainer>
-                    <ButtonsAct
+                    <Button
                       type="submit"
                       value={this.state.activityname}
                       onChange={this.onChange}
                       disabled={isInvalid}
+                      title="Submit"
                     >
                       <Run />
                       {/* <User /> */}
                       <span> | </span>Create Activity
-                    </ButtonsAct>
+                    </Button>
                   </BtnContainer>
                 </FormSize>
               </Div>
