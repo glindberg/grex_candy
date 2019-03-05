@@ -4,7 +4,7 @@ import { withAuthorization } from "../Session";
 import { TxtContainer } from "../Profile/styles";
 import { withFirebase } from "../Firebase";
 import { ShowActivity, ActivityLi, ButtonClosing } from "./styles";
-import { CloseAct } from "../Styles/icons";
+import { CloseX } from "../Styles/icons";
 
 class ActivityContent extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class ActivityContent extends Component {
               <TxtContainer>
                 <span onClick={() => hideActivity()}>
                   <ButtonClosing>
-                    <CloseAct />
+                    <CloseX />
                   </ButtonClosing>
                 </span>
                 <br />

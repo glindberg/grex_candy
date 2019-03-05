@@ -9,7 +9,11 @@ import {
   SendButton,
   ChatInputContainer,
   MessageContainer,
-  Chat
+  Chat,
+  DeleteMessageAlign,
+  MessageColor,
+  SelfMessageColor,
+  MessageAlign
 } from "./styles";
 import { Trash, ArrowUpChat, ChatSend } from "../Styles/icons";
 
@@ -123,27 +127,21 @@ class MessagesBaseTwo extends Component {
             {!loading && messages && (
               <ArrowUpChat type="button" onClick={this.onNextPage} />
             )}
-
+            {/* 
             <button type="button" onClick={this.onNextPage}>
               More
-            </button>
-            <Chat>
-              {loading && <div>Loading ...</div>}
+            </button> */}
 
-              {showProfile && (
-                <Wrapper onClick={this.hideProfile}>
-                  <div>
-                    <ShowUser userId={showProfile} />
-                  </div>
-                </Wrapper>
-              )}
-              {/* <CloseChatContainer>
-              <CloseX
-                onClick={() => {
-                  this.hideChat();
-                }}
-              />
-            </CloseChatContainer> */}
+            {loading && <div>Loading ...</div>}
+
+            {showProfile && (
+              <Wrapper onClick={this.hideProfile}>
+                <div>
+                  <ShowUser userId={showProfile} />
+                </div>
+              </Wrapper>
+            )}
+            <Chat>
               {messages && (
                 <MessageContainer>
                   <MessageList
@@ -164,17 +162,13 @@ class MessagesBaseTwo extends Component {
               {!messages && <div>There are no messages ...</div>}
               <ChatInputContainer>
                 <form onSubmit={event => this.onCreateMessage(event, authUser)}>
-                  {/* <ChatInput> */}
                   <input
                     type="text"
                     value={text}
                     onChange={this.onChangeText}
                   />
-                  {/* </ChatInput> */}
-                  {/* <SendButton> */}
-                  <ChatSend type="submit" />
-                  {/* <button type="submit">Send</button> */}
-                  {/* </SendButton> */}
+                  {/* <ChatSend type="submit" /> */}
+                  <button type="submit">Send</button>
                 </form>
               </ChatInputContainer>
             </Chat>
@@ -192,7 +186,7 @@ const MessageList = ({
   displayProfile,
   activity
 }) => (
-  <ul>
+  <div>
     {messages.map(message => (
       <MessageItem
         key={message.uid}
@@ -203,7 +197,7 @@ const MessageList = ({
         activity={activity}
       />
     ))}
-  </ul>
+  </div>
 );
 
 class MessageItem extends Component {
@@ -250,16 +244,28 @@ class MessageItem extends Component {
             ) : (
               <span>
                 <strong onClick={() => displayProfile(message.userId)}>
-                  {message.user.username || message.user.userId}
+                  <SelfMessageColor>
+                    {message.user.username || message.user.userId}
+                  </SelfMessageColor>
                 </strong>
-                {message.text} {message.editedAt && <span>Edited</span>}
+                <br />
+                {message.userId === authUser.uid ? (
+                  <SelfMessageColor>
+                    <div>{message.text}</div>
+                  </SelfMessageColor>
+                ) : (
+                  <MessageColor>{message.text}</MessageColor>
+                )}
+                {/* {message.editedAt && <span>Edited</span>} */}
               </span>
             )}
 
+            {/* <DeleteMessageAlign> */}
             {!editMode &&
               (message.userId === authUser.uid ? (
                 <Trash onClick={() => onRemoveMessage(message.uid)} />
               ) : null)}
+            {/* </DeleteMessageAlign> */}
           </div>
         )}
       </AuthUserContext.Consumer>

@@ -39,23 +39,34 @@ export const CloseChatContainer = styled.button`
     color: black;
   }
 `;
+
 export const Chat = styled.div`
-  height: fixed calc(100vh-20px);
+  height: calc(100vh - 60px);
+  /* height: 100vh fixed; */
+  /* background: lightgreen; */
 `;
 export const ChatInputContainer = styled.div`
   /* position: relative; */
   /* width: 100%; */
+  display: flex;
+  flex-flow: column wrap;
+  bottom: 0;
 
   input {
-    width: 100%;
+    /* position: absolute; */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: calc(100% - 41px);
     margin: 0;
     padding: 0;
   }
   button {
-    position: absolute;
+    /* position: absolute; */
+    position: fixed;
     bottom: 0;
     right: 0;
-    width: 20px;
+    width: 37px;
     margin: 0;
     padding: 0;
   }
@@ -66,13 +77,37 @@ export const ChatInputContainer = styled.div`
 //   bottom: 0;
 //   width: 100%;
 // `;
-// export const SendButton = styled.div`
-//   position: absolute;
-//   bottom: 0;
-//   right: 0;
-//   width: 20px;
-// `;
+export const ChatSend = styled.div`
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 37px;
+  margin: 0;
+  padding: 0;
+`;
 export const MessageContainer = styled.div`
-  /* border: 1px solid red; */
-  margin-bottom: 30px;
+  margin-bottom: 6%;
+  left: 0;
+  padding: 0;
+`;
+export const DeleteMessageAlign = styled.div`
+  /* margin-left: 20px; */
+  /* left: 0; */
+`;
+
+export const MessageColor = styled.div`
+  background-color: lightgreen;
+  justify-content: flex-start;
+  opacity: 0.5;
+  width: 40%;
+  border-radius: 5%;
+`;
+export const SelfMessageColor = styled.div`
+  position: absolute;
+  right: 0;
+  opacity: 0.5;
+  width: 40%;
+  div {
+    background-color: red;
+  }
 `;
