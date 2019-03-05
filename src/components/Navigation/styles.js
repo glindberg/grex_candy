@@ -18,9 +18,9 @@ export const Nav = styled.section`
   h1 {
     a {
       text-decoration: none;
-      color: white;
+      color: rgb(247, 245, 237);
     }
-    color: white;
+    color: rgb(247, 245, 237);
     margin: auto;
   }
 `;
@@ -61,7 +61,7 @@ export const Ham = styled.section`
 
   /* Color/shape of burger icon bars */
   .bm-burger-bars {
-    background: white;
+    background: rgb(247, 245, 237);
     border-radius: 10px;
   }
 
@@ -140,12 +140,11 @@ export const CreateAct = styled.div`
   position: absolute;
   right: 0;
   margin-top: 10px;
+  justify-content: space-between;
+  padding-right: 10px;
   a {
-    color: white;
+    color: rgb(247, 245, 237);
     text-decoration: none;
-  }
-  a:hover {
-    color: #a90000;
   }
 `;
 export const Ini = styled.div`

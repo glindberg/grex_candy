@@ -21,4 +21,7 @@ export const Button = styled.button`
   a {
     padding: 20px;
   }
+  :disabled {
+    background: rgba(255, 0, 0, 0.3);
+  }
 `;

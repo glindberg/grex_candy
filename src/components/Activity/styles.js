@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Act = styled.div`
-  background: rgb(247, 245, 237);
   color: black;
   padding: 8px;
   border-radius: 2px;
@@ -28,7 +27,7 @@ export const ActInfo = styled.p`
 `;
 
 export const Created = styled.p`
-  font-size: 0.5rem;
+  font-size: 0.7rem;
   color: black;
   text-align: right;
   margin: 0;
@@ -39,11 +38,11 @@ export const Created = styled.p`
 export const Creating = styled.div`
   display: flex;
   margin-bottom: 20px;
-  background: rgb(247, 245, 237);
 
   div {
+    margin: auto;
   }
-  h1 {
+  h2 {
     margin-top: 0;
     padding-top: 0.2em;
     padding-bottom: 0.2em;
@@ -55,17 +54,26 @@ export const Creating = styled.div`
     border: none;
     border-bottom: 1px solid grey;
     position: absolute;
-    right: 10%;
+    right: 5%;
     padding-left: 5px;
     height: 1.3em;
-    width: 100px;
+    width: 110px;
+    @media (min-width: 600px) {
+      right: 19%;
+      width: 140px;
+    }
   }
 
   select {
-    width: 120px;
-    right: 10%;
+    width: 123px;
+    right: 5%;
     height: 2.4em;
     margin-left: 1em;
+    position: absolute;
+    @media (min-width: 600px) {
+      right: 19%;
+      width: 150px;
+    }
   }
 
   textarea {
@@ -75,10 +83,17 @@ export const Creating = styled.div`
   }
 `;
 
+export const OtherInput = styled.input`
+  margin-top: 10px;
+`;
+
 export const Div = styled.div`
   margin: auto;
   width: 95%;
   font-size: 0.9em;
+  @media (max-width: 350px) {
+    font-size: 0.7em;
+  }
 `;
 
 export const Form = styled.div`
@@ -99,6 +114,8 @@ export const Form = styled.div`
 export const FormSize = styled.form`
   width: 100%;
   margin-top: 10px;
+  bottom: 0;
+  padding-bottom: 10px;
 `;
 
 export const Label = styled.div``;
@@ -112,13 +129,16 @@ export const MapSize = styled.div`
 export const ActivityDiv = styled.div`
   display: flex;
   margin: auto;
+  margin-top: 0;
   font-size: 0.8em;
   background: rgb(247, 245, 237);
+  ul {
+    margin: 0;
+  }
 `;
 
 export const ShowActivity = styled.ul`
   list-style: none;
-
   padding-left: 0;
   width: 100%;
 `;
@@ -129,6 +149,14 @@ export const ActivityLi = styled.div`
   @media (min-width: 500px) {
     width: 50%;
   }
+`;
+
+export const ActivityBig = styled.li`
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+  margin-top: 0;
+  text-align: center;
+  font-weight: 600;
 `;
 
 export const ButtonDivs = styled.div`
@@ -146,6 +174,7 @@ export const ButtonClosing = styled.button`
   background: none;
   position: absolute;
   right: 0;
+  padding-top: 15px;
   a {
     color: black;
   }
