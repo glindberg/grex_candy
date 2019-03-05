@@ -13,9 +13,7 @@ export const Nav = styled.section`
     #237a57,
     #093028
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
   display: flex;
-  /* justify-content: space-around; */
 
   h1 {
     a {
@@ -98,6 +96,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
     padding: 2.5em 1.5em 0;
     font-size: 1.15em;
     overflow-y: hidden !important;
+    z-index: 2001;
   }
 
   /* Morph shape necessary with bubble or elastic */

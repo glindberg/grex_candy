@@ -10,7 +10,6 @@ export const Act = styled.div`
 `;
 
 export const ActPage = styled.div`
-  text-align: center;
   height: calc(100vh - 60px);
   h1 {
     margin: 0;
@@ -182,13 +181,10 @@ export const ButtonClosing = styled.button`
 `;
 export const ChatClosingButton = styled.button`
   border: none;
-  /* color: white; */
   font-size: 1em;
   border-radius: 5px;
   margin: 5px;
   background: none;
-  /* padding-right: 10px;
-  background: rgb(83, 109, 122); */
   position: absolute;
   right: 0;
   top: 0;
@@ -216,12 +212,13 @@ export const ArrowU = styled.div`
   width: 50px;
   height: 40px;
   color: white;
-  top: 361px;
+  top: 362px;
   left: calc(50% - 25px);
-  z-index: 2000;
+  z-index: 1001;
   background-color: rgba(128, 128, 128, 0.5);
 `;
 export const ArrowD = styled.div`
   background: rgb(83, 109, 122);
   color: white;
+  text-align: center;
 `;

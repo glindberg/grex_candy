@@ -39,9 +39,7 @@ class ActivityContent extends Component {
                 </span>
                 <br />
                 <ActivityLi>
-                  <li>
-                    <ActivityBig>{activity.activityname}</ActivityBig>
-                  </li>
+                  <ActivityBig>{activity.activityname}</ActivityBig>
                   <li>
                     <b>Type of activity: </b>
                     {activity.activity}
