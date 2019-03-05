@@ -11,11 +11,12 @@ import {
   ActInfo,
   ButtonDivs,
   ArrowU,
-  ArrowD
+  ArrowD,
+  ButtonClosing
 } from "./styles";
 import { AuthUserContext } from "../Session";
 import MessagesTwo from "../Chat";
-import { ArrowUp, ArrowDown, ChatIcon, Trash } from "../Styles/icons";
+import { ArrowUp, ArrowDown, ChatIcon, Trash, CloseX } from "../Styles/icons";
 import LocationPage from "../Map/location";
 import { Button } from "../Styles/button";
 
@@ -165,13 +166,21 @@ class ActivitesBase extends Component {
 
                 {showChat && (
                   <div>
+                    <ButtonClosing>
+                      <CloseX
+                        onClick={() => {
+                          this.hideChat();
+                        }}
+                      />
+                    </ButtonClosing>
+                    {/* 
                     <button
                       onClick={() => {
                         this.hideChat();
                       }}
                     >
                       Close chat
-                    </button>
+                    </button> */}
                     <MessagesTwo activity={activity} users={this.state.users} />
                   </div>
                 )}

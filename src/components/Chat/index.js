@@ -3,7 +3,19 @@ import { compose } from "recompose";
 import { AuthUserContext, withAuthorization } from "../Session";
 import { withFirebase } from "../Firebase";
 import ShowUser from "../Profile/showOtherProfile";
-import { Wrapper } from "../Chat/styles";
+import {
+  Wrapper,
+  ChatInput,
+  SendButton,
+  ChatInputContainer,
+  MessageContainer,
+  Chat,
+  DeleteMessageAlign,
+  MessageColor,
+  SelfMessageColor,
+  MessageAlign
+} from "./styles";
+import { Trash, ArrowUpChat, ChatSend } from "../Styles/icons";
 
 class MessagesBaseTwo extends Component {
   constructor(props) {
@@ -14,7 +26,8 @@ class MessagesBaseTwo extends Component {
       loading: false,
       messages: null,
       limit: 5,
-      showProfile: false
+      showProfile: false,
+      showChat: false
     };
   }
 
@@ -91,12 +104,17 @@ class MessagesBaseTwo extends Component {
       state => ({ limit: state.limit + 5 }),
       this.onListenForMessages
     );
+    console.log("onNextPage called");
   };
   displayProfile = userId => {
     this.setState({ showProfile: userId });
   };
   hideProfile = () => {
     this.setState({ showProfile: false });
+  };
+  hideChat = () => {
+    this.setState({ showChat: false });
+    console.log("Hide Chat");
   };
 
   render() {
@@ -107,10 +125,12 @@ class MessagesBaseTwo extends Component {
         {authUser => (
           <div>
             {!loading && messages && (
-              <button type="button" onClick={this.onNextPage}>
-                More
-              </button>
+              <ArrowUpChat type="button" onClick={this.onNextPage} />
             )}
+            {/* 
+            <button type="button" onClick={this.onNextPage}>
+              More
+            </button> */}
 
             {loading && <div>Loading ...</div>}
 
@@ -121,28 +141,37 @@ class MessagesBaseTwo extends Component {
                 </div>
               </Wrapper>
             )}
+            <Chat>
+              {messages && (
+                <MessageContainer>
+                  <MessageList
+                    messages={messages.map(message => ({
+                      ...message,
+                      user: users
+                        ? users[message.userId]
+                        : { userId: message.userId }
+                    }))}
+                    onEditMessage={this.onEditMessage}
+                    onRemoveMessage={this.onRemoveMessage}
+                    displayProfile={this.displayProfile}
+                    activity={activity}
+                  />
+                </MessageContainer>
+              )}
 
-            {messages && (
-              <MessageList
-                messages={messages.map(message => ({
-                  ...message,
-                  user: users
-                    ? users[message.userId]
-                    : { userId: message.userId }
-                }))}
-                onEditMessage={this.onEditMessage}
-                onRemoveMessage={this.onRemoveMessage}
-                displayProfile={this.displayProfile}
-                activity={activity}
-              />
-            )}
-
-            {!messages && <div>There are no messages ...</div>}
-
-            <form onSubmit={event => this.onCreateMessage(event, authUser)}>
-              <input type="text" value={text} onChange={this.onChangeText} />
-              <button type="submit">Send</button>
-            </form>
+              {!messages && <div>There are no messages ...</div>}
+              <ChatInputContainer>
+                <form onSubmit={event => this.onCreateMessage(event, authUser)}>
+                  <input
+                    type="text"
+                    value={text}
+                    onChange={this.onChangeText}
+                  />
+                  {/* <ChatSend type="submit" /> */}
+                  <button type="submit">Send</button>
+                </form>
+              </ChatInputContainer>
+            </Chat>
           </div>
         )}
       </AuthUserContext.Consumer>
@@ -157,7 +186,7 @@ const MessageList = ({
   displayProfile,
   activity
 }) => (
-  <ul>
+  <div>
     {messages.map(message => (
       <MessageItem
         key={message.uid}
@@ -168,7 +197,7 @@ const MessageList = ({
         activity={activity}
       />
     ))}
-  </ul>
+  </div>
 );
 
 class MessageItem extends Component {
@@ -205,7 +234,7 @@ class MessageItem extends Component {
     return (
       <AuthUserContext.Consumer>
         {authUser => (
-          <li>
+          <div>
             {editMode ? (
               <input
                 type="text"
@@ -215,22 +244,29 @@ class MessageItem extends Component {
             ) : (
               <span>
                 <strong onClick={() => displayProfile(message.userId)}>
-                  {message.user.username || message.user.userId}
+                  <SelfMessageColor>
+                    {message.user.username || message.user.userId}
+                  </SelfMessageColor>
                 </strong>
-                {message.text} {message.editedAt && <span>Edited</span>}
+                <br />
+                {message.userId === authUser.uid ? (
+                  <SelfMessageColor>
+                    <div>{message.text}</div>
+                  </SelfMessageColor>
+                ) : (
+                  <MessageColor>{message.text}</MessageColor>
+                )}
+                {/* {message.editedAt && <span>Edited</span>} */}
               </span>
             )}
 
+            {/* <DeleteMessageAlign> */}
             {!editMode &&
               (message.userId === authUser.uid ? (
-                <button
-                  type="button"
-                  onClick={() => onRemoveMessage(message.uid)}
-                >
-                  Delete
-                </button>
+                <Trash onClick={() => onRemoveMessage(message.uid)} />
               ) : null)}
-          </li>
+            {/* </DeleteMessageAlign> */}
+          </div>
         )}
       </AuthUserContext.Consumer>
     );
