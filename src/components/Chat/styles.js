@@ -16,23 +16,28 @@ export const Wrapper = styled.div`
   width: 100%;
   top: 65px;
   height: 100vh;
-  /* background: rgba(128, 128, 128, 0.452); */
   margin-top: 0px;
 `;
 
 export const ArrowUpChat = styled.button`
   color: black;
 `;
+export const H3 = styled.h3`
+  color: white;
+  background: rgb(83, 109, 122);
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  padding: 8px 0px;
+  /* position: absolute; */
+`;
 
 export const CloseChatContainer = styled.button`
   border: none;
-  /* color: white; */
   font-size: 0.9em;
   border-radius: 5px;
   margin: 5px;
   background: none;
-  /* padding-right: 10px;
-  background: rgb(83, 109, 122); */
   position: absolute;
   right: 0;
   a {
@@ -42,18 +47,13 @@ export const CloseChatContainer = styled.button`
 
 export const Chat = styled.div`
   height: calc(100vh - 60px);
-  /* height: 100vh fixed; */
-  /* background: lightgreen; */
 `;
 export const ChatInputContainer = styled.div`
-  /* position: relative; */
-  /* width: 100%; */
   display: flex;
   flex-flow: column wrap;
   bottom: 0;
 
   input {
-    /* position: absolute; */
     position: fixed;
     bottom: 0;
     left: 0;
@@ -62,7 +62,6 @@ export const ChatInputContainer = styled.div`
     padding: 0;
   }
   button {
-    /* position: absolute; */
     position: fixed;
     bottom: 0;
     right: 0;
@@ -71,12 +70,6 @@ export const ChatInputContainer = styled.div`
     padding: 0;
   }
 `;
-
-// export const ChatInput = styled.div`
-//   position: absolute;
-//   bottom: 0;
-//   width: 100%;
-// `;
 export const ChatSend = styled.div`
   position: fixed;
   bottom: 0;
@@ -91,23 +84,38 @@ export const MessageContainer = styled.div`
   padding: 0;
 `;
 export const DeleteMessageAlign = styled.div`
-  /* margin-left: 20px; */
-  /* left: 0; */
+  font-size: 16px;
+  position: absolute;
+  right: 0;
+`;
+export const MessageFlex = styled.div`
+  display: flex;
+  flex-flow: column;
 `;
 
 export const MessageColor = styled.div`
-  background-color: lightgreen;
+  align-self: flex-start;
   justify-content: flex-start;
   opacity: 0.5;
-  width: 40%;
-  border-radius: 5%;
+  margin-left: 2%;
+  margin-right: 10%;
+  div {
+    background: lightgray;
+    color: black;
+    border-radius: 15px;
+    padding: 5px 10px;
+  }
 `;
 export const SelfMessageColor = styled.div`
-  position: absolute;
-  right: 0;
+  align-self: flex-end;
+  justify-content: flex-end;
   opacity: 0.5;
-  width: 40%;
+  margin-right: 10%;
+  margin-left: 30%;
   div {
-    background-color: red;
+    background-color: lightgreen;
+    color: black;
+    border-radius: 15px;
+    padding: 5px 10px;
   }
 `;

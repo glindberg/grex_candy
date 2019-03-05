@@ -34,7 +34,7 @@ export const Act = styled.div`
 `;
 
 export const ActPage = styled.div`
-  text-align: center;
+  /* text-align: center; */
   height: calc(100vh - 60px);
   h1 {
     margin: 0;

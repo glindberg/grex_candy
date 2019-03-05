@@ -13,9 +13,11 @@ import {
   DeleteMessageAlign,
   MessageColor,
   SelfMessageColor,
-  MessageAlign
+  MessageAlign,
+  MessageFlex,
+  H3
 } from "./styles";
-import { Trash, ArrowUpChat, ChatSend } from "../Styles/icons";
+import { TrashChat, ArrowUpChat, ChatSend } from "../Styles/icons";
 
 class MessagesBaseTwo extends Component {
   constructor(props) {
@@ -124,9 +126,10 @@ class MessagesBaseTwo extends Component {
       <AuthUserContext.Consumer>
         {authUser => (
           <div>
-            {!loading && messages && (
-              <ArrowUpChat type="button" onClick={this.onNextPage} />
-            )}
+            {/* {!loading && messages && (
+              
+            )} */}
+            <H3>{activity.activityname}</H3>
             {/* 
             <button type="button" onClick={this.onNextPage}>
               More
@@ -243,29 +246,45 @@ class MessageItem extends Component {
               />
             ) : (
               <span>
-                <strong onClick={() => displayProfile(message.userId)}>
-                  <SelfMessageColor>
-                    {message.user.username || message.user.userId}
-                  </SelfMessageColor>
+                {/* <strong onClick={() => displayProfile(message.userId)}>
+                  {message.user.username || message.user.userId}
                 </strong>
-                <br />
+                <br /> */}
                 {message.userId === authUser.uid ? (
-                  <SelfMessageColor>
-                    <div>{message.text}</div>
-                  </SelfMessageColor>
+                  <MessageFlex>
+                    <SelfMessageColor>
+                      <strong onClick={() => displayProfile(message.userId)}>
+                        {message.user.username}
+                      </strong>
+                      <br />
+                      <div>
+                        {message.text}
+                        <br />
+                      </div>
+                    </SelfMessageColor>
+                    <DeleteMessageAlign>
+                      {!editMode &&
+                        (message.userId === authUser.uid ? (
+                          <TrashChat
+                            onClick={() => onRemoveMessage(message.uid)}
+                          />
+                        ) : null)}
+                    </DeleteMessageAlign>
+                  </MessageFlex>
                 ) : (
-                  <MessageColor>{message.text}</MessageColor>
+                  <MessageFlex>
+                    <MessageColor>
+                      <strong onClick={() => displayProfile(message.userId)}>
+                        {message.user.username}
+                      </strong>
+                      <br />
+                      <div>{message.text}</div>
+                    </MessageColor>
+                  </MessageFlex>
                 )}
                 {/* {message.editedAt && <span>Edited</span>} */}
               </span>
             )}
-
-            {/* <DeleteMessageAlign> */}
-            {!editMode &&
-              (message.userId === authUser.uid ? (
-                <Trash onClick={() => onRemoveMessage(message.uid)} />
-              ) : null)}
-            {/* </DeleteMessageAlign> */}
           </div>
         )}
       </AuthUserContext.Consumer>
