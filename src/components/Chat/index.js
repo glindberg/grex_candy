@@ -10,10 +10,11 @@ import {
   Chat,
   MessageColor,
   SelfMessageColor,
-  TrashS
+  MessageFlex,
+  H3,
+  DeleteMessageAlign
 } from "./styles";
-import { Trash, ArrowUpChat } from "../Styles/icons";
-
+import { TrashChat } from "../Styles/icons";
 class MessagesBaseTwo extends Component {
   constructor(props) {
     super(props);
@@ -112,9 +113,7 @@ class MessagesBaseTwo extends Component {
       <AuthUserContext.Consumer>
         {authUser => (
           <div>
-            {!loading && messages && (
-              <ArrowUpChat type="button" onClick={this.onNextPage} />
-            )}
+            <H3>{activity.activityname}</H3>
 
             {loading && <div>Loading ...</div>}
 
@@ -189,30 +188,36 @@ class MessageItem extends Component {
         {authUser => (
           <div>
             <span>
-              <strong onClick={() => displayProfile(message.userId)}>
-                {/* <SelfMessageColor>
-                  {message.user.username || message.user.userId}
-                </SelfMessageColor> */}
-              </strong>
-              <br />
               {message.userId === authUser.uid ? (
-                <SelfMessageColor>
-                  {message.user.username || message.user.userId}
-                  <div>{message.text}</div>
-                </SelfMessageColor>
+                <MessageFlex>
+                  <SelfMessageColor>
+                    <strong onClick={() => displayProfile(message.userId)}>
+                      {message.user.username}
+                    </strong>
+                    <br />
+                    <div>
+                      {message.text}
+                      <br />
+                    </div>
+                  </SelfMessageColor>
+                  <DeleteMessageAlign>
+                    {message.userId === authUser.uid ? (
+                      <TrashChat onClick={() => onRemoveMessage(message.uid)} />
+                    ) : null}
+                  </DeleteMessageAlign>
+                </MessageFlex>
               ) : (
-                <MessageColor>
-                  {message.user.username}
-                  <div>{message.text}</div>
-                </MessageColor>
+                <MessageFlex>
+                  <MessageColor>
+                    <strong onClick={() => displayProfile(message.userId)}>
+                      {message.user.username}
+                    </strong>
+                    <br />
+                    <div>{message.text}</div>
+                  </MessageColor>
+                </MessageFlex>
               )}
             </span>
-
-            {message.userId === authUser.uid ? (
-              <TrashS>
-                <Trash onClick={() => onRemoveMessage(message.uid)} />
-              </TrashS>
-            ) : null}
           </div>
         )}
       </AuthUserContext.Consumer>

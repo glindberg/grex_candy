@@ -14,7 +14,13 @@ import { ArrowUpThick } from "styled-icons/typicons/ArrowUpThick";
 import { Send } from "styled-icons/boxicons-solid/Send";
 import { DoorOpen } from "styled-icons/fa-solid/DoorOpen";
 import { User } from "styled-icons/fa-regular/User";
+import { TrashAlt } from "styled-icons/fa-regular/TrashAlt";
 import { Plus } from "styled-icons/octicons/Plus";
+
+export const TrashChat = styled(TrashAlt)`
+  height: 1em;
+  width: 2em;
+`;
 
 export const Tele = styled(Telegram)`
   height: 2em;
