@@ -10,9 +10,10 @@ import {
   ActivityLi,
   ButtonsAct,
   ButtonDivs,
-  ButtonClosing
+  ButtonClosing,
+  ChatClosingButton
 } from "./styles";
-import { CloseAct, ChatIcon, Trash } from "../Styles/icons";
+import { CloseX, ChatIcon, Trash } from "../Styles/icons";
 
 class ActivityContent extends Component {
   constructor(props) {
@@ -65,7 +66,7 @@ class ActivityContent extends Component {
                   <TxtContainer>
                     <span onClick={() => hideActivity()}>
                       <ButtonClosing>
-                        <CloseAct />
+                        <CloseX />
                         {/* <span> | </span>Home */}
                       </ButtonClosing>
                     </span>
@@ -151,13 +152,13 @@ class ActivityContent extends Component {
                 {showChat && (
                   <div>
                     <MessagesTwo activity={activity} users={this.state.users} />
-                    <button
-                      onClick={() => {
-                        this.hideChat();
-                      }}
-                    >
-                      Hide Chat
-                    </button>
+                    <ChatClosingButton>
+                      <CloseX
+                        onClick={() => {
+                          this.hideChat();
+                        }}
+                      />
+                    </ChatClosingButton>
                   </div>
                 )}
               </ShowActivity>

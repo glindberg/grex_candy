@@ -11,6 +11,8 @@ import { Plus } from "styled-icons/fa-solid/Plus";
 import { Chat } from "styled-icons/material/Chat";
 import { Trashcan } from "styled-icons/octicons/Trashcan";
 import { LeftArrowCircle } from "styled-icons/boxicons-regular/LeftArrowCircle";
+import { ArrowUpThick } from "styled-icons/typicons/ArrowUpThick";
+import { Send } from "styled-icons/boxicons-solid/Send";
 
 export const Tele = styled(Telegram)`
   height: 2em;
@@ -35,7 +37,19 @@ export const User = styled(UserDetail)`
   padding: 5px;
 `;
 
+export const ChatSend = styled(Send)`
+  height: 2em;
+  width: 2em;
+  padding: 5px;
+`;
+
 export const ArrowUp = styled(KeyboardArrowUp)`
+  height: 2em;
+  width: 2em;
+  padding: 5px;
+`;
+
+export const ArrowUpChat = styled(ArrowUpThick)`
   height: 2em;
   width: 2em;
   padding: 5px;
@@ -53,7 +67,7 @@ export const Run = styled(DirectionsRun)`
   padding: 2px;
 `;
 
-export const CloseAct = styled(Close)`
+export const CloseX = styled(Close)`
   height: 1.5em;
   width: 2em;
   padding: 2px;

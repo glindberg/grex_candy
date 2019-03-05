@@ -3,7 +3,15 @@ import { compose } from "recompose";
 import { AuthUserContext, withAuthorization } from "../Session";
 import { withFirebase } from "../Firebase";
 import ShowUser from "../Profile/showOtherProfile";
-import { Wrapper } from "../Chat/styles";
+import {
+  Wrapper,
+  ChatInput,
+  SendButton,
+  ChatInputContainer,
+  MessageContainer,
+  Chat
+} from "./styles";
+import { Trash, ArrowUpChat, ChatSend } from "../Styles/icons";
 
 class MessagesBaseTwo extends Component {
   constructor(props) {
@@ -14,7 +22,8 @@ class MessagesBaseTwo extends Component {
       loading: false,
       messages: null,
       limit: 5,
-      showProfile: false
+      showProfile: false,
+      showChat: false
     };
   }
 
@@ -91,6 +100,7 @@ class MessagesBaseTwo extends Component {
       state => ({ limit: state.limit + 5 }),
       this.onListenForMessages
     );
+    console.log("onNextPage called");
   };
   displayProfile = userId => {
     this.setState({ showProfile: userId });
@@ -98,52 +108,76 @@ class MessagesBaseTwo extends Component {
   hideProfile = () => {
     this.setState({ showProfile: false });
   };
+  hideChat = () => {
+    this.setState({ showChat: false });
+    console.log("Hide Chat");
+  };
 
   render() {
     const { users, activity } = this.props;
     const { text, messages, loading, showProfile } = this.state;
-    console.log(messages + " jj");
     return (
       <AuthUserContext.Consumer>
         {authUser => (
           <div>
             {!loading && messages && (
-              <button type="button" onClick={this.onNextPage}>
-                More
-              </button>
+              <ArrowUpChat type="button" onClick={this.onNextPage} />
             )}
 
-            {loading && <div>Loading ...</div>}
+            <button type="button" onClick={this.onNextPage}>
+              More
+            </button>
+            <Chat>
+              {loading && <div>Loading ...</div>}
 
-            {showProfile && (
-              <Wrapper onClick={this.hideProfile}>
-                <div>
-                  <ShowUser userId={showProfile} />
-                </div>
-              </Wrapper>
-            )}
-
-            {messages && (
-              <MessageList
-                messages={messages.map(message => ({
-                  ...message,
-                  user: users
-                    ? users[message.userId]
-                    : { userId: message.userId }
-                }))}
-                onEditMessage={this.onEditMessage}
-                onRemoveMessage={this.onRemoveMessage}
-                displayProfile={this.displayProfile}
-                activity={activity}
+              {showProfile && (
+                <Wrapper onClick={this.hideProfile}>
+                  <div>
+                    <ShowUser userId={showProfile} />
+                  </div>
+                </Wrapper>
+              )}
+              {/* <CloseChatContainer>
+              <CloseX
+                onClick={() => {
+                  this.hideChat();
+                }}
               />
-            )}
+            </CloseChatContainer> */}
+              {messages && (
+                <MessageContainer>
+                  <MessageList
+                    messages={messages.map(message => ({
+                      ...message,
+                      user: users
+                        ? users[message.userId]
+                        : { userId: message.userId }
+                    }))}
+                    onEditMessage={this.onEditMessage}
+                    onRemoveMessage={this.onRemoveMessage}
+                    displayProfile={this.displayProfile}
+                    activity={activity}
+                  />
+                </MessageContainer>
+              )}
 
-            {!messages && <div>There are no messages ...</div>}
-
-            <form onSubmit={event => this.onCreateMessage(event, authUser)}>
-              <input type="text" value={text} onChange={this.onChangeText} />
-              <button type="submit">Send</button>
-            </form>
+              {!messages && <div>There are no messages ...</div>}
+              <ChatInputContainer>
+                <form onSubmit={event => this.onCreateMessage(event, authUser)}>
+                  {/* <ChatInput> */}
+                  <input
+                    type="text"
+                    value={text}
+                    onChange={this.onChangeText}
+                  />
+                  {/* </ChatInput> */}
+                  {/* <SendButton> */}
+                  <ChatSend type="submit" />
+                  {/* <button type="submit">Send</button> */}
+                  {/* </SendButton> */}
+                </form>
+              </ChatInputContainer>
+            </Chat>
           </div>
         )}
       </AuthUserContext.Consumer>
@@ -206,7 +240,7 @@ class MessageItem extends Component {
     return (
       <AuthUserContext.Consumer>
         {authUser => (
-          <li>
+          <div>
             {editMode ? (
               <input
                 type="text"
@@ -224,14 +258,9 @@ class MessageItem extends Component {
 
             {!editMode &&
               (message.userId === authUser.uid ? (
-                <button
-                  type="button"
-                  onClick={() => onRemoveMessage(message.uid)}
-                >
-                  Delete
-                </button>
+                <Trash onClick={() => onRemoveMessage(message.uid)} />
               ) : null)}
-          </li>
+          </div>
         )}
       </AuthUserContext.Consumer>
     );
