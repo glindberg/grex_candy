@@ -2,11 +2,26 @@ import styled from "styled-components";
 
 export const Nav = styled.section`
   height: 60px;
-  background: linear-gradient(rgb(207, 226, 199), rgb(118, 135, 110));
+  background: #093028; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to bottom,
+    #237a57,
+    #093028
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #237a57,
+    #093028
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
   display: flex;
   /* justify-content: space-around; */
 
   h1 {
+    a {
+      text-decoration: none;
+      color: rgb(247, 245, 237);
+    }
     color: rgb(247, 245, 237);
     margin: auto;
   }
@@ -121,13 +136,18 @@ Note: Beware of modifying this element as it can break the animations - you shou
 `;
 
 export const CreateAct = styled.div`
-  /* color: white; */
-  margin-right: 0.2em;
+  width: 85px;
+  display: flex;
   position: absolute;
   right: 0;
-  top: 10px;
-  font-size: 30px;
+  margin-top: 10px;
+  justify-content: space-between;
+  padding-right: 10px;
   a {
     color: rgb(247, 245, 237);
+    text-decoration: none;
   }
+`;
+export const Ini = styled.div`
+  font-size: 2em;
 `;

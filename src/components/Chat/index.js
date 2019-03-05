@@ -102,7 +102,6 @@ class MessagesBaseTwo extends Component {
   render() {
     const { users, activity } = this.props;
     const { text, messages, loading, showProfile } = this.state;
-    console.log(messages + " jj");
     return (
       <AuthUserContext.Consumer>
         {authUser => (

@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const LandingP = styled.div`
   background: linear-gradient(rgb(207, 226, 199), rgb(118, 135, 110));
   color: rgb(248, 249, 247);
-  /* height: calc(100vh - 60px); */
   height: 100vh;
   margin-top: 0;
   margin-bottom: 0;

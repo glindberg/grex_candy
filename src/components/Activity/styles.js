@@ -45,7 +45,9 @@ export const Creating = styled.div`
   }
   h2 {
     margin-top: 0;
-    padding-top: 0.6em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    margin-bottom: 0;
     text-align: center;
   }
   input {
@@ -96,7 +98,6 @@ export const Div = styled.div`
 `;
 
 export const Form = styled.div`
-  /* width: 80%; */
   padding-top: 1em;
 
   input {
@@ -104,13 +105,10 @@ export const Form = styled.div`
   }
   textarea {
     padding: 0.5em;
-    /* width: 100%; */
   }
   select {
-    /* height: 2.5em; */
   }
   @media (min-width: 600px) {
-    /* width: 60%; */
   }
 `;
 
@@ -124,23 +122,24 @@ export const FormSize = styled.form`
 export const Label = styled.div``;
 
 export const MapSize = styled.div`
-  /* width: 95%; */
   margin: auto;
   @media (min-width: 600px) {
-    /* width: 70%; */
   }
 `;
 
 export const ActivityDiv = styled.div`
   display: flex;
   margin: auto;
+  margin-top: 0;
   font-size: 0.8em;
   background: rgb(247, 245, 237);
+  ul {
+    margin: 0;
+  }
 `;
 
 export const ShowActivity = styled.ul`
   list-style: none;
-
   padding-left: 0;
   width: 100%;
 `;
@@ -156,6 +155,7 @@ export const ActivityLi = styled.div`
 export const ActivityBig = styled.li`
   font-size: 1.5em;
   margin-bottom: 0.5em;
+  margin-top: 0;
   text-align: center;
   font-weight: 600;
 `;
@@ -175,6 +175,7 @@ export const ButtonClosing = styled.button`
   background: none;
   position: absolute;
   right: 0;
+  padding-top: 15px;
   a {
     color: black;
   }
@@ -192,4 +193,18 @@ export const ButtonsAct = styled.button`
     text-decoration: none;
     color: white;
   }
+`;
+export const ArrowU = styled.div`
+  position: absolute;
+  width: 50px;
+  height: 40px;
+  color: white;
+  top: 361px;
+  left: calc(50% - 25px);
+  z-index: 2000;
+  background-color: rgba(128, 128, 128, 0.5);
+`;
+export const ArrowD = styled.div`
+  background: rgb(83, 109, 122);
+  color: white;
 `;
