@@ -114,6 +114,7 @@ class LocatedTwo extends Component {
   }
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchId);
+    this.props.firebase.activities().off();
   }
 
   render() {
