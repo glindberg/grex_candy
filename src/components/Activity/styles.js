@@ -10,6 +10,10 @@ export const Act = styled.div`
 `;
 
 export const ActPage = styled.div`
+<<<<<<< HEAD
+  /* text-align: center; */
+=======
+>>>>>>> master
   height: calc(100vh - 60px);
   h1 {
     margin: 0;

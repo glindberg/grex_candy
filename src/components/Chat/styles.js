@@ -22,6 +22,14 @@ export const Wrapper = styled.div`
 export const ArrowUpChat = styled.button`
   color: black;
 `;
+export const H3 = styled.h3`
+  color: white;
+  background: rgb(83, 109, 122);
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  padding: 8px 0px;
+`;
 
 export const CloseChatContainer = styled.button`
   border: none;
@@ -75,21 +83,39 @@ export const MessageContainer = styled.div`
   left: 0;
   padding: 0;
 `;
-export const DeleteMessageAlign = styled.div``;
-
-export const MessageColor = styled.div`
-  background-color: lightgreen;
-  justify-content: flex-start;
-  opacity: 0.5;
-  width: 40%;
-  border-radius: 5%;
-`;
-export const SelfMessageColor = styled.div`
+export const DeleteMessageAlign = styled.div`
+  font-size: 16px;
   position: absolute;
   right: 0;
+`;
+export const MessageFlex = styled.div`
+  display: flex;
+  flex-flow: column;
+`;
+
+export const MessageColor = styled.div`
+  align-self: flex-start;
+  justify-content: flex-start;
   opacity: 0.5;
-  width: 40%;
+  margin-left: 2%;
+  margin-right: 10%;
   div {
-    background-color: red;
+    background: lightgray;
+    color: black;
+    border-radius: 15px;
+    padding: 5px 10px;
+  }
+`;
+export const SelfMessageColor = styled.div`
+  align-self: flex-end;
+  justify-content: flex-end;
+  opacity: 0.5;
+  margin-right: 10%;
+  margin-left: 30%;
+  div {
+    background-color: lightgreen;
+    color: black;
+    border-radius: 15px;
+    padding: 5px 10px;
   }
 `;
