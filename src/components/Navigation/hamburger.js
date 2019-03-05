@@ -17,10 +17,12 @@ class Example extends React.Component {
         <Menu isOpen={false} width={"60%"}>
           <ul>
             <li>
-              <Link to={ROUTES.LANDING}>Landing</Link>
+              <Link to={ROUTES.HOME}>
+                <strong>GREX</strong>
+              </Link>
             </li>
             <li>
-              <Link to={ROUTES.HOME}>Home</Link>
+              <Link to={ROUTES.LANDING}>Info</Link>
             </li>
             <li>
               <Link to={ROUTES.PROFILE}>Profile</Link>

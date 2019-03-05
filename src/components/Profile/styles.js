@@ -18,7 +18,6 @@ export const Wrapper = styled.div`
     margin: 2% 1.8%;
     border: 1px solid black;
     position: absolute;
-    /* top: 65px; */
   }
   img {
     width: 150px;
@@ -37,7 +36,6 @@ export const CreateP = styled.div`
     margin: auto;
   }
   h1 {
-    margin: 10px 0px 10px 0px;
     text-align: center;
   }
   label {

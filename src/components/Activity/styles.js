@@ -70,11 +70,13 @@ export const Creating = styled.div`
 
   div {
     /* width: 80%; */
-    margin: auto;
+    /* margin: auto; */
   }
   h1 {
     margin-top: 0;
-    padding-top: 0.6em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    margin-bottom: 0;
     text-align: center;
   }
   input {
@@ -110,7 +112,6 @@ export const Div = styled.div`
 `;
 
 export const Form = styled.div`
-  /* width: 80%; */
   padding-top: 1em;
 
   input {
@@ -118,13 +119,10 @@ export const Form = styled.div`
   }
   textarea {
     padding: 0.5em;
-    /* width: 100%; */
   }
   select {
-    /* height: 2.5em; */
   }
   @media (min-width: 600px) {
-    /* width: 60%; */
   }
 `;
 
@@ -136,15 +134,12 @@ export const FormSize = styled.form`
 export const Label = styled.div``;
 
 export const MapSize = styled.div`
-  /* width: 95%; */
   margin: auto;
   @media (min-width: 600px) {
-    /* width: 70%; */
   }
 `;
 
 export const ActivityDiv = styled.div`
-  /* width: 100%; */
   display: flex;
   margin: auto;
   font-size: 0.8em;
@@ -155,7 +150,6 @@ export const ShowActivity = styled.ul`
   list-style: none;
 
   padding-left: 0;
-  /* font-size: 0.8rem; */
   width: 100%;
 `;
 
@@ -167,11 +161,6 @@ export const ActivityLi = styled.div`
   }
 `;
 
-// export const CloseActivity = styled.li`
-//   display: flex;
-//   margin: auto;
-// `;
-
 export const ButtonDivs = styled.div`
   width: 100%;
   display: flex;
@@ -181,13 +170,10 @@ export const ButtonDivs = styled.div`
 
 export const ButtonClosing = styled.button`
   border: none;
-  /* color: white; */
   font-size: 0.9em;
   border-radius: 5px;
   margin: 5px;
   background: none;
-  /* padding-right: 10px;
-  background: rgb(83, 109, 122); */
   position: absolute;
   right: 0;
   a {
@@ -220,23 +206,22 @@ export const ButtonsAct = styled.button`
   padding-right: 10px;
   margin: 10px;
   background: rgb(83, 109, 122);
-  /* background: #232526;  */
-  /* fallback for old browsers */
-  /* background: -webkit-linear-gradient(
-    to top,
-    #414345,
-    #232526
-  );  */
-  /* Chrome 10-25, Safari 5.1-6 */
-  /* background: linear-gradient(
-    to top,
-    #414345,
-    #232526
-  );  */
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
   a {
     text-decoration: none;
     color: white;
   }
+`;
+export const ArrowU = styled.div`
+  position: absolute;
+  width: 50px;
+  height: 40px;
+  color: white;
+  top: 361px;
+  left: calc(50% - 25px);
+  z-index: 2000;
+  background-color: rgba(128, 128, 128, 0.5);
+`;
+export const ArrowD = styled.div`
+  background: rgb(83, 109, 122);
+  color: white;
 `;

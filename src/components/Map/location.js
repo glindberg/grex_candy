@@ -175,9 +175,9 @@ class MyMap extends Component {
 
   render() {
     const activityIcon = L.icon({
-      iconUrl: require("../Images/Runner.png"),
-      iconSize: [35, 64],
-      iconAnchor: [15, 64],
+      iconUrl: require("../Images/i.png"),
+      iconSize: [50, 64],
+      iconAnchor: [30, 64],
       shadowUrl: require("../Images/Shadow1.png"),
       shadowSize: [70, 25],
       shadowAnchor: [20, 25],
@@ -204,13 +204,13 @@ class MyMap extends Component {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png"
         />
-        {this.props.markers.map((marker, index) => (
+        {this.props.markers.map((marker, index, array) => (
           <Marker
             key={index}
             position={
               new Array(Object.values(marker)[0], Object.values(marker)[1])
             }
-            icon={myIcon}
+            icon={index === array.length - 1 ? activityIcon : myIcon}
           >
             <Popup>
               <div
@@ -224,15 +224,11 @@ class MyMap extends Component {
         ))}
 
         {this.state.markers.map((marker, index) => (
-          <Marker
-            icon={activityIcon}
-            key={index}
-            position={Object.values(marker)}
-          >
+          <Marker icon={myIcon} key={index} position={Object.values(marker)}>
             <Popup>
               I want to do my activity here
               <br />
-              {this.state.markers.toString()}
+              {/* {this.state.markers.toString()} */}
             </Popup>
           </Marker>
         ))}
