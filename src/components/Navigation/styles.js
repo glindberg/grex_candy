@@ -13,9 +13,7 @@ export const Nav = styled.section`
     #237a57,
     #093028
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
   display: flex;
-  /* justify-content: space-around; */
 
   h1 {
     a {
