@@ -4,9 +4,21 @@ import ActivityContent, {
   Time,
   ActivityChar
 } from "../Activity/activityContent";
-import { Act, ActName, Created, ActInfo } from "./styles";
-import { ArrowUp, ArrowDown } from "../Styles/icons";
+import {
+  Act,
+  ActName,
+  Created,
+  ActInfo,
+  ButtonDivs,
+  ArrowU,
+  ArrowD,
+  ChatClose
+} from "./styles";
+import { AuthUserContext } from "../Session";
+import MessagesTwo from "../Chat";
+import { ArrowUp, ArrowDown, ChatIcon, Trash, CloseX } from "../Styles/icons";
 import LocationPage from "../Map/location";
+import { Button } from "../Styles/button";
 
 class ActivitesBase extends Component {
   constructor(props) {
@@ -15,14 +27,19 @@ class ActivitesBase extends Component {
       activity: null,
       loading: false,
       activities: [],
-      showMap: false,
-      hideActivity: false
+      hideActivity: false,
+      users: null,
+      showMap: true
     };
   }
   componentDidMount() {
-    this.setState({
-      loading: true
+    this.props.firebase.users().on("value", snapshot => {
+      this.setState({
+        loading: false,
+        users: snapshot.val()
+      });
     });
+
     this.props.firebase.activities().on("value", snapshot => {
       const activityObject = snapshot.val();
       if (activityObject) {
@@ -45,6 +62,7 @@ class ActivitesBase extends Component {
   }
   componentWillUnmount() {
     this.props.firebase.activities().off();
+    this.props.firebase.users().off();
   }
   hideActivity = () => {
     this.setState({ activity: null });
@@ -56,15 +74,19 @@ class ActivitesBase extends Component {
     this.setState(prevState => ({ hideActivity: !prevState.hideActivity }));
   };
   displayMap() {
+    this.setState({ showMap: false });
+  }
+  hideMap() {
     this.setState({ showMap: true });
   }
-
-  hideMap = () => {
-    this.setState({ showMap: false });
+  displayChat = () => {
+    this.setState({ showChat: true, showMap: false });
+  };
+  hideChat = () => {
+    this.setState({ showChat: false, showMap: true });
   };
 
   removeActivity = () => {
-    console.log(this.state.activity);
     const a = this.state.activity;
     const newActivities = this.state.activities.filter(activity => {
       return activity !== a;
@@ -76,42 +98,96 @@ class ActivitesBase extends Component {
     this.props.firebase.activity(this.state.activity.uid).remove();
   };
   render() {
-    const { activities, loading, activity, showMap, hideActivity } = this.state;
+    const {
+      activities,
+      loading,
+      activity,
+      showMap,
+      hideActivity,
+      showChat
+    } = this.state;
     return (
-      <div>
-        {!showMap && (
+      <AuthUserContext.Consumer>
+        {authUser => (
           <div>
-            <ArrowUp onClick={() => this.displayMap()} />
-            <LocationPage
-              activities={activities}
-              handleActivityClick={this.handleActivityClick}
-            />
+            {showMap && (
+              <div>
+                <LocationPage
+                  activities={activities}
+                  handleActivityClick={this.handleActivityClick}
+                />
+                <ArrowU onClick={() => this.displayMap()}>
+                  <ArrowUp />
+                </ArrowU>
+              </div>
+            )}
+            {!showMap && (
+              <div>
+                {!showChat && (
+                  <ArrowD onClick={() => this.hideMap()}>
+                    <ArrowDown />
+                    <span>Show Map</span>
+                  </ArrowD>
+                )}
+              </div>
+            )}
+            {loading && <div>Loading activities...</div>}
+            {activity ? (
+              <div>
+                <div>
+                  {!showChat && (
+                    <div>
+                      <ActivityContent
+                        activity={activity}
+                        hideActivity={this.hideActivity}
+                        removeActivity={this.removeActivity}
+                        hideActivityToggle={this.hideActivityToggle}
+                      />
+                      <ButtonDivs>
+                        <Button
+                          onClick={() => {
+                            this.displayChat();
+                          }}
+                        >
+                          <ChatIcon />
+                          <span> | </span>Chat
+                        </Button>
+
+                        {activity.userId === authUser.uid ? (
+                          <Button onClick={() => this.removeActivity()}>
+                            <Trash />
+                            <span> | </span>Delete
+                          </Button>
+                        ) : null}
+                      </ButtonDivs>
+                    </div>
+                  )}
+                </div>
+
+                {showChat && (
+                  <div>
+                    <ChatClose>
+                      <CloseX
+                        onClick={() => {
+                          this.hideChat();
+                        }}
+                      />
+                    </ChatClose>
+                    <MessagesTwo activity={activity} users={this.state.users} />
+                  </div>
+                )}
+              </div>
+            ) : activities && !hideActivity ? (
+              <ActivityList
+                handleActivityClick={this.handleActivityClick}
+                activities={activities}
+              />
+            ) : (
+              <div>There are no activities ...</div>
+            )}
           </div>
         )}
-
-        {showMap && (
-          <div>
-            <ArrowDown onClick={() => this.hideMap()} />
-          </div>
-        )}
-
-        {loading && <div>Loading activities...</div>}
-        {activity ? (
-          <ActivityContent
-            activity={activity}
-            hideActivity={this.hideActivity}
-            removeActivity={this.removeActivity}
-            hideActivityToggle={this.hideActivityToggle}
-          />
-        ) : activities && !hideActivity ? (
-          <ActivityList
-            handleActivityClick={this.handleActivityClick}
-            activities={activities}
-          />
-        ) : (
-          <div>There are no activities ...</div>
-        )}
-      </div>
+      </AuthUserContext.Consumer>
     );
   }
 }

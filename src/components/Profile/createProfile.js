@@ -6,7 +6,7 @@ import * as ROUTES from "../../constants/routes";
 import { CreateP } from "../Profile/styles";
 import { BtnContainer } from "./styles";
 import { Button } from "../Styles/button";
-import { User } from "../Styles/icons";
+import { UserD } from "../Styles/icons";
 
 const profile = {
   fname: "",
@@ -155,7 +155,7 @@ class CreateProfile extends Component {
                 <br />
                 <BtnContainer>
                   <Button disabled={isInvalid}>
-                    <User />
+                    <UserD />
                     <span> | </span>Create Profile
                   </Button>
                 </BtnContainer>

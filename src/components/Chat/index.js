@@ -3,8 +3,18 @@ import { compose } from "recompose";
 import { AuthUserContext, withAuthorization } from "../Session";
 import { withFirebase } from "../Firebase";
 import ShowUser from "../Profile/showOtherProfile";
-import { Wrapper } from "../Chat/styles";
-
+import {
+  Wrapper,
+  ChatInputContainer,
+  MessageContainer,
+  Chat,
+  MessageColor,
+  SelfMessageColor,
+  MessageFlex,
+  H3,
+  DeleteMessageAlign
+} from "./styles";
+import { TrashChat } from "../Styles/icons";
 class MessagesBaseTwo extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +46,6 @@ class MessagesBaseTwo extends Component {
             ...messageObject[key],
             uid: key
           }));
-          // console.log("Messages found");
           this.setState({
             messages: messageList,
             loading: false
@@ -49,6 +58,7 @@ class MessagesBaseTwo extends Component {
 
   componentWillUnmount() {
     this.props.firebase.messages().off();
+    this.props.firebase.activity().off();
   }
 
   onChangeText = event => {
@@ -70,14 +80,6 @@ class MessagesBaseTwo extends Component {
     event.preventDefault();
   };
 
-  onEditMessage = (message, text) => {
-    this.props.firebase.message(message.uid).set({
-      ...message,
-      text,
-      editedAt: this.props.firebase.serverValue.TIMESTAMP
-    });
-  };
-
   onRemoveMessage = uid => {
     this.props.firebase
       .activity(this.props.activity.uid)
@@ -91,6 +93,7 @@ class MessagesBaseTwo extends Component {
       state => ({ limit: state.limit + 5 }),
       this.onListenForMessages
     );
+    console.log("onNextPage called");
   };
   displayProfile = userId => {
     this.setState({ showProfile: userId });
@@ -98,20 +101,19 @@ class MessagesBaseTwo extends Component {
   hideProfile = () => {
     this.setState({ showProfile: false });
   };
+  hideChat = () => {
+    this.setState({ showChat: false });
+    console.log("Hide Chat");
+  };
 
   render() {
     const { users, activity } = this.props;
     const { text, messages, loading, showProfile } = this.state;
-    console.log(messages + " jj");
     return (
       <AuthUserContext.Consumer>
         {authUser => (
           <div>
-            {!loading && messages && (
-              <button type="button" onClick={this.onNextPage}>
-                More
-              </button>
-            )}
+            <H3>{activity.activityname}</H3>
 
             {loading && <div>Loading ...</div>}
 
@@ -122,28 +124,35 @@ class MessagesBaseTwo extends Component {
                 </div>
               </Wrapper>
             )}
+            <Chat>
+              {messages && (
+                <MessageContainer>
+                  <MessageList
+                    messages={messages.map(message => ({
+                      ...message,
+                      user: users
+                        ? users[message.userId]
+                        : { userId: message.userId }
+                    }))}
+                    onRemoveMessage={this.onRemoveMessage}
+                    displayProfile={this.displayProfile}
+                    activity={activity}
+                  />
+                </MessageContainer>
+              )}
 
-            {messages && (
-              <MessageList
-                messages={messages.map(message => ({
-                  ...message,
-                  user: users
-                    ? users[message.userId]
-                    : { userId: message.userId }
-                }))}
-                onEditMessage={this.onEditMessage}
-                onRemoveMessage={this.onRemoveMessage}
-                displayProfile={this.displayProfile}
-                activity={activity}
-              />
-            )}
-
-            {!messages && <div>There are no messages ...</div>}
-
-            <form onSubmit={event => this.onCreateMessage(event, authUser)}>
-              <input type="text" value={text} onChange={this.onChangeText} />
-              <button type="submit">Send</button>
-            </form>
+              {!messages && <div>There are no messages ...</div>}
+              <ChatInputContainer>
+                <form onSubmit={event => this.onCreateMessage(event, authUser)}>
+                  <input
+                    type="text"
+                    value={text}
+                    onChange={this.onChangeText}
+                  />
+                  <button type="submit">Send</button>
+                </form>
+              </ChatInputContainer>
+            </Chat>
           </div>
         )}
       </AuthUserContext.Consumer>
@@ -153,85 +162,63 @@ class MessagesBaseTwo extends Component {
 
 const MessageList = ({
   messages,
-  onEditMessage,
   onRemoveMessage,
   displayProfile,
   activity
 }) => (
-  <ul>
+  <div>
     {messages.map(message => (
       <MessageItem
         key={message.uid}
         message={message}
-        onEditMessage={onEditMessage}
         onRemoveMessage={onRemoveMessage}
         displayProfile={displayProfile}
         activity={activity}
       />
     ))}
-  </ul>
+  </div>
 );
 
 class MessageItem extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      editMode: false,
-      editText: this.props.message.text
-    };
-  }
-
-  onToggleEditMode = () => {
-    this.setState(state => ({
-      editMode: !state.editMode,
-      editText: this.props.message.text
-    }));
-  };
-
-  onChangeEditText = event => {
-    this.setState({ editText: event.target.value });
-  };
-
-  onSaveEditText = () => {
-    this.props.onEditMessage(this.props.message, this.state.editText);
-
-    this.setState({ editMode: false });
-  };
-
   render() {
     const { message, onRemoveMessage, displayProfile } = this.props;
-    const { editMode, editText } = this.state;
 
     return (
       <AuthUserContext.Consumer>
         {authUser => (
-          <li>
-            {editMode ? (
-              <input
-                type="text"
-                value={editText}
-                onChange={this.onChangeEditText}
-              />
-            ) : (
-              <span>
-                <strong onClick={() => displayProfile(message.userId)}>
-                  {message.user.username || message.user.userId}
-                </strong>
-                {message.text} {message.editedAt && <span>Edited</span>}
-              </span>
-            )}
-
-            {!editMode &&
-              (message.userId === authUser.uid ? (
-                <button
-                  type="button"
-                  onClick={() => onRemoveMessage(message.uid)}
-                >
-                  Delete
-                </button>
-              ) : null)}
-          </li>
+          <div>
+            <span>
+              {message.userId === authUser.uid ? (
+                <MessageFlex>
+                  <SelfMessageColor>
+                    <strong onClick={() => displayProfile(message.userId)}>
+                      {message.user.username}
+                    </strong>
+                    <br />
+                    <div>
+                      {message.text}
+                      <br />
+                    </div>
+                  </SelfMessageColor>
+                  <DeleteMessageAlign>
+                    {message.userId === authUser.uid ? (
+                      <TrashChat onClick={() => onRemoveMessage(message.uid)} />
+                    ) : null}
+                  </DeleteMessageAlign>
+                </MessageFlex>
+              ) : (
+                <MessageFlex>
+                  <MessageColor>
+                    <strong onClick={() => displayProfile(message.userId)}>
+                      {message.user.username}
+                    </strong>
+                    <br />
+                    <div>{message.text}</div>
+                  </MessageColor>
+                </MessageFlex>
+              )}
+            </span>
+          </div>
         )}
       </AuthUserContext.Consumer>
     );

@@ -30,7 +30,6 @@ class LocatedTwo extends Component {
     this.props.firebase.activities().on("value", snapshot => {
       const activityObject = snapshot.val();
       if (activityObject) {
-        // convert messages list from snapshot
         const activityList = Object.keys(activityObject).map(key => ({
           ...activityObject[key],
           uid: key
@@ -115,6 +114,7 @@ class LocatedTwo extends Component {
   }
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchId);
+    this.props.firebase.activities().off();
   }
 
   render() {
@@ -125,17 +125,13 @@ class LocatedTwo extends Component {
         .map(activity => ({
           ...activity.markers,
           name: activity.activity,
-          //uid: "YO"
           activity: { ...activity }
-          // icon: "blue"
         }));
     }
     markers.push({
       ...this.state.browserCoords,
       name: "This is your position",
       activity: null
-      //uid: "yo"
-      // icon:
     });
     return (
       <div>
@@ -175,21 +171,21 @@ class MyMap extends Component {
 
   render() {
     const activityIcon = L.icon({
-      iconUrl: require("../Images/Runner.png"),
-      iconSize: [35, 64],
-      iconAnchor: [15, 64],
-      shadowUrl: require("../Images/Shadow1.png"),
-      shadowSize: [70, 25],
-      shadowAnchor: [20, 25],
-      popupAnchor: [0, -65]
+      iconUrl: require("../Images/Hello.png"),
+      iconSize: [55, 72],
+      iconAnchor: [30, 64],
+      // shadowUrl: require("../Images/HelloS.png"),
+      // shadowSize: [65, 100],
+      // shadowAnchor: [20, 65],
+      popupAnchor: [-2, -60]
     });
     const myIcon = L.icon({
       iconUrl: require("../Images/Runner2.png"),
       iconSize: [35, 64],
       iconAnchor: [15, 64],
-      shadowUrl: require("../Images/Shadow1.png"),
-      shadowSize: [70, 25],
-      shadowAnchor: [20, 25],
+      // shadowUrl: require("../Images/Shadow1.png"),
+      // shadowSize: [70, 25],
+      // shadowAnchor: [20, 25],
       popupAnchor: [0, -65]
     });
     return (
@@ -204,13 +200,13 @@ class MyMap extends Component {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png"
         />
-        {this.props.markers.map((marker, index) => (
+        {this.props.markers.map((marker, index, array) => (
           <Marker
             key={index}
             position={
               new Array(Object.values(marker)[0], Object.values(marker)[1])
             }
-            icon={myIcon}
+            icon={index === array.length - 1 ? activityIcon : myIcon}
           >
             <Popup>
               <div
@@ -224,16 +220,8 @@ class MyMap extends Component {
         ))}
 
         {this.state.markers.map((marker, index) => (
-          <Marker
-            icon={activityIcon}
-            key={index}
-            position={Object.values(marker)}
-          >
-            <Popup>
-              I want to do my activity here
-              <br />
-              {this.state.markers.toString()}
-            </Popup>
+          <Marker icon={myIcon} key={index} position={Object.values(marker)}>
+            <Popup>I want to do my activity here</Popup>
           </Marker>
         ))}
       </Map>

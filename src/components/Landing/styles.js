@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const LandingP = styled.div`
   background: linear-gradient(rgb(207, 226, 199), rgb(118, 135, 110));
   color: rgb(248, 249, 247);
-  height: calc(100vh - 60px);
+  height: 100vh;
   margin-top: 0;
   margin-bottom: 0;
   line-height: 1.4;
@@ -28,6 +28,10 @@ export const Flex = styled.div`
     max-width: 80%;
     font-size: 0.8em;
   }
+`;
+
+export const InfoText = styled.p`
+  margin-top: 3em;
 `;
 
 export const CloseBtn = styled.button`
