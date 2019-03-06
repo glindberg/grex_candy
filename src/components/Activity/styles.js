@@ -33,10 +33,13 @@ export const ActInfo = styled.p`
 `;
 
 export const Created = styled.p`
+  @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
+
   font-size: 0.7rem;
   color: black;
   text-align: right;
   margin: 0;
+  font-family: Source Sans Pro;
 `;
 
 // CREATE ACTIVITY
