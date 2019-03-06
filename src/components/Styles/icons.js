@@ -11,6 +11,7 @@ import { Plus } from "styled-icons/fa-solid/Plus";
 import { Chat } from "styled-icons/material/Chat";
 import { Trashcan } from "styled-icons/octicons/Trashcan";
 import { LeftArrowCircle } from "styled-icons/boxicons-regular/LeftArrowCircle";
+import { ArrowBack } from "styled-icons/boxicons-regular/ArrowBack";
 
 export const Tele = styled(Telegram)`
   height: 2em;
@@ -79,4 +80,10 @@ export const Trash = styled(Trashcan)`
 export const Tie = styled(LeftArrowCircle)`
   height: 2em;
   width: 2em;
+`;
+
+export const ArrBack = styled(ArrowBack)`
+  height: 2em;
+  width: 2em;
+  padding: 5px;
 `;
