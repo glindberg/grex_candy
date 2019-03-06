@@ -114,7 +114,7 @@ class CreateActivity extends Component {
                 <FormSize onSubmit={event => this.onSubmit(event, authUser)}>
                   <Form>
                     <Label>
-                      <strong>Activityname:</strong>
+                      <strong>Activityname*</strong>
                       <input
                         name="activityname"
                         value={this.state.activityname}
@@ -128,7 +128,7 @@ class CreateActivity extends Component {
                   <br />
                   <Form>
                     <Label>
-                      <strong>Type of Activity:</strong>
+                      <strong>Type of Activity*</strong>
                       <select
                         name="activity"
                         value={this.state.activity}
@@ -175,7 +175,7 @@ class CreateActivity extends Component {
                   <br />
                   <Form>
                     <Label>
-                      <strong>Date of Activity:</strong>
+                      <strong>Date of Activity*</strong>
                       <input
                         name="dateforact"
                         value={this.state.dateforact}
@@ -188,7 +188,7 @@ class CreateActivity extends Component {
                   <br />
                   <Form>
                     <Label>
-                      <strong>Start time for Activity:</strong>
+                      <strong>Start time for Activity*</strong>
                       <input
                         name="actlengthstart"
                         value={this.state.actlengthstart}
@@ -203,7 +203,7 @@ class CreateActivity extends Component {
                   <Form>
                     <Label>
                       <br />
-                      <strong>End time:</strong>
+                      <strong>End time*</strong>
                       <input
                         name="actlengthend"
                         value={this.state.actlengthend}
@@ -218,7 +218,7 @@ class CreateActivity extends Component {
                   <br />
                   <Form>
                     <Label>
-                      <strong>Intensity</strong> (1 for low, 5 for high):
+                      <strong>Intensity</strong> (1 for low, 5 for high)*
                       <select
                         name="intensity"
                         value={this.state.intensity}
@@ -239,7 +239,7 @@ class CreateActivity extends Component {
                   <br />
                   <Form>
                     <label>
-                      <strong>Details/Place for Meeting:</strong>
+                      <strong>Details/Place for Meeting*</strong>
                       <textarea
                         rows="4"
                         cols="50"
@@ -255,7 +255,7 @@ class CreateActivity extends Component {
                   <br />
                   <Form>
                     <label>
-                      Other:
+                      Other
                       <textarea
                         rows="4"
                         cols="50"

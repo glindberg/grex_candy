@@ -64,7 +64,7 @@ class CreateProfile extends Component {
               <h1>Create Profile</h1>
               <form onSubmit={event => this.onSubmit(event, authUser)}>
                 <label>
-                  First name:
+                  First name*
                   <input
                     name="fname"
                     value={this.state.fname}
@@ -76,7 +76,7 @@ class CreateProfile extends Component {
                 <br />
                 <br />
                 <label>
-                  Last name:
+                  Last name*
                   <input
                     name="lname"
                     value={this.state.lname}
@@ -88,7 +88,7 @@ class CreateProfile extends Component {
                 <br />
                 <br />
                 <label>
-                  Age:
+                  Age*
                   <input
                     name="age"
                     value={this.state.age}
@@ -100,7 +100,7 @@ class CreateProfile extends Component {
                 <br />
                 <br />
                 <label>
-                  Gender:
+                  Gender*
                   <select
                     name="gender"
                     value={this.state.gender}
@@ -117,7 +117,7 @@ class CreateProfile extends Component {
                 <br />
                 <br />
                 <label>
-                  Number: +46
+                  Number* +46
                   <input
                     name="phone"
                     value={this.state.phone}
@@ -129,7 +129,7 @@ class CreateProfile extends Component {
                 <br />
                 <br />
                 <label>
-                  City:
+                  City*
                   <input
                     name="city"
                     value={this.state.city}
@@ -141,7 +141,7 @@ class CreateProfile extends Component {
                 <br />
                 <br />
                 <label>
-                  Descripion:
+                  Descripion
                   <textarea
                     rows="4"
                     cols="50"

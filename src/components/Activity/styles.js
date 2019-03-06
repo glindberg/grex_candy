@@ -86,9 +86,10 @@ export const Creating = styled.div`
   }
 
   textarea {
-    width: calc(100% - 6px);
+    width: calc(100% - 12px);
     padding-left: 5px;
     margin-top: 10px;
+    /* margin-right: 5px; */
   }
 `;
 
