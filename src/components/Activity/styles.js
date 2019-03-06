@@ -12,7 +12,7 @@ export const Act = styled.div`
 export const ChatClose = styled.div`
   position: absolute;
   right: 25px;
-  top: 65px;
+  top: 62px;
   color: white;
 `;
 export const ActPage = styled.div`

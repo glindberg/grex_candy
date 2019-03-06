@@ -1,12 +1,10 @@
 import React from "react";
 import { LandingP, Flex, InfoText } from "./styles";
-import { Tele } from "../Styles/icons";
 
 const App = () => (
   <LandingP>
     <Flex>
       <h1>Welcome to Grex</h1>
-      <Tele />
       <InfoText>
         Grex is where you can partner up with a workout buddy. Whether it's for
         a run, a swim or just to walk your dog - it's your choice. You can

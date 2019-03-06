@@ -22,13 +22,13 @@ export const Wrapper = styled.div`
 export const ArrowUpChat = styled.button`
   color: black;
 `;
-export const H3 = styled.h3`
+export const H3 = styled.p`
   color: white;
   background: rgb(83, 109, 122);
   width: 100%;
   text-align: center;
   margin: 0;
-  padding: 8px 0px;
+  padding: 6.5px 0px;
 `;
 
 export const CloseChatContainer = styled.button`
@@ -46,10 +46,9 @@ export const CloseChatContainer = styled.button`
 
 export const Chat = styled.div`
   height: calc(100vh - 60px);
+  margin-bottom: 20px;
 `;
 export const ChatInputContainer = styled.div`
-  display: flex;
-  flex-flow: column wrap;
   bottom: 0;
 
   input {
@@ -70,18 +69,10 @@ export const ChatInputContainer = styled.div`
   }
 `;
 
-export const ChatSend = styled.div`
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 37px;
-  margin: 0;
-  padding: 0;
-`;
 export const MessageContainer = styled.div`
-  margin-bottom: 6%;
   left: 0;
   padding: 0;
+  margin-bottom: 25px;
 `;
 export const DeleteMessageAlign = styled.div`
   font-size: 16px;
@@ -96,7 +87,6 @@ export const MessageFlex = styled.div`
 export const MessageColor = styled.div`
   align-self: flex-start;
   justify-content: flex-start;
-  opacity: 0.5;
   margin-left: 2%;
   margin-right: 10%;
   div {
@@ -109,7 +99,6 @@ export const MessageColor = styled.div`
 export const SelfMessageColor = styled.div`
   align-self: flex-end;
   justify-content: flex-end;
-  opacity: 0.5;
   margin-right: 10%;
   margin-left: 30%;
   div {
@@ -118,4 +107,9 @@ export const SelfMessageColor = styled.div`
     border-radius: 15px;
     padding: 5px 10px;
   }
+`;
+
+export const TrashS = styled.div`
+  right: 0;
+  margin-right: 10px;
 `;
