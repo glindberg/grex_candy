@@ -1,6 +1,10 @@
 import React, { Component } from "react";
-
+import { Link } from "react-router-dom";
+import * as ROUTES from "../../constants/routes";
 import { withFirebase } from "../Firebase";
+import { Input } from "./styles";
+import { Button } from "../Styles/button";
+import { ArrBack, Key } from "../Styles/icons";
 
 const INITIAL_STATE = {
   passwordOne: "",
@@ -41,24 +45,32 @@ class PasswordChangeForm extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <input
+        <Input
           name="passwordOne"
           value={passwordOne}
           onChange={this.onChange}
           type="password"
           placeholder="New Password"
         />
-        <input
+        <Input
           name="passwordTwo"
           value={passwordTwo}
           onChange={this.onChange}
           type="password"
           placeholder="Confirm New Password"
         />
-        <button disabled={isInvalid} type="submit">
-          Reset My Password
-        </button>
-
+        <Button disabled={isInvalid} type="submit">
+          <Key />
+          <span> | </span>
+          Change Password
+        </Button>
+        <Link to={ROUTES.PROFILE}>
+          <Button>
+            <ArrBack />
+            <span> | </span>
+            Back
+          </Button>
+        </Link>
         {error && <p>{error.message}</p>}
       </form>
     );

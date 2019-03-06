@@ -10,6 +10,7 @@ import { Close } from "styled-icons/material/Close";
 import { Chat } from "styled-icons/material/Chat";
 import { Trashcan } from "styled-icons/octicons/Trashcan";
 import { LeftArrowCircle } from "styled-icons/boxicons-regular/LeftArrowCircle";
+import { ArrowBack } from "styled-icons/boxicons-regular/ArrowBack";
 import { ArrowUpThick } from "styled-icons/typicons/ArrowUpThick";
 import { Send } from "styled-icons/boxicons-solid/Send";
 import { DoorOpen } from "styled-icons/fa-solid/DoorOpen";
@@ -111,10 +112,17 @@ export const Tie = styled(LeftArrowCircle)`
   width: 2em;
 `;
 
+export const ArrBack = styled(ArrowBack)`
+  height: 2em;
+  width: 2em;
+  padding: 5px;
+`;
+
 export const ByeBye = styled(DoorOpen)`
   height: 1em;
   width: 1em;
 `;
+
 export const UserP = styled(User)`
   height: 1em;
   width: 1em;
