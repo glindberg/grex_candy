@@ -13,27 +13,27 @@ Grex is where you can partner up with a workout buddy. Whether it's for a run, a
 ---
 
 Project status:
-• A user can sign in or sign up with email, username and password.
-• Users can create their own profile.
-• Users can edit their profile and change password.
-• It´s running with https://leafletjs.com/ map.
-• There is a realtime location marker of the signed in user on the map.
-• A signed in user can create an activity depending on what kind of exercise a user want to do and put a marker on the map where the user want to do the exersice.
-• The markers from any activity can be seen by every signed in user on the map.
-• There is a list that displays all activities created. To se more information about any activity the user press either the popup that displays when click on a marker on the map or by clicking any activity in the activitylist.
-• A user can join a activity by enter the chat created in every activity where you can chat with everyone interested in the activity.
-• Users can click on any username of any member in the chat to see their profile.
-• There is an admin view where you can do a password reset for normal users.
+- A user can sign in or sign up with email, username and password.
+- Users can create their own profile.
+- Users can edit their profile and change password.
+- It´s running with https://leafletjs.com/ map.
+- There is a realtime location marker of the signed in user on the map.
+- A signed in user can create an activity depending on what kind of exercise a user want to do and put a marker on the map where the user want to do the exersice.
+- The markers from any activity can be seen by every signed in user on the map.
+- There is a list that displays all activities created. To se more information about any activity the user press either the popup that displays when click on a marker on the map or by clicking any activity in the activitylist.
+- A user can join a activity by enter the chat created in every activity where you can chat with everyone interested in the activity.
+- Users can click on any username of any member in the chat to see their profile.
+- There is an admin view where you can do a password reset for normal users.
 
 Upcoming update:
-• Filter function for activities view.
-• Search function to search for specific activity.
-• Rating system of users and activities.
-• Statistic about users and activities.
-• User will be able to upload its own profile picture.
-• Choose distance to activities on the map.
-• Improved edit profile.
-• A regular user can chat with an admin.
+- Filter function for activities view.
+- Search function to search for specific activity.
+- Rating system of users and activities.
+- Statistic about users and activities.
+- User will be able to upload its own profile picture.
+- Choose distance to activities on the map.
+- Improved edit profile.
+- A regular user can chat with an admin.
 
 ---
 
