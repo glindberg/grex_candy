@@ -67,21 +67,22 @@ When registered you’ll then need to create your environment variable files
   REACT_APP_MESSAGING_SENDER_ID=1039217284402
   
 
+
 * .env.production (Not critical)
 
-REACT_APP_API_KEY= **Your API Key**
+  REACT_APP_API_KEY= **Your API Key**
 
-REACT_APP_AUTH_DOMAIN=grex-candy.firebaseapp.com.firebaseapp.com
+  REACT_APP_AUTH_DOMAIN=grex-candy.firebaseapp.com.firebaseapp.com
 
-REACT_APP_DATABASE_URL=https://grex-candy.firebaseio.com
+  REACT_APP_DATABASE_URL=https://grex-candy.firebaseio.com
 
-REACT_APP_PROJECT_ID=grex-candy
+  REACT_APP_PROJECT_ID=grex-candy
 
-REACT_APP_STORAGE_BUCKET=grex-candy.appspot.com
+  REACT_APP_STORAGE_BUCKET=grex-candy.appspot.com
 
-REACT_APP_MESSAGING_SENDER_ID=1039217284402
+  REACT_APP_MESSAGING_SENDER_ID=1039217284402
 
-REACT_APP_CONFIRMATION_EMAIL_REDIRECT=https://mydomain.com
+  REACT_APP_CONFIRMATION_EMAIL_REDIRECT=https://mydomain.com
 
 
 ---
