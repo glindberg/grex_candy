@@ -8,6 +8,10 @@ Grex is where you can partner up with a workout buddy. Whether it's for a run, a
 
 ---
 
+<img src="Grex-bilder-readme/activity_plus_map.png" width="150" > <img src="Grex-bilder-readme/chat.png" width="150" > <img src="Grex-bilder-readme/home_plus_navbar.png" width="150" > <img src="Grex-bilder-readme/home_view.png" width="150" > <img src="Grex-bilder-readme/profile.png" width="150" >
+
+---
+
 Project status:
 • A user can sign in or sign up with email, username and password.
 • Users can create their own profile.
@@ -49,6 +53,7 @@ You’ll need a Firebase API-key of your own to be able to get the app working. 
 When registered you’ll then need to create your environment variable files
 
 - .env.development
+
   REACT_APP_API_KEY=**Your API Key**
   REACT_APP_AUTH_DOMAIN=grex-candy.firebaseapp.com.firebaseapp.com
   REACT_APP_DATABASE_URL=https://grex-candy.firebaseio.com
