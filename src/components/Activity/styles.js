@@ -89,7 +89,6 @@ export const Creating = styled.div`
     width: calc(100% - 12px);
     padding-left: 5px;
     margin-top: 10px;
-    /* margin-right: 5px; */
   }
 `;
 
